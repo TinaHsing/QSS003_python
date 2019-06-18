@@ -1,8 +1,10 @@
 import RPi.GPIO as GPIO
 import time
 
+GPIO.setwarnings(False) 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11, GPIO.OUT)
+
 
 t1 = time.time()
 for i in range (0,100):
