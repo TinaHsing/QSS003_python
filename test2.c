@@ -7,7 +7,7 @@ int main(void){
    int (*myadd)();//fuction pointer   
    void *handle;   
       
-   handle=dlopen("/home/xiang/python/c/libhello.so",RTLD_LAZY);//open lib file   
+   handle=dlopen("/home/pi/QSS003_python/libhello.so",RTLD_LAZY);//open lib file   
     if(!handle)
     {
         printf("%s \n",dlerror());
