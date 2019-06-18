@@ -36,7 +36,7 @@ for i in range (0,100000):
 	GPIO.output(11, False)
 t2 = time.time()
 dt = (t2-t1)*10
-phead = "100000:"
+head = "100000:"
 print(head+str(dt))
 
 
