@@ -5,7 +5,7 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11, GPIO.OUT)
 
-
+print("hello~~~Tina")
 t1 = time.time()
 for i in range (0,100):
 	GPIO.output(11, True)
