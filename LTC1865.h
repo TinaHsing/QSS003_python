@@ -3,6 +3,8 @@
 #define ADC_CH1_H 0xC0
 #define ADC_CH1_L 0x00
 
+#define CLOCK_SPEED 1000000
+
 class LTC1865
 {
 private: 

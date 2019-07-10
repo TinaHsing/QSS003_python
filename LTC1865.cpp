@@ -18,7 +18,7 @@ void LTC1865::init(uint8_t channel, uint8_t convpin, uint8_t firstch)
 
 	pinMode(_convpin, OUTPUT);
 	digitalWrite(_convpin, LOW);
-   	fd = wiringPiSPISetup(_channel, 500000);
+   	fd = wiringPiSPISetup(_channel, CLOCK_SPEED);
 
 	if(firstch)
 	{
@@ -36,7 +36,9 @@ void LTC1865::init(uint8_t channel, uint8_t convpin, uint8_t firstch)
 
 unsigned int LTC1865::Read(uint8_t nextch)
 {
-	unsigned int data;
+   	int data;
+   	unsigned char buffer[100];
+
 	digitalWrite(_convpin, HIGH);
 	delayMicroseconds(4);
 	digitalWrite(_convpin, LOW);
@@ -45,13 +47,13 @@ unsigned int LTC1865::Read(uint8_t nextch)
 	{
     	buffer[0] = ADC_CH1_H;
     	buffer[1] = ADC_CH1_L;
-    	result = wiringPiSPIDataRW(_channel, buffer, 2);
+    	data = wiringPiSPIDataRW(_channel, buffer, 2);
 	}
 	else
 	{
     	buffer[0] = ADC_CH0_H;
     	buffer[1] = ADC_CH0_L;
-    	result = wiringPiSPIDataRW(_channel, buffer, 2);
+    	data = wiringPiSPIDataRW(_channel, buffer, 2);
 	}
 	return result;
 }
