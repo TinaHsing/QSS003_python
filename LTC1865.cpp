@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
+#include <stdio.h>
 #include "LTC1865.h"
 
 //void LTC1865::init(uint8_t channel, uint8_t convpin, uint8_t firstch)
