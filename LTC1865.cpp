@@ -55,5 +55,5 @@ unsigned int LTC1865::Read(uint8_t nextch)
     	buffer[1] = ADC_CH0_L;
     	data = wiringPiSPIDataRW(_channel, buffer, 2);
 	}
-	return result;
+	return data;
 }
