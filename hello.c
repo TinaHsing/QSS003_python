@@ -19,23 +19,24 @@ void Hello()
 void LTC_init(uint8_t channel, uint8_t firstch)
 {
    	int fd, result;
-   	unsigned char buffer[100];
+   	unsigned char buffer[2];
 
 
 
    	fd = wiringPiSPISetup(channel, CLOCK_SPEED);
+   	printf(fd);
 
 	if(firstch)
 	{
     	buffer[0] = ADC_CH1_H;
     	buffer[1] = ADC_CH1_L;
-    	result = wiringPiSPIDataRW(channel, buffer, 2);
+    	wiringPiSPIDataRW(channel, buffer, 2);
 	}
 	else
 	{
     	buffer[0] = ADC_CH0_H;
     	buffer[1] = ADC_CH0_L;
-    	result = wiringPiSPIDataRW(channel, buffer, 2);
+    	wiringPiSPIDataRW(channel, buffer, 2);
 	}
 }
 
