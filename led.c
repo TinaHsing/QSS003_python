@@ -15,7 +15,7 @@ int led(void)
 
   pinMode(Led_0, OUTPUT);
 
-  while (counter < 100)
+  while (counter < 10)
   {
     digitalWrite(Led_0,1);
     delay(500);
