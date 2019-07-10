@@ -8,10 +8,10 @@
 class LTC1865
 {
 private: 
-	uint8 _convpin;
+	uint8_t _convpin;
 
 public:
 	LTC1865();
-	void init(byte convpin, uint8 firstch);
-	unsigned int Read(uint8 nextch);
+	void init(byte convpin, uint8_t firstch);
+	unsigned int Read(uint8_t nextch);
 };
