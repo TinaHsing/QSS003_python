@@ -4,7 +4,7 @@
 int main(void)
 {
 
-  int Led_0 = 12;
+  int Led_0 = 1;
   int counter = 0;
 
   if (wiringPiSetup()==-1)
