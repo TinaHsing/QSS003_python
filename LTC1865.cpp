@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <wiringPi.h>
+#include <SPI.h>
 #include "LTC1865.h"
 
 LTC1865::LTC1865()
