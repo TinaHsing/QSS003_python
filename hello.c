@@ -24,7 +24,7 @@ void LTC_init(uint8_t channel, uint8_t firstch)
 
 
    	fd = wiringPiSPISetup(channel, CLOCK_SPEED);
-   	printf(fd);
+   	printf("%d",fd);
 
 	if(firstch)
 	{
