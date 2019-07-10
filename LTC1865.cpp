@@ -1,11 +1,11 @@
-#include <LTC1865.h>
+#include "LTC1865.h"
 
 LTC1865::LTC1865()
 {
 
 }
 
-void LTC1865::init(byte convpin, uint8_t firstch)
+void LTC1865::init(byte convpin, uint8 firstch)
 {
 	_convpin = convpin;
 	pinMode(_convpin, OUTPUT);
@@ -23,7 +23,7 @@ void LTC1865::init(byte convpin, uint8_t firstch)
 	}
 }
 
-unsigned int LTC1865::Read(uint8_t nextch)
+unsigned int LTC1865::Read(uint8 nextch)
 {
 	unsigned int data;
 	digitalWrite(_convpin, HIGH);
