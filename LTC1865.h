@@ -5,15 +5,9 @@
 
 #define CLOCK_SPEED 1000000
 
-class LTC1865
-{
-private: 
-	//uint8_t _convpin;
-	uint8_t _channel;
+//static uint8_t _convpin;
+static uint8_t _channel;
 
-public:
-	LTC1865();
-	//void init(uint8_t channel, uint8_t convpin, uint8_t firstch);
-	void init(uint8_t channel, uint8_t firstch);
-	unsigned int Read(uint8_t nextch);
-};
+//static void init(uint8_t channel, uint8_t convpin, uint8_t firstch);
+static void init(uint8_t channel, uint8_t firstch);
+static unsigned int Read(uint8_t nextch);

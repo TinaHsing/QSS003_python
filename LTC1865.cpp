@@ -3,13 +3,8 @@
 #include <wiringPiSPI.h>
 #include "LTC1865.h"
 
-LTC1865::LTC1865()
-{
-
-}
-
 //void LTC1865::init(uint8_t channel, uint8_t convpin, uint8_t firstch)
-void LTC1865::init(uint8_t channel, uint8_t firstch)
+static void init(uint8_t channel, uint8_t firstch)
 {
    	int fd, result;
    	unsigned char buffer[100];
@@ -37,7 +32,7 @@ void LTC1865::init(uint8_t channel, uint8_t firstch)
 	}
 }
 
-unsigned int LTC1865::Read(uint8_t nextch)
+static unsigned int Read(uint8_t nextch)
 {
    	int data;
    	unsigned char buffer[100];
