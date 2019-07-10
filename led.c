@@ -23,4 +23,10 @@ int main(void)
     delay(500);
     counter++;
   }
+
+  digitalWrite(Led_0,0);
+
+  return 0;
+
 }
+
