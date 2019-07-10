@@ -54,13 +54,13 @@ unsigned int LTC_Read(uint8_t channel, uint8_t nextch)
 	{
     	buffer[0] = ADC_CH1_H;
     	buffer[1] = ADC_CH1_L;
-    	data = wiringPiSPIDataRW(_channel, buffer, 2);
+    	data = wiringPiSPIDataRW(channel, buffer, 2);
 	}
 	else
 	{
     	buffer[0] = ADC_CH0_H;
     	buffer[1] = ADC_CH0_L;
-    	data = wiringPiSPIDataRW(_channel, buffer, 2);
+    	data = wiringPiSPIDataRW(channel, buffer, 2);
 	}
 	return data;
 }
