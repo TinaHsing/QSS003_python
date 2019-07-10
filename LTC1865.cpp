@@ -4,6 +4,12 @@
 #include "LTC1865.h"
 
 //void LTC1865::init(uint8_t channel, uint8_t convpin, uint8_t firstch)
+
+void LTCtest()
+{
+	printf("hello");
+}
+
 void LTC_init(uint8_t channel, uint8_t firstch)
 {
    	int fd, result;
