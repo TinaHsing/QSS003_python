@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <wiringPi.h>
 #include "LTC1865.h"
 
 LTC1865::LTC1865()
@@ -6,7 +7,7 @@ LTC1865::LTC1865()
 
 }
 
-void LTC1865::init(byte convpin, uint8_t firstch)
+void LTC1865::init(uint8_t convpin, uint8_t firstch)
 {
 	_convpin = convpin;
 	pinMode(_convpin, OUTPUT);
