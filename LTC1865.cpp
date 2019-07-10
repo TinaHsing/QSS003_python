@@ -10,10 +10,15 @@ LTC1865::LTC1865()
 
 void LTC1865::init(uint8_t channel, uint8_t convpin, uint8_t firstch)
 {
+   	int fd, result;
+   	unsigned char buffer[100];
+
 	_channel = channel;
 	_convpin = convpin;
+
 	pinMode(_convpin, OUTPUT);
 	digitalWrite(_convpin, LOW);
+   	fd = wiringPiSPISetup(_channel, 500000);
 
 	if(firstch)
 	{
