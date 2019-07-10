@@ -8,21 +8,24 @@ LTC1865::LTC1865()
 
 }
 
-void LTC1865::init(uint8_t convpin, uint8_t firstch)
+void LTC1865::init(uint8_t channel, uint8_t convpin, uint8_t firstch)
 {
+	_channel = channel;
 	_convpin = convpin;
 	pinMode(_convpin, OUTPUT);
 	digitalWrite(_convpin, LOW);
 
 	if(firstch)
 	{
-		SPI.transfer(ADC_CH1_H);
-		SPI.transfer(ADC_CH1_L);
+    	buffer[0] = ADC_CH1_H;
+    	buffer[1] = ADC_CH1_L;
+    	result = wiringPiSPIDataRW(_channel, buffer, 2);
 	}
 	else
 	{
-		SPI.transfer(ADC_CH0_H);
-		SPI.transfer(ADC_CH0_L);	
+    	buffer[0] = ADC_CH0_H;
+    	buffer[1] = ADC_CH0_L;
+    	result = wiringPiSPIDataRW(_channel, buffer, 2);
 	}
 }
 
@@ -32,9 +35,18 @@ unsigned int LTC1865::Read(uint8_t nextch)
 	digitalWrite(_convpin, HIGH);
 	delayMicroseconds(4);
 	digitalWrite(_convpin, LOW);
+
 	if (nextch)
-	data = (SPI.transfer(ADC_CH1_H))<<8 | (SPI.transfer(ADC_CH1_L));
+	{
+    	buffer[0] = ADC_CH1_H;
+    	buffer[1] = ADC_CH1_L;
+    	result = wiringPiSPIDataRW(_channel, buffer, 2);
+	}
 	else
-	data = (SPI.transfer(ADC_CH0_H))<<8 | (SPI.transfer(ADC_CH0_L));
-	return data;
+	{
+    	buffer[0] = ADC_CH0_H;
+    	buffer[1] = ADC_CH0_L;
+    	result = wiringPiSPIDataRW(_channel, buffer, 2);
+	}
+	return result;
 }
