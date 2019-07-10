@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <wiringPi.h>
 
-int main(void)
+int led(void)
 {
 
   int Led_0 = 1;
   int counter = 0;
 
-  if (wiringPiSetup()==-1)
+  if (wiringPiSetup() == -1)
   {
     printf(" wiringPi Setup error \r\n");
-    return -1 ;
+    return -1;
   }
 
   pinMode(Led_0, OUTPUT);
