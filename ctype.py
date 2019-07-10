@@ -1,4 +1,4 @@
 from ctypes import *
 
-m = cdll.LoadLibrary('./test.so')
+m = cdll.LoadLibrary('./hello.so')
 m.Hello()
