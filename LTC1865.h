@@ -9,5 +9,5 @@
 static uint8_t _channel;
 
 //static void init(uint8_t channel, uint8_t convpin, uint8_t firstch);
-void init(uint8_t channel, uint8_t firstch);
-unsigned int Read(uint8_t nextch);
+void LTC_init(uint8_t channel, uint8_t firstch);
+unsigned int LTC_Read(uint8_t nextch);

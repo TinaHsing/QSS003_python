@@ -4,7 +4,7 @@
 #include "LTC1865.h"
 
 //void LTC1865::init(uint8_t channel, uint8_t convpin, uint8_t firstch)
-void init(uint8_t channel, uint8_t firstch)
+void LTC_init(uint8_t channel, uint8_t firstch)
 {
    	int fd, result;
    	unsigned char buffer[100];
@@ -32,7 +32,7 @@ void init(uint8_t channel, uint8_t firstch)
 	}
 }
 
-unsigned int Read(uint8_t nextch)
+unsigned int LTC_Read(uint8_t nextch)
 {
    	int data;
    	unsigned char buffer[100];
