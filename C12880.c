@@ -15,9 +15,9 @@
 
 #define SPEC_CHANNELS    288 // New Spec Channel
 uint16_t data[SPEC_CHANNELS];
-uint8_t SPEC_ST, SPEC_CLK, SPEC_VIDEO, WHITE_LED;
+unsigned char SPEC_ST, SPEC_CLK, SPEC_VIDEO, WHITE_LED;
 
-void setup(uint8_t a_SPEC_ST, uint8_t a_SPEC_CLK, uint8_t a_SPEC_VIDEO, uint8_t a_WHITE_LED)
+void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SPEC_VIDEO, unsigned char a_WHITE_LED)
 {
 
   SPEC_ST = a_SPEC_ST;
@@ -40,7 +40,7 @@ void setup(uint8_t a_SPEC_ST, uint8_t a_SPEC_CLK, uint8_t a_SPEC_VIDEO, uint8_t 
  * This functions reads spectrometer data from SPEC_VIDEO
  * Look at the Timing Chart in the Datasheet for more info
  */
-void readSpectrometer(uint8_t Int_time)
+void readSpectrometer(unsigned long Int_time)
 {
 
   int delayTime = 1; // delay time
@@ -126,12 +126,12 @@ void printData()
   
   for (int i = 0; i < SPEC_CHANNELS; i++){
     
-    print(data[i]);
-    print(',');
+    printf(data[i]);
+    printf(',');
     
   }
   
-  print("\n");
+  printf("\n");
 }
 
 void loop()
