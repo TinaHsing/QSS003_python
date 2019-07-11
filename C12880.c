@@ -14,9 +14,70 @@
 //#define WHITE_LED        A4
 //#define LASER_404        A5
 
+//LTC1865
+#define ADC_CH0_H 0x80
+#define ADC_CH0_L 0x00
+#define ADC_CH1_H 0xC0
+#define ADC_CH1_L 0x00
+#define CLOCK_SPEED 1000000
+
+//C12880
 #define SPEC_CHANNELS    288 // New Spec Channel
+
+//LTC1865
+uint8_t channel;
+
+//C12880
 uint16_t data[SPEC_CHANNELS];
 unsigned char SPEC_ST, SPEC_CLK, SPEC_VIDEO, WHITE_LED;
+
+void LTC_init(uint8_t a_channel, uint8_t firstch)
+{
+  int fd;
+  unsigned char buffer[2];
+
+  channel = a_channel;
+  fd = wiringPiSPISetup(channel, CLOCK_SPEED);
+  printf("fd=%d\n",fd);
+  if (fd == -1)
+    printf("SPI failed");
+
+  if (firstch)
+  {
+        buffer[0] = ADC_CH1_H;
+        buffer[1] = ADC_CH1_L;
+        wiringPiSPIDataRW(channel, buffer, 2);
+  }
+  else
+  {
+        buffer[0] = ADC_CH0_H;
+        buffer[1] = ADC_CH0_L;
+        wiringPiSPIDataRW(channel, buffer, 2);
+  }
+}
+
+unsigned int LTC_Read(uint8_t nextch)
+{
+  unsigned char buffer[2];
+  unsigned int data;
+
+  delayMicroseconds(4);
+
+  if (nextch)
+  {
+        buffer[0] = ADC_CH1_H;
+        buffer[1] = ADC_CH1_L;
+        wiringPiSPIDataRW(channel, buffer, 2);
+  }
+  else
+  {
+        buffer[0] = ADC_CH0_H;
+        buffer[1] = ADC_CH0_L;
+        wiringPiSPIDataRW(channel, buffer, 2);
+  }
+  data = buffer[0]<<8 | buffer[1];
+  return data;
+}
 
 void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SPEC_VIDEO, unsigned char a_WHITE_LED)
 {
