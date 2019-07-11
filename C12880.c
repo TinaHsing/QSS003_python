@@ -57,12 +57,10 @@ void readSpectrometer(unsigned long Int_time)
   //Sample for a period of time
   for(int i = 0; i < 15; i++)
   {
-
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
       digitalWrite(SPEC_CLK, LOW);
       delayMicroseconds(delayTime); 
- 
   }
 
   //Set SPEC_ST to low
@@ -71,12 +69,10 @@ void readSpectrometer(unsigned long Int_time)
   //Sample for a period of time
   for(int i = 0; i < 85; i++)
   {
-
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
       digitalWrite(SPEC_CLK, LOW);
       delayMicroseconds(delayTime); 
-      
   }
 
   //One more clock pulse before the actual read
@@ -88,14 +84,12 @@ void readSpectrometer(unsigned long Int_time)
   //Read from SPEC_VIDEO
   for(int i = 0; i < SPEC_CHANNELS; i++)
   {
-
       data[i] = analogRead(SPEC_VIDEO);
       
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
       digitalWrite(SPEC_CLK, LOW);
-      delayMicroseconds(delayTime);
-        
+      delayMicroseconds(delayTime);     
   }
 
   //Set SPEC_ST to high
@@ -104,17 +98,15 @@ void readSpectrometer(unsigned long Int_time)
   //Sample for a small amount of time
   for(int i = 0; i < 7; i++)
   {
-    
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
       digitalWrite(SPEC_CLK, LOW);
-      delayMicroseconds(delayTime);
-    
+      delayMicroseconds(delayTime); 
   }
 
   digitalWrite(SPEC_CLK, HIGH);
   delayMicroseconds(delayTime);
-  
+
 }
 
 /*
@@ -124,22 +116,18 @@ void readSpectrometer(unsigned long Int_time)
 void printData()
 {
   
-  for (int i = 0; i < SPEC_CHANNELS; i++){
-    
-    printf(data[i]);
-    printf(',');
-    
+  for (int i = 0; i < SPEC_CHANNELS; i++)
+  {
+    printf("%d",data[i]);
+    printf(",");
   }
-  
   printf("\n");
 }
 
 void loop()
 {
-   
   readSpectrometer(1000);
   printData();
   delay(10);  
-   
 }
 
