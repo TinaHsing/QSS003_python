@@ -1,21 +1,22 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <wiringPi.h>
+#include <wiringPiSPI.h>
 
 /*
  * Macro Definitions
  */
-#define SPEC_TRG         A0
-#define SPEC_ST          A1
-#define SPEC_CLK         A2
-#define SPEC_VIDEO       A3
-#define WHITE_LED        A4
-#define LASER_404        A5
+//#define SPEC_TRG         A0
+//#define SPEC_ST          A1
+//#define SPEC_CLK         A2
+//#define SPEC_VIDEO       A3
+//#define WHITE_LED        A4
+//#define LASER_404        A5
 
 #define SPEC_CHANNELS    288 // New Spec Channel
 uint16_t data[SPEC_CHANNELS];
 
-void setup(){
+void setup(uint8_t SPEC_ST, uint8_t SPEC_CLK, uint8_t SPEC_VIDEO, uint8_t WHITE_LED){
 
   //Set desired pins to OUTPUT
   pinMode(SPEC_CLK, OUTPUT);
