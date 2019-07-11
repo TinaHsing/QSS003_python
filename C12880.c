@@ -190,6 +190,7 @@ void printData()
 
 void loop()
 {
+  setup(1,2,3,4);
   readSpectrometer(10);
   printData();
   delay(10);  
