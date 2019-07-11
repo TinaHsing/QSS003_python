@@ -1,7 +1,6 @@
 #include <stdint.h>
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
-#include "LTC1865.h"
 
 #define ADC_CH0_H 0x80
 #define ADC_CH0_L 0x00
