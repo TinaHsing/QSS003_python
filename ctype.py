@@ -1,10 +1,10 @@
 from ctypes import *
 
-#hello = cdll.LoadLibrary('./hello.so')
-#hello.Hello()
+hello = cdll.LoadLibrary('./hello.so')
+hello.Hello()
 
-#led = cdll.LoadLibrary('/home/pi/QSS003_python//led.so')
-#led.led()
+led = cdll.LoadLibrary('/home/pi/QSS003_python//led.so')
+led.led()
 
 ltc = cdll.LoadLibrary('/home/pi/QSS003_python//LTC1865.so')
 ltc.LTC_init(0, 0)
