@@ -12,4 +12,7 @@ data = ltc.LTC_Read(0)
 print(data)
 
 C12880 = cdll.LoadLibrary('/home/pi/QSS003_python//C12880.so')
-C12880.loop()
+C12880.setup(1,2,3,4)
+C12880.readSpectrometer(10)
+data = (c_uint * 288)
+C12880.ReadArray(data)

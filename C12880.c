@@ -80,7 +80,6 @@ unsigned int LTC_Read(uint8_t nextch)
 
 void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SPEC_VIDEO, unsigned char a_WHITE_LED)
 {
-
   SPEC_ST = a_SPEC_ST;
   SPEC_CLK = a_SPEC_CLK;
   SPEC_VIDEO = a_SPEC_VIDEO;
@@ -106,7 +105,6 @@ void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SP
  */
 void readSpectrometer(unsigned long Int_time)
 {
-
   int delayTime = 1; // delay time
 
   // Start clock cycle and set start pulse to signal start
@@ -180,7 +178,6 @@ void readSpectrometer(unsigned long Int_time)
  */
 void printData()
 {
-  
   for (int i = 0; i < SPEC_CHANNELS; i++)
   {
     printf("%d",data[i]);
@@ -189,9 +186,14 @@ void printData()
   printf("\n");
 }
 
+void ReadArray(unsigned int * aref)
+{
+  for (int i = 0; i < SPEC_CHANNELS; i++)
+    aref[i] = i;
+}
+
 void loop()
 {
-  setup(1,2,3,4);
   readSpectrometer(10);
   printData();
   delay(10);  
