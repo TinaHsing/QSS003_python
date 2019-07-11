@@ -189,7 +189,7 @@ void printData()
 void ReadArray(unsigned int * aref)
 {
   for (int i = 0; i < SPEC_CHANNELS; i++)
-    aref[i] = i;
+    aref[i] = data[i];
 }
 
 void loop()
