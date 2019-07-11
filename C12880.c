@@ -2,7 +2,6 @@
 #include <stdint.h>
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
-#include "LTC1865.so"
 
 /*
  * Macro Definitions
@@ -15,8 +14,8 @@
 //#define LASER_404        A5
 
 //LTC1865
-#define ADC_CH0_H 0x80
-#define ADC_CH0_L 0x00
+#define ADC_CH0_H 1
+#define ADC_CH0_L 2
 #define ADC_CH1_H 0xC0
 #define ADC_CH1_L 0x00
 #define CLOCK_SPEED 1000000
