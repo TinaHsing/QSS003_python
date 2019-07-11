@@ -15,13 +15,20 @@
 
 #define SPEC_CHANNELS    288 // New Spec Channel
 uint16_t data[SPEC_CHANNELS];
+uint8_t SPEC_ST, SPEC_CLK, SPEC_VIDEO, WHITE_LED;
 
-void setup(uint8_t SPEC_ST, uint8_t SPEC_CLK, uint8_t SPEC_VIDEO, uint8_t WHITE_LED){
+void setup(uint8_t a_SPEC_ST, uint8_t a_SPEC_CLK, uint8_t a_SPEC_VIDEO, uint8_t a_WHITE_LED)
+{
+
+  SPEC_ST = a_SPEC_ST;
+  SPEC_CLK = a_SPEC_CLK;
+  SPEC_VIDEO = a_SPEC_VIDEO;
+  WHITE_LED = a_WHITE_LED;
 
   //Set desired pins to OUTPUT
   pinMode(SPEC_CLK, OUTPUT);
   pinMode(SPEC_ST, OUTPUT);
-  pinMode(LASER_404, OUTPUT);
+  //pinMode(LASER_404, OUTPUT);
   pinMode(WHITE_LED, OUTPUT);
 
   digitalWrite(SPEC_CLK, HIGH); // Set SPEC_CLK High
@@ -35,7 +42,8 @@ void setup(uint8_t SPEC_ST, uint8_t SPEC_CLK, uint8_t SPEC_VIDEO, uint8_t WHITE_
  * This functions reads spectrometer data from SPEC_VIDEO
  * Look at the Timing Chart in the Datasheet for more info
  */
-void readSpectrometer(uint8_t Int_time){
+void readSpectrometer(uint8_t Int_time)
+{
 
   int delayTime = 1; // delay time
 
