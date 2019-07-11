@@ -171,25 +171,3 @@ void readSpectrometer(unsigned long Int_time, unsigned int * data)
   delayMicroseconds(delayTime);
 
 }
-
-/*
- * The function below prints out data to the terminal or 
- * processing plot
- */
-void printData()
-{
-  for (int i = 0; i < SPEC_CHANNELS; i++)
-  {
-    printf("%d",data[i]);
-    printf(",");
-  }
-  printf("\n");
-}
-
-void loop()
-{
-  readSpectrometer(10);
-  printData();
-  delay(10);  
-}
-
