@@ -33,8 +33,6 @@ void setup(uint8_t a_SPEC_ST, uint8_t a_SPEC_CLK, uint8_t a_SPEC_VIDEO, uint8_t 
 
   digitalWrite(SPEC_CLK, HIGH); // Set SPEC_CLK High
   digitalWrite(SPEC_ST, LOW); // Set SPEC_ST Low
-
-  Serial.begin(115200); // Baud Rate set to 115200
   
 }
 
@@ -57,7 +55,8 @@ void readSpectrometer(uint8_t Int_time)
   delayMicroseconds(delayTime);
 
   //Sample for a period of time
-  for(int i = 0; i < 15; i++){
+  for(int i = 0; i < 15; i++)
+  {
 
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
@@ -70,7 +69,8 @@ void readSpectrometer(uint8_t Int_time)
   digitalWrite(SPEC_ST, LOW);
 
   //Sample for a period of time
-  for(int i = 0; i < 85; i++){
+  for(int i = 0; i < 85; i++)
+  {
 
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
@@ -86,7 +86,8 @@ void readSpectrometer(uint8_t Int_time)
   delayMicroseconds(delayTime);
 
   //Read from SPEC_VIDEO
-  for(int i = 0; i < SPEC_CHANNELS; i++){
+  for(int i = 0; i < SPEC_CHANNELS; i++)
+  {
 
       data[i] = analogRead(SPEC_VIDEO);
       
@@ -101,7 +102,8 @@ void readSpectrometer(uint8_t Int_time)
   digitalWrite(SPEC_ST, HIGH);
 
   //Sample for a small amount of time
-  for(int i = 0; i < 7; i++){
+  for(int i = 0; i < 7; i++)
+  {
     
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
@@ -119,21 +121,23 @@ void readSpectrometer(uint8_t Int_time)
  * The function below prints out data to the terminal or 
  * processing plot
  */
-void printData(){
+void printData()
+{
   
   for (int i = 0; i < SPEC_CHANNELS; i++){
     
-    Serial.print(data[i]);
-    Serial.print(',');
+    print(data[i]);
+    print(',');
     
   }
   
-  Serial.print("\n");
+  print("\n");
 }
 
-void loop(){
+void loop()
+{
    
-  readSpectrometer();
+  readSpectrometer(1000);
   printData();
   delay(10);  
    
