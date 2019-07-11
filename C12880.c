@@ -27,7 +27,7 @@
 uint8_t channel;
 
 //C12880
-uint16_t data[SPEC_CHANNELS];
+//uint16_t data[SPEC_CHANNELS];
 unsigned char SPEC_ST, SPEC_CLK, SPEC_VIDEO, WHITE_LED;
 
 void LTC_init(uint8_t a_channel, uint8_t firstch)
@@ -103,7 +103,7 @@ void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SP
  * This functions reads spectrometer data from SPEC_VIDEO
  * Look at the Timing Chart in the Datasheet for more info
  */
-void readSpectrometer(unsigned long Int_time)
+void readSpectrometer(unsigned long Int_time, unsigned int * data)
 {
   int delayTime = 1; // delay time
 
@@ -184,12 +184,6 @@ void printData()
     printf(",");
   }
   printf("\n");
-}
-
-void ReadArray(unsigned int * aref)
-{
-  for (int i = 0; i < SPEC_CHANNELS; i++)
-    aref[i] = data[i];
 }
 
 void loop()
