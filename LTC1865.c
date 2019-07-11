@@ -10,11 +10,14 @@
 
 #define CLOCK_SPEED 1000000
 
-void LTC_init(uint8_t channel, uint8_t firstch)
+uint8_t channel;
+
+void LTC_init(uint8_t a_channel, uint8_t firstch)
 {
 	int fd;
 	unsigned char buffer[2];
 
+	channel = a_channel;
 	fd = wiringPiSPISetup(channel, CLOCK_SPEED);
 	printf("fd=%d\n",fd);
 	if (fd == -1)
@@ -34,7 +37,7 @@ void LTC_init(uint8_t channel, uint8_t firstch)
 	}
 }
 
-unsigned int LTC_Read(uint8_t channel, uint8_t nextch)
+unsigned int LTC_Read(uint8_t nextch)
 {
 	unsigned char buffer[2];
 	unsigned int data;
