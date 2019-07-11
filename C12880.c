@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
+#include "LTC1865.so"
 
 /*
  * Macro Definitions
@@ -33,7 +34,9 @@ void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SP
 
   digitalWrite(SPEC_CLK, HIGH); // Set SPEC_CLK High
   digitalWrite(SPEC_ST, LOW); // Set SPEC_ST Low
-  
+
+  //LTC1865
+  LTC_init(0, 0);  
 }
 
 /*
@@ -84,8 +87,9 @@ void readSpectrometer(unsigned long Int_time)
   //Read from SPEC_VIDEO
   for(int i = 0; i < SPEC_CHANNELS; i++)
   {
-      data[i] = analogRead(SPEC_VIDEO);
-      
+      //data[i] = analogRead(SPEC_VIDEO);
+      data[i] = LTC_Read(0);
+  
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
       digitalWrite(SPEC_CLK, LOW);
@@ -126,7 +130,7 @@ void printData()
 
 void loop()
 {
-  readSpectrometer(1000);
+  readSpectrometer(10);
   printData();
   delay(10);  
 }
