@@ -86,6 +86,7 @@ void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SP
   SPEC_VIDEO = a_SPEC_VIDEO;
   WHITE_LED = a_WHITE_LED;
 
+  wiringPiSetup() ;
   //Set desired pins to OUTPUT
   pinMode(SPEC_CLK, OUTPUT);
   pinMode(SPEC_ST, OUTPUT);
