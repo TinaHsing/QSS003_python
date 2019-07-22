@@ -117,22 +117,10 @@ void readSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data
   digitalWrite(SPEC_ST, HIGH);
   delayMicroseconds(delayTime);
 
-  //Sample for a period of time
-  for(int i = 0; i < 15; i++)
-  {
-      digitalWrite(SPEC_CLK, HIGH);
-      delayMicroseconds(delayTime);
-      digitalWrite(SPEC_CLK, LOW);
-      delayMicroseconds(delayTime); 
-  }
-
-  //Set SPEC_ST to low
-  digitalWrite(SPEC_ST, LOW);
-
   startTime = millis();
-  printf(startTime);
+  printf("%d\n",startTime);
   //Sample for a period of time
-  //for(int i = 0; i < 85; i++)
+  //for(int i = 0; i < 15; i++)
   while ( (millis() - startTime) <= Int_time )
   {
       digitalWrite(SPEC_CLK, HIGH);
@@ -140,7 +128,19 @@ void readSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data
       digitalWrite(SPEC_CLK, LOW);
       delayMicroseconds(delayTime); 
   }
-  printf(millis());
+  printf("%d\n",millis());
+
+  //Set SPEC_ST to low
+  digitalWrite(SPEC_ST, LOW);
+
+  //Sample for a period of time
+  for(int i = 0; i < 85; i++)
+  {
+      digitalWrite(SPEC_CLK, HIGH);
+      delayMicroseconds(delayTime);
+      digitalWrite(SPEC_CLK, LOW);
+      delayMicroseconds(delayTime); 
+  }
 
   //One more clock pulse before the actual read
   digitalWrite(SPEC_CLK, HIGH);
