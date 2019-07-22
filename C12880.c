@@ -41,7 +41,7 @@ void LTC_init(uint8_t a_channel, uint8_t firstch)
 
   channel = a_channel;
   fd = wiringPiSPISetup(channel, CLOCK_SPEED);
-  printf("fd=%d\n",fd);
+  printf("fd = %d\n",fd);
   if (fd == -1)
     printf("SPI failed");
 
@@ -99,8 +99,6 @@ void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SP
   digitalWrite(SPEC_CLK, HIGH); // Set SPEC_CLK High
   digitalWrite(SPEC_ST, LOW); // Set SPEC_ST Low
 
-  //LTC1865
-  LTC_init(0, 0);  
 }
 
 /*
@@ -199,7 +197,7 @@ void LED_set(int ctrl_pin, int current)
   }
   else
   {
-    LowCtrl = (LED_MAX_Current - current) * LED_MAX_Step + 0.5;
+    LowCtrl = (LED_MAX_Current - current) / LED_MAX_Current * LED_MAX_Step + 0.5;
   }
   printf("LED step = %f\n", LowCtrl);
 
