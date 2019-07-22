@@ -188,7 +188,7 @@ void LED_init(int ctrl_pin)
 
 }
 
-void LED_set(int ctrl_pin, current, int current)
+void LED_set(int ctrl_pin, int current)
 {
   float LowCtrl = 0;
   int i = 0;
