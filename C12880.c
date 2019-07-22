@@ -103,9 +103,10 @@ void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SP
  * This functions reads spectrometer data from SPEC_VIDEO
  * Look at the Timing Chart in the Datasheet for more info
  */
-void readSpectrometer(unsigned long Int_time, unsigned int * data)
+void readSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data)
 {
-  int delayTime = 1; // delay time
+  //int delayTime = 1; // delay time
+  long startTime = 0;
 
   // Start clock cycle and set start pulse to signal start
   digitalWrite(SPEC_CLK, LOW);
@@ -128,14 +129,18 @@ void readSpectrometer(unsigned long Int_time, unsigned int * data)
   //Set SPEC_ST to low
   digitalWrite(SPEC_ST, LOW);
 
+  startTime = millis();
+  printf(startTime);
   //Sample for a period of time
-  for(int i = 0; i < 85; i++)
+  //for(int i = 0; i < 85; i++)
+  while ( (millis() - startTime) <= Int_time )
   {
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
       digitalWrite(SPEC_CLK, LOW);
       delayMicroseconds(delayTime); 
   }
+  printf(millis());
 
   //One more clock pulse before the actual read
   digitalWrite(SPEC_CLK, HIGH);
