@@ -23,6 +23,10 @@
 //C12880
 #define SPEC_CHANNELS    288 // New Spec Channel
 
+//LED
+#define LED_MAX_Current   30  //ma
+#define LED_MAX_Step      32
+
 //LTC1865
 uint8_t channel;
 
@@ -118,7 +122,7 @@ void readSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data
   delayMicroseconds(delayTime);
 
   startTime = millis();
-  printf("%d\n",startTime);
+  printf("startTime = %d\n",startTime);
   //Sample for a period of time
   //for(int i = 0; i < 15; i++)
   while ( (millis() - startTime) <= Int_time )
@@ -128,7 +132,7 @@ void readSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data
       digitalWrite(SPEC_CLK, LOW);
       delayMicroseconds(delayTime); 
   }
-  printf("%d\n",millis());
+  printf("endTime = %d\n",millis());
 
   //Set SPEC_ST to low
   digitalWrite(SPEC_ST, LOW);
@@ -176,3 +180,41 @@ void readSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data
   delayMicroseconds(delayTime);
 
 }
+
+void LED_init(int ctrl_pin)
+{
+  digitalWrite(ctrl_pin, LOW);
+  delayMicroseconds(1.5);
+
+}
+
+void LED_set(int ctrl_pin, current, int current)
+{
+  float LowCtrl = 0;
+  int i = 0;
+
+  if (current > LED_MAX_Current)
+  {
+    current = LED_MAX_Current;
+  }
+  else
+  {
+    LowCtrl = (LED_MAX_Current - current) * LED_MAX_Step + 0.5;
+  }
+  printf("LED step = %f\n", LowCtrl);
+
+  digitalWrite(ctrl_pin, LOW);
+  delayMicroseconds(1500);
+  digitalWrite(ctrl_pin, HIGH);
+  delayMicroseconds(1);
+
+  for (i = 0; i < LowCtrl; i++)
+  {
+    digitalWrite(ctrl_pin, LOW);
+    delayMicroseconds(1);
+    digitalWrite(ctrl_pin, HIGH);
+    delayMicroseconds(1);
+  }
+
+}
+
