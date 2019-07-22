@@ -206,7 +206,7 @@ void LED_set(int ctrl_pin, int current)
   digitalWrite(ctrl_pin, HIGH);
   delayMicroseconds(1);
 
-  for (i = 0; i < LowCtrl; i++)
+  for (i = 0; i <= LowCtrl; i++)
   {
     digitalWrite(ctrl_pin, LOW);
     delayMicroseconds(1);
