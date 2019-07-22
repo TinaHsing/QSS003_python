@@ -197,7 +197,7 @@ void LED_set(int ctrl_pin, int current)
   }
   else
   {
-    LowCtrl = (LED_MAX_Current - current) / LED_MAX_Current * LED_MAX_Step + 0.5;
+    LowCtrl = float( ( LED_MAX_Current - current ) * LED_MAX_Step / LED_MAX_Current ) + 0.5;
   }
   printf("LED step = %f\n", LowCtrl);
 
