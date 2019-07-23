@@ -132,7 +132,7 @@ void LED_Set(int ctrl_pin, int current)
 }
 
 //LCD
-void LCD_Init(int ctrl_pin)
+void LCD_Init()
 {
   //4-bit
   g_lcdHandle = lcdInit (LCD_Rows, LCD_Columns, 4, 11,10, 0,1,2,3,0,0,0,0) ;
@@ -146,7 +146,7 @@ void LCD_Init(int ctrl_pin)
 
 }
 
-void LCD_clear(int ctrl_pin)
+void LCD_clear()
 {
   lcdClear(g_lcdHandle);
 }
