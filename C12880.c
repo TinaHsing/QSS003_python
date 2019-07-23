@@ -34,7 +34,7 @@ uint8_t g_channel;
 //uint16_t data[SPEC_CHANNELS];
 unsigned char SPEC_ST, SPEC_CLK, SPEC_VIDEO, WHITE_LED;
 
-void LTC_init(uint8_t a_channel, uint8_t firstch)
+void LTC_Init(uint8_t a_channel, uint8_t firstch)
 {
   int fd;
   unsigned char buffer[2];
@@ -82,14 +82,14 @@ unsigned int LTC_Read(uint8_t nextch)
   return data;
 }
 
-void LED_init(int ctrl_pin)
+void LED_Init(int ctrl_pin)
 {
   digitalWrite(ctrl_pin, LOW);
   delayMicroseconds(1.5);
 
 }
 
-void LED_set(int ctrl_pin, int current)
+void LED_Set(int ctrl_pin, int current)
 {
   float LowCtrl = 0;
   int i = 0;
@@ -120,7 +120,7 @@ void LED_set(int ctrl_pin, int current)
 
 }
 
-void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SPEC_VIDEO, unsigned char a_WHITE_LED)
+void Setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SPEC_VIDEO, unsigned char a_WHITE_LED)
 {
   SPEC_ST = a_SPEC_ST;
   SPEC_CLK = a_SPEC_CLK;
@@ -146,7 +146,7 @@ void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SP
  * This functions reads spectrometer data from SPEC_VIDEO
  * Look at the Timing Chart in the Datasheet for more info
  */
-void readSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data)
+void ReadSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data)
 {
   //int delayTime = 1; // delay time
   long startTime = 0;
