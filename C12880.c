@@ -138,7 +138,7 @@ void Setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SP
   digitalWrite(SPEC_ST, LOW); // Set SPEC_ST Low
 
   //LTC1865
-  LTC_init(0, 0);  
+  LTC_Init(0, 0);  
 
 }
 
