@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
+#include <lcd.h>
 
 /*
  * Macro Definitions
@@ -27,13 +28,21 @@
 #define LED_MAX_Current   30  //ma
 #define LED_MAX_Step      32
 
+//LCD
+#define LCD_Rows      2
+#define LCD_Columns   16
+
 //LTC1865
-uint8_t g_channel;
+static uint8_t g_channel;
+
+//LCD
+static int g_lcdHandle;
 
 //C12880
 //uint16_t data[SPEC_CHANNELS];
-unsigned char SPEC_ST, SPEC_CLK, SPEC_VIDEO, WHITE_LED;
+static unsigned char SPEC_ST, SPEC_CLK, SPEC_VIDEO, WHITE_LED;
 
+//LTC1865
 void LTC_Init(uint8_t a_channel, uint8_t firstch)
 {
   int fd;
@@ -82,6 +91,7 @@ unsigned int LTC_Read(uint8_t nextch)
   return data;
 }
 
+//LED
 void LED_Init(int ctrl_pin)
 {
   digitalWrite(ctrl_pin, LOW);
@@ -121,6 +131,33 @@ void LED_Set(int ctrl_pin, int current)
 
 }
 
+//LCD
+void LCD_Init(int ctrl_pin)
+{
+  //4-bit
+  g_lcdHandle = lcdInit (LCD_Rows, LCD_Columns, 4, 11,10, 0,1,2,3,0,0,0,0) ;
+  //8-bit
+  g_lcdHandle = lcdInit (LCD_Rows, LCD_Columns, 8, 11,10, 0,1,2,3,4,5,6,7) ;
+
+  if (g_lcdHandle < 0)
+  {
+    printf ("lcdInit failed\n") ;
+  }
+
+}
+
+void LCD_clear(int ctrl_pin)
+{
+  lcdClear(g_lcdHandle);
+}
+
+void LCD_Write(int x, int y, char *string)
+{
+  lcdPosition(g_lcdHandle, x, y);
+  lcdPuts(g_lcdHandle, string);
+}
+
+//C12880
 void Setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SPEC_VIDEO, unsigned char a_WHITE_LED)
 {
   SPEC_ST = a_SPEC_ST;
