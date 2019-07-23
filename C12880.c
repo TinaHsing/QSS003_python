@@ -212,6 +212,7 @@ void LED_set(int ctrl_pin, int current)
     delayMicroseconds(1);
     digitalWrite(ctrl_pin, HIGH);
     delayMicroseconds(1);
+    printf("%d-", i);
   }
 
 }
