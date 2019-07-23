@@ -99,6 +99,9 @@ void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SP
   digitalWrite(SPEC_CLK, HIGH); // Set SPEC_CLK High
   digitalWrite(SPEC_ST, LOW); // Set SPEC_ST Low
 
+  //LTC1865
+  LTC_init(0, 0);  
+
 }
 
 /*
