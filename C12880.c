@@ -117,7 +117,7 @@ void LED_Set(int ctrl_pin, int current)
     delayMicroseconds(1);
     printf("%d-", i);
   }
-  printf("\n")
+  printf("\n");
 
 }
 
