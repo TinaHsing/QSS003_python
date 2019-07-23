@@ -28,7 +28,7 @@
 #define LED_MAX_Step      32
 
 //LTC1865
-uint8_t channel;
+uint8_t g_channel;
 
 //C12880
 //uint16_t data[SPEC_CHANNELS];
@@ -39,8 +39,8 @@ void LTC_init(uint8_t a_channel, uint8_t firstch)
   int fd;
   unsigned char buffer[2];
 
-  channel = a_channel;
-  fd = wiringPiSPISetup(channel, CLOCK_SPEED);
+  g_channel = a_channel;
+  fd = wiringPiSPISetup(g_channel, CLOCK_SPEED);
   printf("fd = %d\n",fd);
   if (fd == -1)
     printf("SPI failed");
@@ -49,13 +49,13 @@ void LTC_init(uint8_t a_channel, uint8_t firstch)
   {
         buffer[0] = ADC_CH1_H;
         buffer[1] = ADC_CH1_L;
-        wiringPiSPIDataRW(channel, buffer, 2);
+        wiringPiSPIDataRW(g_channel, buffer, 2);
   }
   else
   {
         buffer[0] = ADC_CH0_H;
         buffer[1] = ADC_CH0_L;
-        wiringPiSPIDataRW(channel, buffer, 2);
+        wiringPiSPIDataRW(g_channel, buffer, 2);
   }
 }
 
@@ -70,16 +70,54 @@ unsigned int LTC_Read(uint8_t nextch)
   {
         buffer[0] = ADC_CH1_H;
         buffer[1] = ADC_CH1_L;
-        wiringPiSPIDataRW(channel, buffer, 2);
+        wiringPiSPIDataRW(g_channel, buffer, 2);
   }
   else
   {
         buffer[0] = ADC_CH0_H;
         buffer[1] = ADC_CH0_L;
-        wiringPiSPIDataRW(channel, buffer, 2);
+        wiringPiSPIDataRW(g_channel, buffer, 2);
   }
   data = buffer[0]<<8 | buffer[1];
   return data;
+}
+
+void LED_init(int ctrl_pin)
+{
+  digitalWrite(ctrl_pin, LOW);
+  delayMicroseconds(1.5);
+
+}
+
+void LED_set(int ctrl_pin, int current)
+{
+  float LowCtrl = 0;
+  int i = 0;
+
+  if (current > LED_MAX_Current)
+  {
+    current = LED_MAX_Current;
+  }
+  else
+  {
+    LowCtrl = (float) ( LED_MAX_Current - current ) * LED_MAX_Step / LED_MAX_Current + 0.5;
+  }
+  printf("LED step = %f\n", LowCtrl);
+
+  digitalWrite(ctrl_pin, LOW);
+  delayMicroseconds(1500);
+  digitalWrite(ctrl_pin, HIGH);
+  delayMicroseconds(1);
+
+  for (i = 0; i < LowCtrl; i++)
+  {
+    digitalWrite(ctrl_pin, LOW);
+    delayMicroseconds(1);
+    digitalWrite(ctrl_pin, HIGH);
+    delayMicroseconds(1);
+    printf("%d-", i);
+  }
+
 }
 
 void setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SPEC_VIDEO, unsigned char a_WHITE_LED)
@@ -179,44 +217,6 @@ void readSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data
 
   digitalWrite(SPEC_CLK, HIGH);
   delayMicroseconds(delayTime);
-
-}
-
-void LED_init(int ctrl_pin)
-{
-  digitalWrite(ctrl_pin, LOW);
-  delayMicroseconds(1.5);
-
-}
-
-void LED_set(int ctrl_pin, int current)
-{
-  float LowCtrl = 0;
-  int i = 0;
-
-  if (current > LED_MAX_Current)
-  {
-    current = LED_MAX_Current;
-  }
-  else
-  {
-    LowCtrl = (float) ( LED_MAX_Current - current ) * LED_MAX_Step / LED_MAX_Current + 0.5;
-  }
-  printf("LED step = %f\n", LowCtrl);
-
-  digitalWrite(ctrl_pin, LOW);
-  delayMicroseconds(1500);
-  digitalWrite(ctrl_pin, HIGH);
-  delayMicroseconds(1);
-
-  for (i = 0; i <= LowCtrl; i++)
-  {
-    digitalWrite(ctrl_pin, LOW);
-    delayMicroseconds(1);
-    digitalWrite(ctrl_pin, HIGH);
-    delayMicroseconds(1);
-    printf("%d-", i);
-  }
 
 }
 
