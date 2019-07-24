@@ -14,3 +14,5 @@ C12880.ReadSpectrometer(1, 10, data)
 for i in range(0,288):
 	print(data[i])
 
+C12880.LCD_Init()
+C12880.LCD_Write(0, 0, "Hello World")

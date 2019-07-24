@@ -29,8 +29,15 @@
 #define LED_MAX_Step      32
 
 //LCD
-#define LCD_Rows      2
-#define LCD_Columns   16
+#define LCD_Rows    2
+#define LCD_Cols    16
+#define LCD_BITS    4
+#define LCD_RS      9
+#define LCD_STRB    7
+#define LCD_D0      3
+#define LCD_D1      0
+#define LCD_D2      21
+#define LCD_D3      2
 
 //LTC1865
 static uint8_t g_channel;
@@ -135,9 +142,7 @@ void LED_Set(int ctrl_pin, int current)
 void LCD_Init()
 {
   //4-bit
-  g_lcdHandle = lcdInit (LCD_Rows, LCD_Columns, 4, 11,10, 0,1,2,3,0,0,0,0) ;
-  //8-bit
-  g_lcdHandle = lcdInit (LCD_Rows, LCD_Columns, 8, 11,10, 0,1,2,3,4,5,6,7) ;
+  g_lcdHandle = lcdInit(LCD_Rows, LCD_Cols, LCD_BITS, LCD_RS, LCD_STRB, LCD_D0, LCD_D1, LCD_D2, LCD_D3, 0, 0, 0, 0) ;
 
   if (g_lcdHandle < 0)
   {
