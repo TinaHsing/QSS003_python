@@ -15,4 +15,7 @@ for i in range(0,288):
 	print(data[i])
 
 C12880.LCD_Init()
-C12880.LCD_Write(0, 0, "Hello World")
+C12880.LCD_Clear()
+C12880.LCD_Write(0, 0, "     Hello World")
+C12880.LCD_Write(1, 6, "1234567890")
+

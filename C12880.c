@@ -151,7 +151,7 @@ void LCD_Init()
 
 }
 
-void LCD_clear()
+void LCD_Clear()
 {
   lcdClear(g_lcdHandle);
 }
