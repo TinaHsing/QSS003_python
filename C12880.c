@@ -15,8 +15,8 @@
 //#define LASER_404        A5
 
 //LTC1865
-#define ADC_CH0_H 1
-#define ADC_CH0_L 2
+#define ADC_CH0_H 0x80
+#define ADC_CH0_L 0x00
 #define ADC_CH1_H 0xC0
 #define ADC_CH1_L 0x00
 #define CLOCK_SPEED 1000000
@@ -47,7 +47,7 @@ static int g_lcdHandle;
 
 //C12880
 //uint16_t data[SPEC_CHANNELS];
-static unsigned char SPEC_ST, SPEC_CLK, SPEC_VIDEO, WHITE_LED;
+static unsigned char SPEC_ST, SPEC_CLK;
 
 //LTC1865
 void LTC_Init(uint8_t a_channel, uint8_t firstch)
@@ -57,9 +57,9 @@ void LTC_Init(uint8_t a_channel, uint8_t firstch)
 
   g_channel = a_channel;
   fd = wiringPiSPISetup(g_channel, CLOCK_SPEED);
-  printf("fd = %d\n",fd);
+  //printf("fd = %d\n",fd);
   if (fd == -1)
-    printf("SPI failed");
+    //printf("SPI failed");
 
   if (firstch)
   {
@@ -101,8 +101,9 @@ unsigned int LTC_Read(uint8_t nextch)
 //LED
 void LED_Init(int ctrl_pin)
 {
+  pinMode(ctrl_pin, OUTPUT);
   digitalWrite(ctrl_pin, LOW);
-  delayMicroseconds(1.5);
+  delayMicroseconds(1500);
 
 }
 
@@ -119,7 +120,7 @@ void LED_Set(int ctrl_pin, int current)
   {
     LowCtrl = (float) ( LED_MAX_Current - current ) * LED_MAX_Step / LED_MAX_Current + 0.5;
   }
-  printf("LED step = %f\n", LowCtrl);
+  //printf("LED step = %f\n", LowCtrl);
 
   digitalWrite(ctrl_pin, LOW);
   delayMicroseconds(1500);
@@ -132,9 +133,9 @@ void LED_Set(int ctrl_pin, int current)
     delayMicroseconds(1);
     digitalWrite(ctrl_pin, HIGH);
     delayMicroseconds(1);
-    printf("%d-", i);
+    //printf("%d-", i);
   }
-  printf("\n");
+  //printf("\n");
 
 }
 
@@ -158,17 +159,18 @@ void LCD_Clear()
 
 void LCD_Write(int x, int y, char *string)
 {
+  lcdCursor(g_lcdHandle,1);
   lcdPosition(g_lcdHandle, x, y);
   lcdPuts(g_lcdHandle, string);
+  lcdCursor(g_lcdHandle,0);
 }
 
 //C12880
-void Setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK, unsigned char a_SPEC_VIDEO, unsigned char a_WHITE_LED)
+void Setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK)
 {
   SPEC_ST = a_SPEC_ST;
   SPEC_CLK = a_SPEC_CLK;
-  SPEC_VIDEO = a_SPEC_VIDEO;
-  WHITE_LED = a_WHITE_LED;
+
 
   wiringPiSetup() ;
   //Set desired pins to OUTPUT
@@ -204,7 +206,7 @@ void ReadSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data
   delayMicroseconds(delayTime);
 
   startTime = millis();
-  printf("startTime = %d\n",startTime);
+  //printf("startTime = %d\n",startTime);
   //Sample for a period of time
   //for(int i = 0; i < 15; i++)
   while ( (millis() - startTime) <= Int_time )
@@ -214,7 +216,7 @@ void ReadSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data
       digitalWrite(SPEC_CLK, LOW);
       delayMicroseconds(delayTime); 
   }
-  printf("endTime = %d\n",millis());
+  //printf("endTime = %d\n",millis());
 
   //Set SPEC_ST to low
   digitalWrite(SPEC_ST, LOW);
