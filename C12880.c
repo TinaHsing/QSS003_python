@@ -177,7 +177,7 @@ void Setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK)
   pinMode(SPEC_CLK, OUTPUT);
   pinMode(SPEC_ST, OUTPUT);
   //pinMode(LASER_404, OUTPUT);
-  pinMode(WHITE_LED, OUTPUT);
+  
 
   digitalWrite(SPEC_CLK, HIGH); // Set SPEC_CLK High
   digitalWrite(SPEC_ST, LOW); // Set SPEC_ST Low
