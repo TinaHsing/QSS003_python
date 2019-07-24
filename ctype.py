@@ -12,9 +12,9 @@ C12880 = cdll.LoadLibrary('/home/pi/QSS003_python//C12880.so')
 #print(data)
 C12880.Setup(spec_st, spec_clk)
 
-C12880.LED_Init(lectrl1)	#init led driver 1
-C12880.LED_Init(lectrl2)	#init led driver 2   
-C12880.LED_Init(lectrl3)	#init led driver 3
+C12880.LED_Init(ledctrl1)	#init led driver 1
+C12880.LED_Init(ledctrl2)	#init led driver 2   
+C12880.LED_Init(ledctrl3)	#init led driver 3
 C12880.LED_Set(ledctrl1, 25) # set LED driver1 current to 25mA
 C12880.LED_Set(ledctrl2, 10) # set LED driver2 current to 10mA
 C12880.LED_Set(ledctrl3, 4) # set LED driver3 current to 4mA
