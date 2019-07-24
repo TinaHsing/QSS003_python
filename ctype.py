@@ -2,7 +2,7 @@ from ctypes import *
 
 ledctrl1 = 8
 ledctrl2 = 1
-ledcrtl3 = 4
+ledctrl3 = 4
 spec_st = 22
 spec_clk = 23
 
