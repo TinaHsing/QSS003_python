@@ -169,7 +169,7 @@ void LCD_Clear()
 
 void LCD_Write(int x, int y, unsigned char *string)
 {
-  //printf("%s\n", string);
+  printf("%s\n", string);
   lcdPosition(g_lcdHandle, x, y);
   lcdPuts(g_lcdHandle, string);
 }
