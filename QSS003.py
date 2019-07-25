@@ -52,7 +52,7 @@ while loop:
 	#		black = 1
 
 	#C12880.LCD_Clear()
-	C12880.LCD_Write(0, 1, "Measuring....")
+	C12880.LCD_Write(0, 1, b"Measuring....")
 
 	C12880.LED_Set_Current(1, 25) # set LED driver1 current to 25mA
 	C12880.LED_Set_Current(2, 15) # set LED driver2 current to 15mA
@@ -73,8 +73,7 @@ while loop:
 	fp.close()
 
 	C12880.LCD_Clear()
-	C12880.LCD_Write(0, 0, "Writing finish")
-	print("done")
+	C12880.LCD_Write(0, 0, b"Writing finish")
 
 	if (black == 0):
 		fnameindex = fnameindex + 1
@@ -82,3 +81,4 @@ while loop:
 	measb = 1
 	black = 0
 	loop = 0	#remark this line will loop always
+	print("done")
