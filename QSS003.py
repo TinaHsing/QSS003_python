@@ -17,9 +17,6 @@ GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_meas, GPIO.IN)
 ip = subprocess.check_output(["hostname","-I"])
 print ip
-ip = str(ip)
-ip = ip[2:-4] #get the ip addresss
-print ip
 C12880.LCD_Clear()
 C12880.LCD_Write(0, 0, ip)
 
@@ -52,7 +49,7 @@ while loop:
 	#		black = 1
 
 	C12880.LCD_Clear()
-	C12880.LCD_Write(0, 0, "Measuring....")
+	C12880.LCD_Write(0, 1, "Measuring....")
 
 	C12880.LED_Set_Current(1, 25) # set LED driver1 current to 25mA
 	C12880.LED_Set_Current(2, 15) # set LED driver2 current to 15mA
@@ -63,7 +60,7 @@ while loop:
 	if (black):
 		fname = "black.txt"
 	else:
-		fname = str(fnameindex)+".txt"
+		fname = str(fnameindex) + ".txt"
 
 	C12880.ReadSpectrometer(int_time, data)
 
@@ -73,10 +70,11 @@ while loop:
 	fp.close()
 
 	C12880.LCD_Clear()
-	C12880.LCD_Write(0,0,"333")
+	C12880.LCD_Write(0, 0, "Writing finish")
 
 	if (black == 0):
 		fnameindex = fnameindex + 1
+
 	measb = 1
 	black = 0
 	loop = 0	#remark this line will loop always
