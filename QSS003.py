@@ -15,10 +15,11 @@ C12880.Setup() # init spectrometer
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_meas, GPIO.IN)
-ip = str(subprocess.check_output(["hostname","-I"]))
+ip = subprocess.check_output(["hostname","-I"])
+print(ip)
+ip = str(ip)
 ip = ip[0:-2]
-print ip
-print len(ip)
+print(ip)
 C12880.LCD_Clear()
 C12880.LCD_Write(0, 0, ip)
 
@@ -50,7 +51,7 @@ while loop:
 	#		measb = 0
 	#		black = 1
 
-	C12880.LCD_Clear()
+	#C12880.LCD_Clear()
 	C12880.LCD_Write(0, 1, "Measuring....")
 
 	C12880.LED_Set_Current(1, 25) # set LED driver1 current to 25mA
@@ -73,6 +74,7 @@ while loop:
 
 	C12880.LCD_Clear()
 	C12880.LCD_Write(0, 0, "Writing finish")
+	print("done")
 
 	if (black == 0):
 		fnameindex = fnameindex + 1
