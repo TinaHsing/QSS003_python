@@ -19,11 +19,7 @@ C12880.LED_Set(ledctrl1, 25) # set LED driver1 current to 25mA
 C12880.LED_Set(ledctrl2, 10) # set LED driver2 current to 10mA
 C12880.LED_Set(ledctrl3, 4) # set LED driver3 current to 4mA
 
-
 data = (c_uint * 288)()
-
-
-
 
 C12880.ReadSpectrometer(1, 10, data)
 for i in range(0,288):
@@ -32,5 +28,5 @@ for i in range(0,288):
 C12880.LCD_Init()
 C12880.LCD_Clear()
 C12880.LCD_Write(0, 0, "     Hello World")
-C12880.LCD_Write(1, 6, "1234567890")
+C12880.LCD_Write(6, 1, "1234567890")
 
