@@ -43,6 +43,7 @@ static uint8_t g_channel;
 
 //LCD
 static int g_lcdHandle;
+static char g_message[20];
 
 //C12880
 //uint16_t data[SPEC_CHANNELS];
@@ -169,9 +170,9 @@ void LCD_Clear()
 
 void LCD_Write(int x, int y, char *string)
 {
-  lcdCursor(g_lcdHandle,1);
+  sprintf(g_message, "%s", string);
   lcdPosition(g_lcdHandle, x, y);
-  lcdPuts(g_lcdHandle, string);
+  lcdPuts(g_lcdHandle, g_message);
 }
 
 //C12880
