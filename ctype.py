@@ -12,6 +12,6 @@ C12880.LED_Set_Current(2, 15) # set LED driver2 current to 15mA
 C12880.LED_Set_Current(3, 5) # set LED driver3 current to 5mA
 
 C12880.LCD_Clear()
-C12880.LCD_Write(5, 0, "Hello World")
-C12880.LCD_Write(6, 1, "1234567890")
+C12880.LCD_Write(5, 0, b"Hello World")
+C12880.LCD_Write(6, 1, b"1234567890")
 
