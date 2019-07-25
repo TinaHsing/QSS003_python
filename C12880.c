@@ -172,7 +172,6 @@ void LCD_Write(int x, int y, char *string)
   lcdCursor(g_lcdHandle,1);
   lcdPosition(g_lcdHandle, x, y);
   lcdPuts(g_lcdHandle, string);
-  lcdCursor(g_lcdHandle,0);
 }
 
 //C12880
