@@ -1,5 +1,6 @@
 from ctypes import *
 import os
+import time
 import subprocess
 import RPi.GPIO as GPIO
 
@@ -54,7 +55,7 @@ while loop:
 	C12880.LED_Set_Current(2, 15) # set LED driver2 current to 15mA
 	C12880.LED_Set_Current(3, 5) # set LED driver3 current to 5mA
 
-	sleep(led_stable_time)
+	time.sleep(led_stable_time)
 
 	if (black):
 		fname = "black.txt"
