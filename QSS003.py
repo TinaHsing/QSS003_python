@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 
 pin_meas = 18 	# gpio use board definition
 pin_black = 22	# gpio use board definition
+SETTING_FILENAME = "setting.txt"
 
 C12880 = cdll.LoadLibrary('/home/pi/QSS003_python//C12880.so')
 
@@ -14,7 +15,7 @@ GPIO.setup(pin_black, GPIO.INPUT)
 GPIO.setup(pin_meas, GPIO.INPUT)
 ip = subprocess.check_ouput(["hostname","-I"])
 ip = str(ip)
-ip = ip(2:-4) #get the ip addresss
+ip = ip[2:-4] #get the ip addresss
 C12880.LCD_Clear()
 C12880.LCD_Write(0, 0, ip)
 
@@ -22,13 +23,8 @@ data = (c_uint * 288)() # data to store spectrum data
 
 
 #open file for parameter setting
-fp = open("setting.txt")
-param = []
-i = 0
-for line in fp:
-	param[i] = line
-	i = i + 1
-fp.close()
+if os.path.exists(SETTING_FILENAME):
+   param = [line.rstrip('\n') for line in open(SETTING_FILENAME)]
 
 led1_current = param[0]
 led2_current = param[1]
