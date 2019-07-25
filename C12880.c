@@ -167,7 +167,7 @@ void LCD_Clear()
   lcdClear(g_lcdHandle);
 }
 
-void LCD_Write(int x, int y, unsigned char *string)
+void LCD_Write(int x, int y, char *string)
 {
   lcdPosition(g_lcdHandle, x, y);
   lcdPuts(g_lcdHandle, string);
