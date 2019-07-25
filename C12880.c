@@ -22,8 +22,8 @@
 
 //LED
 #define LED_Ctrl1         8  //gpio use wPi definition
-#define LED_ctrl2         1  //gpio use wPi definition
-#define LED_ctrl3         4  //gpio use wPi definition
+#define LED_Ctrl2         1  //gpio use wPi definition
+#define LED_Ctrl3         4  //gpio use wPi definition
 #define LED_MAX_Current   30  //ma
 #define LED_MAX_Step      32
 
