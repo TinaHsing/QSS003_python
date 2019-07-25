@@ -170,10 +170,10 @@ void LCD_Clear()
 
 void LCD_Write(int x, int y, char *string)
 {
-  sprintf(g_message, "%s", string);
-  printf("%s", string);
+  //sprintf(g_message, "%s", string);
+  printf("%s\n", string);
   lcdPosition(g_lcdHandle, x, y);
-  lcdPuts(g_lcdHandle, g_message);
+  lcdPuts(g_lcdHandle, string);
 }
 
 //C12880
