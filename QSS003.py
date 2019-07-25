@@ -11,8 +11,8 @@ C12880 = cdll.LoadLibrary('/home/pi/QSS003_python//C12880.so')
 # board initialization 
 C12880.Setup() # init spectrometer
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(pin_black, GPIO.INPUT)
-GPIO.setup(pin_meas, GPIO.INPUT)
+GPIO.setup(pin_black, GPIO.IN)
+GPIO.setup(pin_meas, GPIO.IN)
 ip = subprocess.check_ouput(["hostname","-I"])
 ip = str(ip)
 ip = ip[2:-4] #get the ip addresss
@@ -23,6 +23,7 @@ data = (c_uint * 288)() # data to store spectrum data
 
 
 #open file for parameter setting
+param = [0, 0, 0, 0, 0]
 if os.path.exists(SETTING_FILENAME):
    param = [line.rstrip('\n') for line in open(SETTING_FILENAME)]
 
@@ -36,13 +37,14 @@ int_time = param[4]
 measb = 1
 fnameindex = 0
 black = 0
-while 1:
-	while (measb):
-		if GPIO.input(pin_meas) == GPIO.HIGH:
-			measb = 0
-		if GPIO.input(pin_black) == GPIO.HIGH:
-			measb = 0
-			black = 1
+loop = 1
+while loop:
+	#while (measb):
+	#	if GPIO.input(pin_meas) == GPIO.HIGH:
+	#		measb = 0
+	#	if GPIO.input(pin_black) == GPIO.HIGH:
+	#		measb = 0
+	#		black = 1
 
 	C12880.LCD_Clear()
 	C12880.LCD_Write(0, 0, "Measuring....")
@@ -57,16 +59,19 @@ while 1:
 		fname = "black.txt"
 	else:
 		fname = str(fnameindex)+".txt"
-	fp = open(fname)
+
 	C12880.ReadSpectrometer(int_time, data)
 
-	for i in range(0,288):
-		out = str(data[i])+"\n"
-		fname.write(out)
+	out = [str(line) + '\n' for line in data] 
+	fp = open(fname, "w+")
+	fp.writelines(out)
 	fp.close()
+
 	C12880.LCD_Clear()
 	C12880.LCD_Write(0,0,"333")
+
 	if (black == 0):
-		fnameindex=fnameindex+1
+		fnameindex = fnameindex + 1
 	measb = 1
 	black = 0
+	loop = 0	#remark this line will loop always
