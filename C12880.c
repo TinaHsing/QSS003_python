@@ -7,12 +7,6 @@
 /*
  * Macro Definitions
  */
-//#define SPEC_TRG         A0
-//#define SPEC_ST          A1
-//#define SPEC_CLK         A2
-//#define SPEC_VIDEO       A3
-//#define WHITE_LED        A4
-//#define LASER_404        A5
 
 //LTC1865
 #define ADC_CH0_H 0x80
@@ -22,6 +16,8 @@
 #define CLOCK_SPEED 1000000
 
 //C12880
+#define SPEC_ST          22
+#define SPEC_CLK         23
 #define SPEC_CHANNELS    288 // New Spec Channel
 
 //LED
@@ -47,7 +43,6 @@ static int g_lcdHandle;
 
 //C12880
 //uint16_t data[SPEC_CHANNELS];
-static unsigned char SPEC_ST, SPEC_CLK;
 
 //LTC1865
 void LTC_Init(uint8_t a_channel, uint8_t firstch)
@@ -170,12 +165,8 @@ void LCD_Write(int x, int y, char *string)
 }
 
 //C12880
-void Setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK)
+void Setup()
 {
-  SPEC_ST = a_SPEC_ST;
-  SPEC_CLK = a_SPEC_CLK;
-
-
   wiringPiSetup() ;
   //Set desired pins to OUTPUT
   pinMode(SPEC_CLK, OUTPUT);
