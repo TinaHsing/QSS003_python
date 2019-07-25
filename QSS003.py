@@ -15,7 +15,8 @@ C12880.Setup() # init spectrometer
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_meas, GPIO.IN)
-ip = subprocess.check_output(["hostname","-I"])
+ip = str(subprocess.check_output(["hostname","-I"]))
+ip = ip[0:-2]
 print ip
 print len(ip)
 C12880.LCD_Clear()
