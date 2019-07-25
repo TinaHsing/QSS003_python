@@ -16,8 +16,10 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_meas, GPIO.IN)
 ip = subprocess.check_output(["hostname","-I"])
+print ip
 ip = str(ip)
 ip = ip[2:-4] #get the ip addresss
+print ip
 C12880.LCD_Clear()
 C12880.LCD_Write(0, 0, ip)
 
@@ -28,12 +30,12 @@ data = (c_uint * 288)() # data to store spectrum data
 param = [0, 0, 0, 0, 0]
 if os.path.exists(SETTING_FILENAME):
    param = [line.rstrip('\n') for line in open(SETTING_FILENAME)]
-#print param
+print param
 
 led1_current = int(param[0])
 led2_current = int(param[1])
 led3_current = int(param[2])
-led_stable_time = int(param[3])
+led_stable_time = float(param[3])
 int_time = int(param[4])
 
 #wait until black or meas buttom is pressed
