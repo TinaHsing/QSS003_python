@@ -1,4 +1,5 @@
 from ctypes import *
+import os
 import subprocess
 import RPi.GPIO as GPIO
 
@@ -13,7 +14,7 @@ C12880.Setup() # init spectrometer
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_meas, GPIO.IN)
-ip = subprocess.check_ouput(["hostname","-I"])
+ip = subprocess.check_output(["hostname","-I"])
 ip = str(ip)
 ip = ip[2:-4] #get the ip addresss
 C12880.LCD_Clear()
