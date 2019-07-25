@@ -124,18 +124,22 @@ void LED_Set(int ctrl_pin, int current)
 
   digitalWrite(ctrl_pin, LOW);
   delayMicroseconds(1500);
-  digitalWrite(ctrl_pin, HIGH);
-  delayMicroseconds(1);
 
-  for (i = 1; i <= LowCtrl; i++)
+  if (current > 0)
   {
-    digitalWrite(ctrl_pin, LOW);
-    delayMicroseconds(1);
     digitalWrite(ctrl_pin, HIGH);
     delayMicroseconds(1);
-    //printf("%d-", i);
+
+    for (i = 1; i <= LowCtrl; i++)
+    {
+      digitalWrite(ctrl_pin, LOW);
+      delayMicroseconds(1);
+      digitalWrite(ctrl_pin, HIGH);
+      delayMicroseconds(1);
+      //printf("%d-", i);
+    }
+    //printf("\n");
   }
-  //printf("\n");
 
 }
 
