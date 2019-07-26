@@ -12,11 +12,14 @@ C12880.LED_Set_Current(1, 25) # set LED driver1 current to 25mA
 C12880.LED_Set_Current(2, 15) # set LED driver2 current to 15mA
 C12880.LED_Set_Current(3, 5) # set LED driver3 current to 5mA
 
-C12880.LCD_Clear()
-C12880.LCD_Write(5, 0, b"Hello World")
-C12880.LCD_Write(6, 1, b"1234567890")
-time.sleep(1)
-C12880.LCD_Clear()
-C12880.LCD_Write(6, 0, b"1234567890")
-C12880.LCD_Write(5, 1, b"Hello World")
+for i in range(0,10):
+	print(i)
+	C12880.LCD_Clear()
+	C12880.LCD_Write(5, 0, b"Hello World")
+	C12880.LCD_Write(6, 1, b"1234567890")
+	time.sleep(1)
+	C12880.LCD_Clear()
+	C12880.LCD_Write(6, 0, b"1234567890")
+	C12880.LCD_Write(5, 1, b"Hello World")
+	time.sleep(1)
 
