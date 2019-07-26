@@ -158,20 +158,20 @@ void LCD_Init()
   g_lcdHandle = lcdInit(LCD_Rows, LCD_Cols, LCD_BITS, LCD_RS, LCD_STRB, LCD_D0, LCD_D1, LCD_D2, LCD_D3, 0, 0, 0, 0) ;
 
   //if (g_lcdHandle < 0)
-    //printf ("lcdInit failed\n") ;
+    //printf ("LCD_Init failed\n") ;
 
 }
 
 void LCD_Clear()
 {
-  printf("lcd = %d\n", g_lcdHandle);
+  //printf("lcd = %d\n", g_lcdHandle);
   lcdClear(g_lcdHandle);
 }
 
 void LCD_Write(int x, int y, unsigned char *string)
 {
-  printf("lcd = %d\n", g_lcdHandle);
-  printf("string = %s\n", string);
+  //printf("lcd = %d\n", g_lcdHandle);
+  printf("%s\n", string);
   lcdPosition(g_lcdHandle, x, y);
   lcdPuts(g_lcdHandle, string);
 }
