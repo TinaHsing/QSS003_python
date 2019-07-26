@@ -164,13 +164,13 @@ void LCD_Init()
 
 void LCD_Clear()
 {
-  printf("lcd = %d", g_lcdHandle);
+  printf("lcd = %d\n", g_lcdHandle);
   lcdClear(g_lcdHandle);
 }
 
 void LCD_Write(int x, int y, unsigned char *string)
 {
-  printf("lcd = %d", g_lcdHandle);
+  printf("lcd = %d\n", g_lcdHandle);
   printf("string = %s\n", string);
   lcdPosition(g_lcdHandle, x, y);
   lcdPuts(g_lcdHandle, string);
