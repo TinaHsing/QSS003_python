@@ -16,11 +16,9 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_meas, GPIO.IN)
 ip = subprocess.check_output(["hostname","-I"])
-print(ip)
-len = len(ip)
-del ip[len-1]
-del ip[len]
-print(ip)
+#print(ip)
+ip = ip[0:-2]
+#print(ip)
 C12880.LCD_Clear()
 C12880.LCD_Write(0, 0, ip)
 
