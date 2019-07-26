@@ -1,3 +1,4 @@
+import time
 from ctypes import *
 
 C12880 = cdll.LoadLibrary('/home/pi/QSS003_python//C12880.so')
@@ -13,5 +14,7 @@ C12880.LED_Set_Current(3, 5) # set LED driver3 current to 5mA
 
 C12880.LCD_Clear()
 C12880.LCD_Write(5, 0, b"Hello World")
+time.sleep(1)
+C12880.LCD_Clear()
 C12880.LCD_Write(6, 1, b"1234567890")
 
