@@ -29,7 +29,7 @@ data = (c_uint * 288)() # data to store spectrum data
 param = [0, 0, 0, 0, 0]
 if os.path.exists(SETTING_FILENAME):
    param = [line.rstrip('\n') for line in open(SETTING_FILENAME)]
-#print param
+print(param)
 
 led1_current = int(param[0])
 led2_current = int(param[1])
