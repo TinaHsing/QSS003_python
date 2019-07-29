@@ -168,12 +168,19 @@ void LCD_Clear()
   lcdClear(g_lcdHandle);
 }
 
-void LCD_Write(int x, int y, unsigned char *string)
+void LCD_Write(int x, int y, unsigned char *a_string)
 {
+  char String[17];
   //printf("lcd = %d\n", g_lcdHandle);
-  printf("%s\n", string);
+  int len = length(a_string);
+  printf("len = %d\n", len);
+  if (len > 16)
+    len = 16;
+  strncpy(String, 16, a_string);
+  String[len] = '\0';
+  printf("%s\n", String);
   lcdPosition(g_lcdHandle, x, y);
-  lcdPuts(g_lcdHandle, string);
+  lcdPuts(g_lcdHandle, String);
 }
 
 void LCD_Test(int j)
