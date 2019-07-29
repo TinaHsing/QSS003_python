@@ -181,16 +181,18 @@ void LCD_Test(int j)
   char String[17];
   int i = 0;
 
-  for (i = 0; i < 16; i++)
+  for (i = 0; i < 15; i++)
   {
     String[i] = 65 + i + j;
   }
+  String[15] = j;
   String[16] = '\0';
   LCD_Write(0, 0, String);
-  for (i = 0; i < 16; i++)
+  for (i = 0; i < 15; i++)
   {
     String[i] = 97 + i + j;
   }
+  String[15] = j;
   String[16] = '\0';
   LCD_Write(0, 1, String);
 
