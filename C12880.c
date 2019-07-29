@@ -176,6 +176,22 @@ void LCD_Write(int x, int y, unsigned char *string)
   lcdPuts(g_lcdHandle, string);
 }
 
+void LCD_Test(int j)
+{
+  char String[17] = '\0';
+  for (i = 0; i < 16; i++)
+  {
+    String[i] = 65 + i + j;
+    LCD_Write(0, 0, String);
+  }
+  for (i = 0; i < 16; i++)
+  {
+    String[i] = 97 + i + j;
+    LCD_Write(0, 1, String);
+  }
+
+}
+
 //C12880
 void Setup()
 {
