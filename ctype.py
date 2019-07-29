@@ -3,7 +3,6 @@ from ctypes import *
 
 C12880 = cdll.LoadLibrary('/home/pi/QSS003_python//C12880.so')
 C12880.Setup()
-C12880.LCD_Init()
 data = (c_uint * 288)()
 C12880.ReadSpectrometer(10, data)
 #for i in range(0,288):

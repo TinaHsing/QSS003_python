@@ -220,7 +220,7 @@ void Setup()
   LED_Init(LED_Ctrl2);
   LED_Init(LED_Ctrl3);
   //LCD
-  //LCD_Init();
+  LCD_Init();
 
 }
 
