@@ -172,12 +172,7 @@ void LCD_Write(int x, int y, unsigned char *a_string)
 {
   char String[17];
   //printf("lcd = %d\n", g_lcdHandle);
-  int len = strlen(a_string);
-  printf("len = %d\n", len);
-  if (len > 16)
-    len = 16;
-  strncpy(String, a_string, 16);
-  String[len] = '\0';
+  sprintf(String, "%s", a_string);
   printf("%s\n", String);
   lcdPosition(g_lcdHandle, x, y);
   lcdPuts(g_lcdHandle, String);
