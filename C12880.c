@@ -43,7 +43,7 @@ static uint8_t g_channel;
 
 //LCD
 static int g_lcdHandle;
-static char g_String[17];
+//static char g_String[17];
 
 //C12880
 //uint16_t data[SPEC_CHANNELS];
@@ -172,10 +172,12 @@ void LCD_Clear()
 void LCD_Write(int x, int y, unsigned char *a_string)
 {
   //printf("lcd = %d\n", g_lcdHandle);
-  sprintf(g_String, "%s", a_string);
-  printf("%s\n", g_String);
+  printf("%s\n", a_string);
+  //sprintf(g_String, "%s", a_string);
+  //printf("%s\n", g_String);
   lcdPosition(g_lcdHandle, x, y);
-  lcdPuts(g_lcdHandle, g_String);
+  lcdPuts(g_lcdHandle, a_string);
+  //lcdPuts(g_lcdHandle, g_String);
 }
 
 void LCD_Test(int j)
