@@ -33,7 +33,7 @@ class LCD:
 		self.pin_init()	
 		self.dev_init()	
 
-	def pin_init():
+	def pin_init(self):
 		GPIO.setup(self.rs_pin, GPIO.OUT)
 		GPIO.setup(self.e_pin, GPIO.OUT)
 		GPIO.setup(self.d_pin[0], GPIO.OUT)
@@ -54,11 +54,11 @@ class LCD:
 		GPIO.output(self.e_pin, False)
 		time.sleep(E_DELAY)
 	
-	def clear():
+	def clear(self):
 		self.write_byte(0x01, LCD_CMD) # 
 		time.sleep(CLEAR_DELAY)
 
-	def dev_init():
+	def dev_init(self):
 		self.write_4bits(0x03, LCD_CMD) # set device to 4 bit mode from datasheet
 		time.sleep(INIT_DELAY)
 		self.write_4bits(0x03, LCD_CMD)
@@ -73,18 +73,18 @@ class LCD:
 		self.wirte_byte(0x06, LCD_CMD) #set the entry mode
 		time.sleep(E_DELAY)
 
-	def goto(col,row):
+	def goto(self,col,row):
 		data = col +row*0x40
 		data = data|0x80 
 		self.write_byte(data, LCD_CMD)
 
-	def write_string(input_string):
+	def write_string(self,input_string):
 
 		total = len(input_string)
 		for i in range(total):
 			write_byte(ord(input_string[i]), LCD_CHR)
 
-	def write_4bits(data, mode):
+	def write_4bits(self,data, mode):
 		GPIO.output(self.rs_pin, mode)
 		
 		for i in range (0,4):	
@@ -92,7 +92,7 @@ class LCD:
 			data = data>>1
 		self.enable_pulse()
 
-	def write_byte(data,mode):
+	def write_byte(self,data,mode):
 		high = data >>4
 		self.write_4bits(high,mode)
 		self.write_4bits(data,mode)
