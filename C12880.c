@@ -7,24 +7,23 @@
 /*
  * Macro Definitions
  */
-//#define SPEC_TRG         A0
-//#define SPEC_ST          A1
-//#define SPEC_CLK         A2
-//#define SPEC_VIDEO       A3
-//#define WHITE_LED        A4
-//#define LASER_404        A5
 
 //LTC1865
-#define ADC_CH0_H 0x80
-#define ADC_CH0_L 0x00
-#define ADC_CH1_H 0xC0
-#define ADC_CH1_L 0x00
+#define ADC_CH0_H   0x80
+#define ADC_CH0_L   0x00
+#define ADC_CH1_H   0xC0
+#define ADC_CH1_L   0x00
 #define CLOCK_SPEED 1000000
 
 //C12880
+#define SPEC_ST          22
+#define SPEC_CLK         23
 #define SPEC_CHANNELS    288 // New Spec Channel
 
 //LED
+#define LED_Ctrl1         8  //gpio use wPi definition
+#define LED_Ctrl2         1  //gpio use wPi definition
+#define LED_Ctrl3         4  //gpio use wPi definition
 #define LED_MAX_Current   30  //ma
 #define LED_MAX_Step      32
 
@@ -44,10 +43,10 @@ static uint8_t g_channel;
 
 //LCD
 static int g_lcdHandle;
+//static char g_String[17];
 
 //C12880
 //uint16_t data[SPEC_CHANNELS];
-static unsigned char SPEC_ST, SPEC_CLK;
 
 //LTC1865
 void LTC_Init(uint8_t a_channel, uint8_t firstch)
@@ -58,7 +57,7 @@ void LTC_Init(uint8_t a_channel, uint8_t firstch)
   g_channel = a_channel;
   fd = wiringPiSPISetup(g_channel, CLOCK_SPEED);
   //printf("fd = %d\n",fd);
-  if (fd == -1)
+  //if (fd == -1)
     //printf("SPI failed");
 
   if (firstch)
@@ -107,7 +106,7 @@ void LED_Init(int ctrl_pin)
 
 }
 
-void LED_Set(int ctrl_pin, int current)
+void LED_Set_Ctrl_Current(int ctrl_pin, int current)
 {
   float LowCtrl = 0;
   int i = 0;
@@ -124,19 +123,33 @@ void LED_Set(int ctrl_pin, int current)
 
   digitalWrite(ctrl_pin, LOW);
   delayMicroseconds(1500);
-  digitalWrite(ctrl_pin, HIGH);
-  delayMicroseconds(1);
 
-  for (i = 1; i <= LowCtrl; i++)
+  if (current > 0)
   {
-    digitalWrite(ctrl_pin, LOW);
-    delayMicroseconds(1);
     digitalWrite(ctrl_pin, HIGH);
     delayMicroseconds(1);
-    //printf("%d-", i);
-  }
-  //printf("\n");
 
+    for (i = 1; i <= LowCtrl; i++)
+    {
+      digitalWrite(ctrl_pin, LOW);
+      delayMicroseconds(1);
+      digitalWrite(ctrl_pin, HIGH);
+      delayMicroseconds(1);
+      //printf("%d-", i);
+    }
+    //printf("\n");
+  }
+
+}
+
+void LED_Set_Current(int led, int current)
+{
+  if (led == 3)
+    LED_Set_Ctrl_Current(LED_Ctrl3, current);
+  else if (led == 2)
+    LED_Set_Ctrl_Current(LED_Ctrl2, current);
+  else
+    LED_Set_Ctrl_Current(LED_Ctrl1, current);
 }
 
 //LCD
@@ -145,33 +158,53 @@ void LCD_Init()
   //4-bit
   g_lcdHandle = lcdInit(LCD_Rows, LCD_Cols, LCD_BITS, LCD_RS, LCD_STRB, LCD_D0, LCD_D1, LCD_D2, LCD_D3, 0, 0, 0, 0) ;
 
-  if (g_lcdHandle < 0)
-  {
-    printf ("lcdInit failed\n") ;
-  }
+  //if (g_lcdHandle < 0)
+    //printf ("LCD_Init failed\n") ;
 
 }
 
 void LCD_Clear()
 {
+  //printf("lcd = %d\n", g_lcdHandle);
   lcdClear(g_lcdHandle);
 }
 
-void LCD_Write(int x, int y, char *string)
+void LCD_Write(int x, int y, unsigned char *a_string)
 {
-  lcdCursor(g_lcdHandle,1);
+  //printf("lcd = %d\n", g_lcdHandle);
+  printf("%s\n", a_string);
+  //sprintf(g_String, "%s", a_string);
+  //printf("%s\n", g_String);
   lcdPosition(g_lcdHandle, x, y);
-  lcdPuts(g_lcdHandle, string);
-  lcdCursor(g_lcdHandle,0);
+  lcdPuts(g_lcdHandle, a_string);
+  //lcdPuts(g_lcdHandle, g_String);
+}
+
+void LCD_Test(int j)
+{
+  char String[17];
+  int i = 0;
+
+  for (i = 0; i < 15; i++)
+  {
+    String[i] = 65 + i + j;
+  }
+  String[15] = 48 + j;
+  String[16] = '\0';
+  LCD_Write(0, 0, String);
+  for (i = 0; i < 15; i++)
+  {
+    String[i] = 97 + i + j;
+  }
+  String[15] = 48 + j;
+  String[16] = '\0';
+  LCD_Write(0, 1, String);
+
 }
 
 //C12880
-void Setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK)
+void Setup()
 {
-  SPEC_ST = a_SPEC_ST;
-  SPEC_CLK = a_SPEC_CLK;
-
-
   wiringPiSetup() ;
   //Set desired pins to OUTPUT
   pinMode(SPEC_CLK, OUTPUT);
@@ -183,7 +216,13 @@ void Setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK)
   digitalWrite(SPEC_ST, LOW); // Set SPEC_ST Low
 
   //LTC1865
-  LTC_Init(0, 0);  
+  LTC_Init(0, 0);
+  //LED
+  LED_Init(LED_Ctrl1);
+  LED_Init(LED_Ctrl2);
+  LED_Init(LED_Ctrl3);
+  //LCD
+  LCD_Init();
 
 }
 
@@ -191,9 +230,9 @@ void Setup(unsigned char a_SPEC_ST, unsigned char a_SPEC_CLK)
  * This functions reads spectrometer data from SPEC_VIDEO
  * Look at the Timing Chart in the Datasheet for more info
  */
-void ReadSpectrometer(int delayTime, unsigned long Int_time, unsigned int * data)
+void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
 {
-  //int delayTime = 1; // delay time
+  int delayTime = 1; // delay time
   long startTime = 0;
 
   // Start clock cycle and set start pulse to signal start
