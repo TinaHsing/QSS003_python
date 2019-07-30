@@ -106,9 +106,9 @@ if __name__ == '__main__':
 	
 	for i in range(10):
 		lcd.clear()
-		lcd.goto(0,8)
+		lcd.goto(col=8,row=0)
 		lcd.write_string(a)
-		lcd.goto(0,8)
+		lcd.goto(col=8,row=1)
 		lcd.write_string(b)
 		print(a)
 		print(b)
