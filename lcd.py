@@ -70,7 +70,7 @@ class LCD:
 		self.write_byte(0x28, LCD_CMD) # set 2lines and 5x8 font size
 		self.write_byte(0x0C, LCD_CMD) # set display on, cursor off, blink off
 		self.clear()
-		self.wirte_byte(0x06, LCD_CMD) #set the entry mode
+		self.write_byte(0x06, LCD_CMD) #set the entry mode
 		time.sleep(E_DELAY)
 
 	def goto(self,col,row):
@@ -82,7 +82,7 @@ class LCD:
 
 		total = len(input_string)
 		for i in range(total):
-			write_byte(ord(input_string[i]), LCD_CHR)
+			self.write_byte(ord(input_string[i]), LCD_CHR)
 
 	def write_4bits(self,data, mode):
 		GPIO.output(self.rs_pin, mode)
