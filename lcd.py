@@ -83,6 +83,7 @@ class LCD:
 		total = len(input_string)
 		for i in range(total):
 			self.write_byte(ord(input_string[i]), LCD_CHR)
+			time.sleep(E_DELAY)
 
 	def write_4bits(self,data, mode):
 		GPIO.output(self.rs_pin, mode)
