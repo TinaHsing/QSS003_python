@@ -68,7 +68,7 @@ class LCD:
 		self.write_4bits(0x02, LCD_CMD) # after this line no need dealy
 
 		self.write_byte(0x28, LCD_CMD) # set 2lines and 5x8 font size
-		self.write_byte(0x0C, LCD_CMD) # set display on, cursor off, blink off
+		self.write_byte(0x0E, LCD_CMD) # set display off, cursor off, blink off
 		self.clear()
 		self.write_byte(0x06, LCD_CMD) #set the entry mode
 		time.sleep(E_DELAY)
@@ -106,16 +106,7 @@ if __name__ == '__main__':
 	
 	for i in range(10):
 		lcd.clear()
-		lcd.goto(col=8,row=0)
-		lcd.write_string(a)
-		lcd.goto(col=8,row=1)
-		lcd.write_string(b)
-		print(a)
-		print(b)
-		print(i)
-		a=a[-1]+a[:-1]
-		b=b[-1]+b[:-1]
-		time.sleep(2)
+		lcd.goto(col=i,row=0)
 
 
 
