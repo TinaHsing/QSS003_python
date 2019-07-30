@@ -101,21 +101,21 @@ class LCD:
 if __name__ == '__main__':
 	lcd = LCD(pin_rs=LCD_RS, pin_e=LCD_E, pins_data4=[LCD_D4, LCD_D5, LCD_D6, LCD_D7])
 
-	a ="FEDCBA9876543210"
-	b ="qpnmlkjihgfedcba"
+	a ="876543210"
+	b ="hgfedcba"
 	
 	for i in range(10):
 		lcd.clear()
-		lcd.goto(0,0)
+		lcd.goto(0,8)
 		lcd.write_string(a)
-		lcd.goto(0,1)
+		lcd.goto(0,8)
 		lcd.write_string(b)
 		print(a)
 		print(b)
 		print(i)
 		a=a[-1]+a[:-1]
 		b=b[-1]+b[:-1]
-		time.sleep(1)
+		time.sleep(2)
 
 
 
