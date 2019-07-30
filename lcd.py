@@ -111,6 +111,7 @@ if __name__ == '__main__':
 		lcd.write_string(b)
 		a=a[-1]+a[:-1]
 		b=b[-1]+b[:-1]
+		time.sleep(1)
 
 
 
