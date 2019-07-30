@@ -91,6 +91,8 @@ class LCD:
 		for i in range (0,4):	
 			GPIO.output(self.d_pin[i],data&0x01)
 			data = data>>1
+
+		time.sleep(0.001)
 		self.enable_pulse()
 
 	def write_byte(self,data,mode):
