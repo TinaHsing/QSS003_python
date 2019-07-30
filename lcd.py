@@ -49,7 +49,7 @@ class LCD:
 
 	def enable_pulse(self):
 		time.sleep(E_DELAY)
-		GPIO.otuput(self.e_pin, True)
+		GPIO.output(self.e_pin, True)
 		time.sleep(E_PULSE)
 		GPIO.output(self.e_pin, False)
 		time.sleep(E_DELAY)
