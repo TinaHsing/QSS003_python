@@ -27,9 +27,9 @@ class LCD:
 	def __init__(self,pin_rs, pin_e, pins_data4):
 		#GPIO.setwarnings(False)
 		GPIO.setmode(GPIO.BOARD)
-		rs_pin = pin_rs
-		e_pin = pin_e
-		d_pin=pins_data4
+		self.rs_pin = pin_rs
+		self.e_pin = pin_e
+		self.d_pin=pins_data4
 		self.pin_init()	
 		self.dev_init()	
 
