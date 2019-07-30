@@ -104,9 +104,10 @@ if __name__ == '__main__':
 	a ="876543210"
 	b ="hgfedcba"
 	
-	for i in range(10):
+	for i in range(16):
 		lcd.clear()
 		lcd.goto(col=i,row=0)
+		time.sleep(2)
 
 
 
