@@ -105,6 +105,7 @@ if __name__ == '__main__':
 	b ="qpnmlkjihgfedcba"
 	
 	for i in range(10):
+		lcd.clear()
 		lcd.goto(0,0)
 		lcd.write_string(a)
 		lcd.goto(0,1)
@@ -115,8 +116,6 @@ if __name__ == '__main__':
 		a=a[-1]+a[:-1]
 		b=b[-1]+b[:-1]
 		time.sleep(1)
-
-
 
 
 
