@@ -107,7 +107,7 @@ if __name__ == '__main__':
 	for i in range(10):
 
 		lcd.goto(col=15,row=0)
-		lcd.write_string(ord(i))
+		lcd.write_string(str(i))
 		time.sleep(2)
 
 
