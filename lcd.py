@@ -88,7 +88,7 @@ class LCD:
 		GPIO.output(self.rs_pin, mode)
 		
 		for i in range (0,4):	
-			GPIO.output(d_pin[i],data&0x01)
+			GPIO.output(self.d_pin[i],data&0x01)
 			data = data>>1
 		self.enable_pulse()
 
