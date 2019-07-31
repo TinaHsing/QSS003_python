@@ -31,12 +31,12 @@
 #define LCD_Rows    2
 #define LCD_Cols    16
 #define LCD_BITS    4
-#define LCD_RS      9
-#define LCD_STRB    7
-#define LCD_D0      3
-#define LCD_D1      0
-#define LCD_D2      21
-#define LCD_D3      2
+#define LCD_RS      9   //gpio use wPi definition
+#define LCD_STRB    7   //gpio use wPi definition
+#define LCD_D0      3   //gpio use wPi definition
+#define LCD_D1      0   //gpio use wPi definition
+#define LCD_D2      21  //gpio use wPi definition
+#define LCD_D3      2   //gpio use wPi definition
 
 //LTC1865
 static uint8_t g_channel;
