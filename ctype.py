@@ -15,9 +15,6 @@ C12880.LED_Set_Current(3, 5) # set LED driver3 current to 5mA
 C12880.LCD_Clear()
 for i in range(0,16):
 	print(i)
-	#C12880.LCD_Clear()
-	#C12880.LCD_Test(j)
-	C12880.LCD_Write(0, i, 'A')
-	C12880.LCD_Write(1, i, 'a')
-	time.sleep(0.2)
+	C12880.LCD_Test(i)
+	time.sleep(1)
 
