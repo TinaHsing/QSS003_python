@@ -53,9 +53,9 @@ while (loop < 10):
 	#C12880.LCD_Clear()
 	C12880.LCD_Write(0, 1, b"Measuring....")
 
-	C12880.LED_Set_Current(1, 25) # set LED driver1 current to 25mA
-	C12880.LED_Set_Current(2, 15) # set LED driver2 current to 15mA
-	C12880.LED_Set_Current(3, 5) # set LED driver3 current to 5mA
+	C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to 25mA
+	C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to 25mA
+	C12880.LED_Set_Current(3, led3_current) # set LED driver3 current to 25mA
 
 	time.sleep(led_stable_time)
 
