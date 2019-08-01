@@ -232,7 +232,7 @@ void Setup()
  */
 void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
 {
-  int delayTime = 1, counter = 0; // delay time
+  int delayTime = 10, counter = 0; // delay time
   long startTime = 0;
 
   // Start clock cycle and set start pulse to signal start
