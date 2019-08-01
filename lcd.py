@@ -4,7 +4,7 @@ import time
 #Pin define
 LCD_RS = 5
 LCD_E = 7
-LCD_D4 =15
+LCD_D4 = 15
 LCD_D5 = 11
 LCD_D6 = 29
 LCD_D7 = 13
@@ -17,11 +17,11 @@ LCD_CMD = False
 
 
 #timing
-E_PULSE = 0.0005
-E_DELAY = 0.0005
-INIT_DELAY = 0.005
-D_DELAY = 0.0002
-CLEAR_DELAY = 0.002
+E_PULSE = 0.005
+E_DELAY = 0.005
+INIT_DELAY = 0.05
+D_DELAY = 0.002
+CLEAR_DELAY = 0.02
 
 class LCD:
 	def __init__(self,pin_rs, pin_e, pins_data4):
@@ -110,7 +110,7 @@ if __name__ == '__main__':
 
 		lcd.goto(col=15,row=0)
 		lcd.write_string(str(i))
-		time.sleep(2)
+		time.sleep(1)
 
 
 
