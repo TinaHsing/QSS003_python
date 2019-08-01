@@ -41,8 +41,8 @@ int_time = int(param[4])
 measb = 1
 fnameindex = 0
 black = 0
-loop = 1
-while loop:
+loop = 0
+while (loop < 10):
 	#while (measb):
 	#	if GPIO.input(pin_meas) == GPIO.HIGH:
 	#		measb = 0
@@ -79,5 +79,5 @@ while loop:
 
 	measb = 1
 	black = 0
-	loop = 0	#remark this line will loop always
+	loop = loop + 1	#remark this line will loop always
 	print("done")
