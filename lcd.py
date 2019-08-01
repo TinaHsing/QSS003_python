@@ -17,11 +17,11 @@ LCD_CMD = False
 
 
 #timing
-E_PULSE = 0.005
-E_DELAY = 0.005
-INIT_DELAY = 0.05
-D_DELAY = 0.002
-CLEAR_DELAY = 0.02
+E_PULSE = 0.0005
+E_DELAY = 0.0005
+INIT_DELAY = 0.005
+D_DELAY = 0.0002
+CLEAR_DELAY = 0.002
 
 class LCD:
 	def __init__(self,pin_rs, pin_e, pins_data4):
@@ -111,13 +111,4 @@ if __name__ == '__main__':
 		lcd.goto(col=15,row=0)
 		lcd.write_string(str(i))
 		time.sleep(1)
-
-
-
-
-
-
-
-
-		
 
