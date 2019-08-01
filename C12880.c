@@ -232,7 +232,7 @@ void Setup()
  */
 void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
 {
-  int delayTime = 1; // delay time
+  int delayTime = 1, counter = 0; // delay time
   long startTime = 0;
 
   // Start clock cycle and set start pulse to signal start
@@ -248,14 +248,17 @@ void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
   //printf("startTime = %d\n",startTime);
   //Sample for a period of time
   //for(int i = 0; i < 15; i++)
+  counter = 0;
   while ( (millis() - startTime) <= Int_time )
   {
+      counter++;
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
       digitalWrite(SPEC_CLK, LOW);
       delayMicroseconds(delayTime); 
   }
   //printf("endTime = %d\n",millis());
+  printf("counter = %d\n", counter);
 
   //Set SPEC_ST to low
   digitalWrite(SPEC_ST, LOW);
