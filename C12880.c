@@ -191,14 +191,19 @@ void LCD_Test(int j)
   }
   String[15] = 48 + j;
   String[16] = '\0';
-  LCD_Write(0, 0, String);
+  //LCD_Write(j, 0, String);
+  lcdPosition(g_lcdHandle, j, 0);
+  lcdPuts(g_lcdHandle, String[15]);
+
   for (i = 0; i < 15; i++)
   {
     String[i] = 97 + i + j;
   }
   String[15] = 48 + j;
   String[16] = '\0';
-  LCD_Write(0, 1, String);
+  //LCD_Write(j, 1, String);
+  lcdPosition(g_lcdHandle, j, 1);
+  lcdPuts(g_lcdHandle, String[15]);
 
 }
 
@@ -232,7 +237,7 @@ void Setup()
  */
 void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
 {
-  int delayTime = 10, counter = 0; // delay time
+  int delayTime = 1, counter = 0; // delay time
   long startTime = 0;
 
   // Start clock cycle and set start pulse to signal start
