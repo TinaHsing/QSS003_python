@@ -18,3 +18,4 @@ for i in range(0,10):
 	C12880.LCD_Clear()
 	C12880.LCD_Test(i)
 	time.sleep(1)
+
