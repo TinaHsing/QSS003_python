@@ -107,8 +107,8 @@ if __name__ == '__main__':
 	b ="hgfedcba"
 	
 	for i in range(10):
-
-		lcd.goto(col=15,row=0)
+		lcd.goto(col=i,row=0)
+		print(i)
 		lcd.write_string(str(i))
 		time.sleep(1)
 
