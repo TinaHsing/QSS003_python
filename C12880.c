@@ -33,10 +33,10 @@
 #define LCD_BITS    4
 #define LCD_RS      9   //gpio use wPi definition
 #define LCD_STRB    7   //gpio use wPi definition
-#define LCD_D4      3   //gpio use wPi definition
-#define LCD_D5      0   //gpio use wPi definition
-#define LCD_D6      21  //gpio use wPi definition
-#define LCD_D7      2   //gpio use wPi definition
+#define LCD_D0      3   //gpio use wPi definition
+#define LCD_D1      0   //gpio use wPi definition
+#define LCD_D2      21  //gpio use wPi definition
+#define LCD_D3      2   //gpio use wPi definition
 
 //LTC1865
 static uint8_t g_channel;
@@ -156,7 +156,7 @@ void LED_Set_Current(int led, int current)
 void LCD_Init()
 {
   //4-bit
-  g_lcdHandle = lcdInit(LCD_Rows, LCD_Cols, LCD_BITS, LCD_RS, LCD_STRB, 0, 0, 0, 0, LCD_D4, LCD_D5, LCD_D6, LCD_D7) ;
+  g_lcdHandle = lcdInit(LCD_Rows, LCD_Cols, LCD_BITS, LCD_RS, LCD_STRB, LCD_D0, LCD_D1, LCD_D2, LCD_D3, 0, 0, 0, 0) ;
 
   //if (g_lcdHandle < 0)
     //printf ("LCD_Init failed\n") ;
