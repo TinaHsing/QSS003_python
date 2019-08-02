@@ -185,25 +185,35 @@ void LCD_Test(int j)
   char String[17];
   int i = 0;
 
+#if 0
   for (i = 0; i < 15; i++)
   {
     String[i] = 65 + i + j;
   }
   String[15] = 48 + j;
   String[16] = '\0';
-  //LCD_Write(j, 0, String);
+  LCD_Write(j, 0, String);
+#else
+  String[0] = 48 + j;
+  String[1] = '\0';
   lcdPosition(g_lcdHandle, j, 0);
-  lcdPuts(g_lcdHandle, String[15]);
+  lcdPuts(g_lcdHandle, String);
+#endif
 
+#if 0
   for (i = 0; i < 15; i++)
   {
     String[i] = 97 + i + j;
   }
   String[15] = 48 + j;
   String[16] = '\0';
-  //LCD_Write(j, 1, String);
+  LCD_Write(j, 1, String);
+#else
+  String[0] = 48 + j;
+  String[1] = '\0';
   lcdPosition(g_lcdHandle, j, 1);
-  lcdPuts(g_lcdHandle, String[15]);
+  lcdPuts(g_lcdHandle, String);
+#endif
 
 }
 
