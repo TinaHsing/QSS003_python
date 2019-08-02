@@ -13,8 +13,8 @@ C12880.LED_Set_Current(1, 25) # set LED driver1 current to 25mA
 C12880.LED_Set_Current(2, 15) # set LED driver2 current to 15mA
 C12880.LED_Set_Current(3, 5) # set LED driver3 current to 5mA
 
-C12880.LCD_Clear()
 for i in range(0,10):
 	print(i)
+	C12880.LCD_Clear()
 	C12880.LCD_Test(i)
 	time.sleep(1)
