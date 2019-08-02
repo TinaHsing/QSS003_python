@@ -176,7 +176,7 @@ void LCD_Write(int x, int y, unsigned char *a_string)
   //sprintf(g_String, "%s", a_string);
   //printf("%s\n", g_String);
   lcdPosition(g_lcdHandle, x, y);
-  delayMicroseconds(100)
+  delayMicroseconds(100);
   lcdPuts(g_lcdHandle, a_string);
   //lcdPuts(g_lcdHandle, g_String);
 }
