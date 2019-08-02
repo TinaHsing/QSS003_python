@@ -13,9 +13,8 @@ data = (c_uint * 288)()
 #C12880.LED_Set_Current(2, 15) # set LED driver2 current to 15mA
 #C12880.LED_Set_Current(3, 5) # set LED driver3 current to 5mA
 
-for i in range(0,10):
-	print(i)
-	C12880.LCD_Clear()
-	C12880.LCD_Write(14,0, str(i).encode("UTF-8"))
-	time.sleep(1)
+text ="abcdefg"
+C12880.LCD_Clear()
+C12880.LCD_Write(8,0, text.encode("UTF-8"))
+time.sleep(1)
 
