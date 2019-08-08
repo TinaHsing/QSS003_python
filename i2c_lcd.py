@@ -30,4 +30,3 @@ except KeyboardInterrupt:
     print('關閉程式')
 finally:
     lcd.clear()
-

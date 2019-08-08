@@ -327,4 +327,3 @@ void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
   delayMicroseconds(delayTime);
 
 }
-

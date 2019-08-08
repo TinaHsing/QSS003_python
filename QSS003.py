@@ -31,7 +31,6 @@ lcd.write_string(ip)
 
 data = (c_uint * 288)() # data to store spectrum data
 
-
 #open file for parameter setting
 param = [0, 0, 0, 0, 0]
 if os.path.exists(SETTING_FILENAME):
