@@ -78,8 +78,8 @@ while (loop < 1):
 	fp.writelines(out)
 	fp.close()
 
-	lcd.clear()
-	lcd.cursor_pos = (0, 0)
+	#lcd.clear()
+	lcd.cursor_pos = (1, 0)
 	lcd.write_string("Writing finish")
 
 	if (black == 0):
