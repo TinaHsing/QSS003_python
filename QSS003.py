@@ -12,7 +12,7 @@ pin_black = 22	# gpio use board definition
 SETTING_FILENAME = "setting.txt"
 
 sys.modules['smbus'] = smbus2
-lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
+lcd = CharLCD('PCF8574', address=0x27, port=0, backlight_enabled=True)
 
 C12880 = cdll.LoadLibrary('/home/pi/QSS003_python//C12880.so')
 
@@ -81,7 +81,7 @@ while (loop < 1):
 
 	lcd.clear()
 	lcd.cursor_pos = (0, 0)
-	lcd.write_string("Writing finish")
+	lcd.write_string(b"Writing finish")
 
 	if (black == 0):
 		fnameindex = fnameindex + 1
