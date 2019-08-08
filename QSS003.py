@@ -49,7 +49,7 @@ measb = 1
 fnameindex = 0
 black = 0
 loop = 0
-while (loop < 10):
+while (loop < 1):
 	#while (measb):
 	#	if GPIO.input(pin_meas) == GPIO.HIGH:
 	#		measb = 0
