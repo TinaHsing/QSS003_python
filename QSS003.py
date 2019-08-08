@@ -1,12 +1,18 @@
 from ctypes import *
 import os
+import sys
 import time
+import smbus2
 import subprocess
 import RPi.GPIO as GPIO
+from RPLCD.i2c import CharLCD
 
 pin_meas = 18 	# gpio use board definition
 pin_black = 22	# gpio use board definition
 SETTING_FILENAME = "setting.txt"
+
+sys.modules['smbus'] = smbus2
+lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
 
 C12880 = cdll.LoadLibrary('/home/pi/QSS003_python//C12880.so')
 
@@ -19,8 +25,9 @@ ip = subprocess.check_output(["hostname","-I"])
 #print(ip)
 ip = ip[0:-2]
 #print(ip)
-C12880.LCD_Clear()
-C12880.LCD_Write(0, 0, ip)
+lcd.clear()
+lcd.cursor_pos = (0, 0)
+lcd.write_string(ip)
 
 data = (c_uint * 288)() # data to store spectrum data
 
@@ -50,8 +57,9 @@ while (loop < 10):
 	#		measb = 0
 	#		black = 1
 
-	#C12880.LCD_Clear()
-	C12880.LCD_Write(0, 1, b"Measuring....")
+	lcd.clear()
+	lcd.cursor_pos = (0, 0)
+	lcd.write_string("Measuring....")
 
 	C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to 25mA
 	C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to 25mA
@@ -71,8 +79,9 @@ while (loop < 10):
 	fp.writelines(out)
 	fp.close()
 
-	C12880.LCD_Clear()
-	C12880.LCD_Write(0, 0, b"Writing finish")
+	lcd.clear()
+	lcd.cursor_pos = (0, 0)
+	lcd.write_string("Writing finish")
 
 	if (black == 0):
 		fnameindex = fnameindex + 1
