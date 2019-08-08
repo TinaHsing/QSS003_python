@@ -241,8 +241,9 @@ void Setup()
   LED_Init(LED_Ctrl1);
   LED_Init(LED_Ctrl2);
   LED_Init(LED_Ctrl3);
-  //LCD
+#if 0  //LCD
   LCD_Init();
+#endif
 
 }
 
