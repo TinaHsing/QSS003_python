@@ -11,7 +11,7 @@ pin_meas = 18 	# gpio use board definition
 pin_black = 22	# gpio use board definition
 HOME_DIR = "/home/pi/QSS003_python/"
 SETTING_FILENAME = HOME_DIR + "setting.txt"
-C12880_LIB = HOME_DIR + C12880.so
+C12880_LIB = HOME_DIR + "C12880.so"
 
 sys.modules['smbus'] = smbus2
 lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
