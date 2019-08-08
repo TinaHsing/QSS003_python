@@ -6,7 +6,7 @@ sys.modules['smbus'] = smbus2
  
 from RPLCD.i2c import CharLCD
  
-lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
+lcd = CharLCD('PCF8574', address=0x27, port=0, backlight_enabled=True)
  
 index = 0
 str1 = "ABCDEFGHIJKLMNOP"
