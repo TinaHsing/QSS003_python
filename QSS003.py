@@ -9,12 +9,14 @@ from RPLCD.i2c import CharLCD
 
 pin_meas = 18 	# gpio use board definition
 pin_black = 22	# gpio use board definition
-SETTING_FILENAME = "/home/pi/QSS003_python/setting.txt"
+HOME_DIR = "/home/pi/QSS003_python/"
+SETTING_FILENAME = HOME_DIR + "setting.txt"
+C12880_LIB = HOME_DIR + C12880.so
 
 sys.modules['smbus'] = smbus2
 lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
 
-C12880 = cdll.LoadLibrary('/home/pi/QSS003_python//C12880.so')
+C12880 = cdll.LoadLibrary(C12880_LIB)
 
 # board initialization 
 C12880.Setup() # init spectrometer
@@ -72,6 +74,7 @@ while (loop < 1):
 		fname = "black.txt"
 	else:
 		fname = str(fnameindex) + ".txt"
+	fname = HOME_DIR + fname
 
 	C12880.ReadSpectrometer(int_time, data)
 
