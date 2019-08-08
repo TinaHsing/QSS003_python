@@ -58,7 +58,7 @@ while (loop < 1):
 
 	lcd.clear()
 	lcd.cursor_pos = (0, 0)
-	lcd.write_string(b"Measuring....")
+	lcd.write_string("Measuring....")
 
 	C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to 25mA
 	C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to 25mA
@@ -80,7 +80,7 @@ while (loop < 1):
 
 	lcd.clear()
 	lcd.cursor_pos = (0, 0)
-	lcd.write_string(b"Writing finish")
+	lcd.write_string("Writing finish")
 
 	if (black == 0):
 		fnameindex = fnameindex + 1
