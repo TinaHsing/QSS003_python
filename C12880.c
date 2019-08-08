@@ -27,7 +27,7 @@
 #define LED_MAX_Current   30  //ma
 #define LED_MAX_Step      32
 
-//LCD
+#if 0 //LCD
 #define LCD_Rows    2
 #define LCD_Cols    16
 #define LCD_BITS    4
@@ -37,16 +37,19 @@
 #define LCD_D1      0   //gpio use wPi definition
 #define LCD_D2      21  //gpio use wPi definition
 #define LCD_D3      2   //gpio use wPi definition
+#endif
 
 //LTC1865
 static uint8_t g_channel;
 
-//LCD
+#if 0 //LCD
 static int g_lcdHandle;
 //static char g_String[17];
+#endif
 
-//C12880
-//uint16_t data[SPEC_CHANNELS];
+#if 0 //C12880
+uint16_t data[SPEC_CHANNELS];
+#endif
 
 //LTC1865
 void LTC_Init(uint8_t a_channel, uint8_t firstch)
@@ -152,7 +155,7 @@ void LED_Set_Current(int led, int current)
     LED_Set_Ctrl_Current(LED_Ctrl1, current);
 }
 
-//LCD
+#if 0 //LCD
 void LCD_Init()
 {
   //4-bit
@@ -217,6 +220,7 @@ void LCD_Test(int j)
 #endif
 
 }
+#endif
 
 //C12880
 void Setup()
