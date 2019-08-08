@@ -23,11 +23,11 @@ GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_meas, GPIO.IN)
 ip = subprocess.check_output(["hostname","-I"])
 #print(ip)
-ip = ip[0:-2]
-#print(ip)
+ip_str = str(ip[0:-2])
+#print(ip_str)
 lcd.clear()
 lcd.cursor_pos = (0, 0)
-lcd.write_string(ip)
+lcd.write_string(ip_str)
 
 data = (c_uint * 288)() # data to store spectrum data
 
