@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
-#include <lcd.h>
+//#include <lcd.h>
 
 /*
  * Macro Definitions
