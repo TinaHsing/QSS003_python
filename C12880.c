@@ -265,12 +265,14 @@ void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
   digitalWrite(SPEC_ST, HIGH);
   delayMicroseconds(delayTime);
 
-  startTime = millis();
+  //startTime = millis();
+  startTime = micros();
   //printf("startTime = %d\n",startTime);
   //Sample for a period of time
   //for(int i = 0; i < 15; i++)
   counter = 0;
-  while ( (millis() - startTime) <= Int_time )
+  //while ( (millis() - startTime) <= Int_time )
+  while ( (micros() - startTime) <= Int_time )
   {
       counter++;
       digitalWrite(SPEC_CLK, HIGH);
