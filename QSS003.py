@@ -52,7 +52,7 @@ measb = 1
 fnameindex = 0
 black = 0
 loop = 0
-while (loop < 1):
+while (loop < 10):
 	#while (measb):
 	#	if GPIO.input(pin_meas) == GPIO.HIGH:
 	#		measb = 0
@@ -64,9 +64,9 @@ while (loop < 1):
 	lcd.cursor_pos = (0, 0)
 	lcd.write_string("Measuring....")
 
-	C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to 25mA
-	C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to 25mA
-	C12880.LED_Set_Current(3, led3_current) # set LED driver3 current to 25mA
+	C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to setting mA
+	C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to setting mA
+	C12880.LED_Set_Current(3, led3_current) # set LED driver3 current to setting mA
 
 	time.sleep(led_stable_time)
 
@@ -89,6 +89,10 @@ while (loop < 1):
 
 	if (black == 0):
 		fnameindex = fnameindex + 1
+
+	C12880.LED_Set_Current(1, 0) # set LED driver1 current to 0 mA
+	C12880.LED_Set_Current(2, 0) # set LED driver2 current to 0 mA
+	C12880.LED_Set_Current(3, 0) # set LED driver3 current to 0 mA
 
 	measb = 1
 	black = 0
