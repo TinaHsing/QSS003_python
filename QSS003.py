@@ -76,7 +76,8 @@ while (loop < 10):
 		fname = str(fnameindex) + ".txt"
 	fname = HOME_DIR + fname
 
-	C12880.ReadSpectrometer(1, data)
+	#C12880.ReadSpectrometer(1, data)
+	#time.sleep(0.001)
 	C12880.ReadSpectrometer(int_time, data)
 
 	out = [str(line) + '\n' for line in data] 
