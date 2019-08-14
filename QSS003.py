@@ -33,6 +33,7 @@ lcd.cursor_pos = (0, 0)
 lcd.write_string(ip)
 time.sleep(1)
 
+tmp_data = (c_uint * 288)() # data to store spectrum data
 data = (c_uint * 288)() # data to store spectrum data
 
 #open file for parameter setting
@@ -73,14 +74,20 @@ while (loop < 10):
 	if (black):
 		fname = "black.txt"
 	else:
-		fname = str(fnameindex) + ".txt"
+		tmp_name = "tmp_" + str(fnameindex) + ".txt"
+		fname = "data_" + str(fnameindex) + ".txt"
 	fname = HOME_DIR + fname
 
-	#C12880.ReadSpectrometer(1, data)
+	C12880.ReadSpectrometer(int_time, tmp_data)
 	#time.sleep(0.001)
 	C12880.ReadSpectrometer(int_time, data)
 
-	out = [str(line) + '\n' for line in data] 
+	out = [str(line) + '\n' for line in tmp_data]
+	fp = open(tmp_name, "w+")
+	fp.writelines(out)
+	fp.close()
+
+	out = [str(line) + '\n' for line in data]
 	fp = open(fname, "w+")
 	fp.writelines(out)
 	fp.close()
