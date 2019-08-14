@@ -287,7 +287,7 @@ void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
   digitalWrite(SPEC_ST, LOW);
 
   //Sample for a period of time
-  for(int i = 0; i < 85; i++)
+  for(int i = 0; i < 86; i++)
   {
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
