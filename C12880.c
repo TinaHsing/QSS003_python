@@ -21,7 +21,7 @@
 #define SPEC_CHANNELS    288 // New Spec Channel
 
 //LED
-//#define LED_Ctrl1         8  //gpio use wPi definition
+#define LED_Ctrl1         26  //8  //gpio use wPi definition
 #define LED_Ctrl2         1  //gpio use wPi definition
 #define LED_Ctrl3         4  //gpio use wPi definition
 #define LED_MAX_Current   30  //ma
@@ -151,8 +151,8 @@ void LED_Set_Current(int led, int current)
     LED_Set_Ctrl_Current(LED_Ctrl3, current);
   else if (led == 2)
     LED_Set_Ctrl_Current(LED_Ctrl2, current);
-  //else
-    //LED_Set_Ctrl_Current(LED_Ctrl1, current);
+  else
+    LED_Set_Ctrl_Current(LED_Ctrl1, current);
 }
 
 #if 0 //LCD
@@ -238,7 +238,7 @@ void Setup()
   //LTC1865
   LTC_Init(0, 0);
   //LED
-  //LED_Init(LED_Ctrl1);
+  LED_Init(LED_Ctrl1);
   LED_Init(LED_Ctrl2);
   LED_Init(LED_Ctrl3);
 #if 0  //LCD
