@@ -19,7 +19,7 @@
 #define SPEC_ST          22
 #define SPEC_CLK         23
 #define SPEC_CHANNELS    288 // New Spec Channel
-#define Period_Time      85
+#define Period_Time      87
 
 //LED
 //#define LED_Ctrl1         8  //gpio use wPi definition
@@ -267,12 +267,22 @@ void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
   digitalWrite(SPEC_ST, HIGH);
   delayMicroseconds(delayTime);
 
+  //Sample for a small amount of time
+  for(int i = 0; i < 7; i++)
+  {
+      digitalWrite(SPEC_CLK, HIGH);
+      delayMicroseconds(delayTime);
+      digitalWrite(SPEC_CLK, LOW);
+      delayMicroseconds(delayTime); 
+  }
+
   //startTime = millis();
   startTime = micros();
   //printf("startTime = %d\n",startTime);
   //Sample for a period of time
   //for(int i = 0; i < 15; i++)
   counter = 0;
+
   //while ( (millis() - startTime) <= Int_time )
   while ( (micros() - startTime) <= Int_time )
   {
@@ -297,12 +307,6 @@ void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
       delayMicroseconds(delayTime); 
   }
 
-  //One more clock pulse before the actual read
-  digitalWrite(SPEC_CLK, HIGH);
-  delayMicroseconds(delayTime);
-  digitalWrite(SPEC_CLK, LOW);
-  delayMicroseconds(delayTime);
-
   //Read from SPEC_VIDEO
   for(int i = 0; i < SPEC_CHANNELS; i++)
   {
@@ -314,20 +318,5 @@ void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
       digitalWrite(SPEC_CLK, LOW);
       delayMicroseconds(delayTime);     
   }
-
-  //Set SPEC_ST to high
-  digitalWrite(SPEC_ST, HIGH);
-
-  //Sample for a small amount of time
-  for(int i = 0; i < 7; i++)
-  {
-      digitalWrite(SPEC_CLK, HIGH);
-      delayMicroseconds(delayTime);
-      digitalWrite(SPEC_CLK, LOW);
-      delayMicroseconds(delayTime); 
-  }
-
-  digitalWrite(SPEC_CLK, HIGH);
-  delayMicroseconds(delayTime);
 
 }
