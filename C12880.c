@@ -19,6 +19,7 @@
 #define SPEC_ST          22
 #define SPEC_CLK         23
 #define SPEC_CHANNELS    288 // New Spec Channel
+#define Period_Time      85
 
 //LED
 //#define LED_Ctrl1         8  //gpio use wPi definition
@@ -288,7 +289,7 @@ void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
   digitalWrite(SPEC_ST, LOW);
 
   //Sample for a period of time
-  for(int i = 0; i < 86; i++)
+  for(int i = 0; i < Period_Time; i++)
   {
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
