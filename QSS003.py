@@ -50,8 +50,8 @@ int_time = int(param[4])
 
 #wait until black or meas buttom is pressed
 meas = 1
-fnameindex = 0
 black = 1
+fnameindex = 0
 loop = 0
 while (loop < 10):
 	while (meas and black):
@@ -100,7 +100,7 @@ while (loop < 10):
 	#lcd.cursor_pos = (1, 0)
 	#lcd.write_string("Writing finish")
 
-	if (black == 0):
+	if (meas == 0):
 		fnameindex = fnameindex + 1
 
 	C12880.LED_Set_Current(1, 0) # set LED driver1 current to 0 mA
