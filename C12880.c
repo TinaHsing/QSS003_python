@@ -312,17 +312,14 @@ void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
   {
       //data[i] = analogRead(SPEC_VIDEO);
       data[i] = LTC_Read(0);
-  
+      printf("%d, ", data[i]);
+
       digitalWrite(SPEC_CLK, HIGH);
       delayMicroseconds(delayTime);
       digitalWrite(SPEC_CLK, LOW);
       delayMicroseconds(delayTime);     
   }
 
-  for(int i = 0; i < SPEC_CHANNELS; i++)
-  {
-      printf("%s, ", data[i]);
-      printf("\n");
-  }
+  printf("\n");
 }
 
