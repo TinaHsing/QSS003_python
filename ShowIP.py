@@ -1,8 +1,9 @@
-import smbus2
+#import sys
+#import smbus2
 import subprocess
 from RPLCD.i2c import CharLCD
 
-sys.modules['smbus'] = smbus2
+#sys.modules['smbus'] = smbus2
 lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
 
 ip = subprocess.check_output(["hostname","-I"])

@@ -2,7 +2,6 @@ from ctypes import *
 import os
 import sys
 import time
-import smbus2
 import RPi.GPIO as GPIO
 from RPLCD.i2c import CharLCD
 
@@ -11,7 +10,6 @@ pin_black = 22	# gpio use board definition
 HOME_DIR = "/home/pi/QSS003_python/"
 C12880_LIB = HOME_DIR + "C12880.so"
 
-sys.modules['smbus'] = smbus2
 lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
 
 C12880 = cdll.LoadLibrary(C12880_LIB)
