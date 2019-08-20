@@ -41,7 +41,7 @@ fnameindex = 0
 
 #open file for parameter setting
 param = [0, 0, 0, 0, 0]
-if !os.path.exists(SETTING_FILENAME):
+if os.path.exists(SETTING_FILENAME) == False:
 	lcd.clear()
 	lcd.cursor_pos = (0, 0)
 	lcd.write_string("setting.txt")
