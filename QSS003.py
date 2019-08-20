@@ -14,7 +14,7 @@ SETTING_FILENAME = HOME_DIR + "setting.txt"
 C12880_LIB = HOME_DIR + "C12880.so"
 
 #sys.modules['smbus'] = smbus2
-#lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
+lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
 
 C12880 = cdll.LoadLibrary(C12880_LIB)
 
@@ -28,12 +28,11 @@ ip = str(ip)
 #print(ip)
 ip = ip[2:-4]
 #print(ip)
-#lcd.clear()
-#lcd.cursor_pos = (0, 0)
-#lcd.write_string(ip)
+lcd.clear()
+lcd.cursor_pos = (0, 0)
+lcd.write_string(ip)
 #time.sleep(1)
 
-#tmp_data = (c_uint * 288)() # data to store spectrum data
 data = (c_uint * 288)() # data to store spectrum data
 
 #open file for parameter setting
@@ -64,9 +63,9 @@ while (loop < 10):
 			black = 0
 			print("black low")
 
-	#lcd.clear()
-	#lcd.cursor_pos = (0, 0)
-	#lcd.write_string("Measuring....")
+	lcd.clear()
+	lcd.cursor_pos = (0, 0)
+	lcd.write_string("Measuring....")
 
 	C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to setting mA
 	C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to setting mA
@@ -81,14 +80,7 @@ while (loop < 10):
 		fname = "data_" + str(fnameindex) + ".txt"
 	fname = HOME_DIR + fname
 
-	#C12880.ReadSpectrometer(int_time, tmp_data)
-	#time.sleep(0.001)
 	C12880.ReadSpectrometer(int_time, data)
-
-	#out = [str(line) + '\n' for line in tmp_data]
-	#fp = open(tmp_name, "w+")
-	#fp.writelines(out)
-	#fp.close()
 
 	out = [str(line) + '\n' for line in data]
 	fp = open(fname, "w+")
@@ -96,9 +88,9 @@ while (loop < 10):
 	fp.writelines(out)
 	fp.close()
 
-	#lcd.clear()
-	#lcd.cursor_pos = (1, 0)
-	#lcd.write_string("Writing finish")
+	lcd.clear()
+	lcd.cursor_pos = (1, 0)
+	lcd.write_string("Writing finish")
 
 	if (meas == 0):
 		fnameindex = fnameindex + 1
