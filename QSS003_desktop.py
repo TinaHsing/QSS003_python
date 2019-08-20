@@ -42,11 +42,11 @@ if len(sys.argv) < 6:
 	error_str = str(sys.argv[0]) + " led1_current led2_current led3_current led_stable_time int_time"
 	print(error_str)
 else:
-	led1_current = int(sys.argv[0])
-	led2_current = int(sys.argv[0])
-	led3_current = int(sys.argv[0])
-	led_stable_time = float(sys.argv[0])
-	int_time = int(sys.argv[0])
+	led1_current = int(sys.argv[1])
+	led2_current = int(sys.argv[2])
+	led3_current = int(sys.argv[3])
+	led_stable_time = float(sys.argv[4])
+	int_time = int(sys.argv[5])
 
 	while (1):
 		#wait until black or meas buttom is pressed
@@ -73,7 +73,7 @@ else:
 		if (black == 0):
 			fname = "black.txt"
 		else:
-			fname = "data_" + str(fnameindex) + ".txt"
+			fname = "desktop_" + str(fnameindex) + ".txt"
 		fname = HOME_DIR + fname
 
 		# change C12880 int time in command line
