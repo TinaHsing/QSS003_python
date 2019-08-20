@@ -3,7 +3,6 @@ import os
 import sys
 import time
 import smbus2
-import subprocess
 import RPi.GPIO as GPIO
 from RPLCD.i2c import CharLCD
 
@@ -23,15 +22,6 @@ C12880.Setup() # init spectrometer
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_meas, GPIO.IN)
-ip = subprocess.check_output(["hostname","-I"])
-ip = str(ip)
-#print(ip)
-ip = ip[2:-4]
-#print(ip)
-lcd.clear()
-lcd.cursor_pos = (0, 0)
-lcd.write_string(ip)
-#time.sleep(1)
 
 data = (c_uint * 288)() # data to store spectrum data
 meas = 1
