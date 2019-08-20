@@ -13,7 +13,7 @@ HOME_DIR = "/home/pi/QSS003_python/"
 SETTING_FILENAME = HOME_DIR + "setting.txt"
 C12880_LIB = HOME_DIR + "C12880.so"
 
-#sys.modules['smbus'] = smbus2
+sys.modules['smbus'] = smbus2
 lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
 
 C12880 = cdll.LoadLibrary(C12880_LIB)
@@ -51,11 +51,9 @@ int_time = int(param[4])
 meas = 1
 black = 1
 fnameindex = 0
-loop = 0
-while (loop < 10):
+#loop = 0
+while (1):
 	while (meas and black):
-		#tmp = "meas = " + str(meas) + " , black = " + str(black)
-		#print(tmp)
 		if GPIO.input(pin_meas) == GPIO.LOW:
 			meas = 0
 			print("meas low")
@@ -67,19 +65,21 @@ while (loop < 10):
 	lcd.cursor_pos = (0, 0)
 	lcd.write_string("Measuring....")
 
+	# change LED setting in setting.txt
 	C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to setting mA
 	C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to setting mA
 	C12880.LED_Set_Current(3, led3_current) # set LED driver3 current to setting mA
 
+	# change LED delay time in setting.txt
 	time.sleep(led_stable_time)
 
 	if (black == 0):
 		fname = "black.txt"
 	else:
-		#tmp_name = "tmp_" + str(fnameindex) + ".txt"
 		fname = "data_" + str(fnameindex) + ".txt"
 	fname = HOME_DIR + fname
 
+	# change C12880 int time in setting.txt
 	C12880.ReadSpectrometer(int_time, data)
 
 	out = [str(line) + '\n' for line in data]
@@ -101,5 +101,5 @@ while (loop < 10):
 
 	meas = 1
 	black = 1
-	loop = loop + 1	#remark this line will loop always
+	#loop = loop + 1
 	print("done")
