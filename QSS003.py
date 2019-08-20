@@ -34,72 +34,77 @@ lcd.write_string(ip)
 #time.sleep(1)
 
 data = (c_uint * 288)() # data to store spectrum data
-
-#open file for parameter setting
-param = [0, 0, 0, 0, 0]
-if os.path.exists(SETTING_FILENAME):
-   param = [line.rstrip('\n') for line in open(SETTING_FILENAME)]
-#print(param)
-
-led1_current = int(param[0])
-led2_current = int(param[1])
-led3_current = int(param[2])
-led_stable_time = float(param[3])
-int_time = int(param[4])
-
-#wait until black or meas buttom is pressed
 meas = 1
 black = 1
 fnameindex = 0
 #loop = 0
-while (1):
-	while (meas and black):
-		if GPIO.input(pin_meas) == GPIO.LOW:
-			meas = 0
-			print("meas low")
-		if GPIO.input(pin_black) == GPIO.LOW:
-			black = 0
-			print("black low")
 
+#open file for parameter setting
+param = [0, 0, 0, 0, 0]
+if !os.path.exists(SETTING_FILENAME):
 	lcd.clear()
 	lcd.cursor_pos = (0, 0)
-	lcd.write_string("Measuring....")
-
-	# change LED setting in setting.txt
-	C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to setting mA
-	C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to setting mA
-	C12880.LED_Set_Current(3, led3_current) # set LED driver3 current to setting mA
-
-	# change LED delay time in setting.txt
-	time.sleep(led_stable_time)
-
-	if (black == 0):
-		fname = "black.txt"
-	else:
-		fname = "data_" + str(fnameindex) + ".txt"
-	fname = HOME_DIR + fname
-
-	# change C12880 int time in setting.txt
-	C12880.ReadSpectrometer(int_time, data)
-
-	out = [str(line) + '\n' for line in data]
-	fp = open(fname, "w+")
-	#print(out)
-	fp.writelines(out)
-	fp.close()
-
-	lcd.clear()
+	lcd.write_string("setting.txt")
 	lcd.cursor_pos = (1, 0)
-	lcd.write_string("Writing finish")
+	lcd.write_string("not found")
+else:
+	param = [line.rstrip('\n') for line in open(SETTING_FILENAME)]
+	#print(param)
+	led1_current = int(param[0])
+	led2_current = int(param[1])
+	led3_current = int(param[2])
+	led_stable_time = float(param[3])
+	int_time = int(param[4])	
 
-	if (meas == 0):
-		fnameindex = fnameindex + 1
+	while (1):
+		#wait until black or meas buttom is pressed
+		while (meas and black):
+			if GPIO.input(pin_meas) == GPIO.LOW:
+				meas = 0
+				print("meas low")
+			if GPIO.input(pin_black) == GPIO.LOW:
+				black = 0
+				print("black low")
 
-	C12880.LED_Set_Current(1, 0) # set LED driver1 current to 0 mA
-	C12880.LED_Set_Current(2, 0) # set LED driver2 current to 0 mA
-	C12880.LED_Set_Current(3, 0) # set LED driver3 current to 0 mA
+		lcd.clear()
+		lcd.cursor_pos = (0, 0)
+		lcd.write_string("Measuring....")
 
-	meas = 1
-	black = 1
-	#loop = loop + 1
-	print("done")
+		# change LED setting in setting.txt
+		C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to setting mA
+		C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to setting mA
+		C12880.LED_Set_Current(3, led3_current) # set LED driver3 current to setting mA
+
+		# change LED delay time in setting.txt
+		time.sleep(led_stable_time)
+
+		if (black == 0):
+			fname = "black.txt"
+		else:
+			fname = "data_" + str(fnameindex) + ".txt"
+		fname = HOME_DIR + fname
+
+		# change C12880 int time in setting.txt
+		C12880.ReadSpectrometer(int_time, data)
+
+		out = [str(line) + '\n' for line in data]
+		fp = open(fname, "w+")
+		#print(out)
+		fp.writelines(out)
+		fp.close()
+
+		#lcd.clear()
+		lcd.cursor_pos = (1, 0)
+		lcd.write_string("Writing finish")
+
+		if (meas == 0):
+			fnameindex = fnameindex + 1
+
+		C12880.LED_Set_Current(1, 0) # set LED driver1 current to 0 mA
+		C12880.LED_Set_Current(2, 0) # set LED driver2 current to 0 mA
+		C12880.LED_Set_Current(3, 0) # set LED driver3 current to 0 mA
+
+		meas = 1
+		black = 1
+		#loop = loop + 1
+		print("done")
