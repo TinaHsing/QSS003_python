@@ -319,5 +319,10 @@ void ReadSpectrometer(unsigned long Int_time, unsigned int * data)
       delayMicroseconds(delayTime);     
   }
 
+  for(int i = 0; i < SPEC_CHANNELS; i++)
+  {
+      printf("%s, ", data[i]);
+      printf("\n");
+  }
 }
 
