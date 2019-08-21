@@ -2,6 +2,7 @@ from ctypes import *
 import os
 #import sys
 import time
+import subprocess
 import RPi.GPIO as GPIO
 from RPLCD.i2c import CharLCD
 
@@ -66,7 +67,7 @@ else:
 				black = 0
 				print("black low")
 			if GPIO.input(pin_dark) == GPIO.LOW:
-				self.ShowIP()
+				ShowIP()
 				print("meas low")
 
 		lcd.clear()
