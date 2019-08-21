@@ -80,12 +80,10 @@ else:
 			lcd.cursor_pos = (0, 0)
 			lcd.write_string("Measuring....")
 
-			# change LED setting in setting.txt
-			C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to setting mA
-			C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to setting mA
-			C12880.LED_Set_Current(3, led3_current) # set LED driver3 current to setting mA
+			C12880.LED_Set_Current(1, led1_current)
+			C12880.LED_Set_Current(2, led2_current)
+			C12880.LED_Set_Current(3, led3_current)
 
-			# change LED delay time in setting.txt
 			time.sleep(led_stable_time)
 
 			if (black == 0):
@@ -94,7 +92,6 @@ else:
 				fname = "data_" + str(fnameindex) + ".txt"
 			fname = HOME_DIR + fname
 
-			# change C12880 int time in setting.txt
 			C12880.ReadSpectrometer(int_time, data)
 
 			out = [str(line) + '\n' for line in data]
