@@ -27,6 +27,7 @@ GPIO.setup(pin_dark, GPIO.IN)
 data = (c_uint * 288)() # data to store spectrum data
 meas = 1
 black = 1
+dark = 1
 fnameindex = 0
 #loop = 0
 
@@ -59,7 +60,7 @@ else:
 
 	while (1):
 		#wait until black or meas buttom is pressed
-		while (meas and black):
+		while (meas and black and dark):
 			if GPIO.input(pin_meas) == GPIO.LOW:
 				meas = 0
 				print("meas low")
@@ -67,8 +68,9 @@ else:
 				black = 0
 				print("black low")
 			if GPIO.input(pin_dark) == GPIO.LOW:
-				ShowIP()
+				dark = 0
 				print("meas low")
+				ShowIP()
 
 		lcd.clear()
 		lcd.cursor_pos = (0, 0)
