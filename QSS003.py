@@ -73,6 +73,7 @@ else:
 
 		if (dark == 0):
 			ShowIP()
+			time.sleep(1)
 			dark = 1
 		else:
 			lcd.clear()
