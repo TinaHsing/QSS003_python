@@ -72,45 +72,47 @@ else:
 				print("meas low")
 				ShowIP()
 
-		lcd.clear()
-		lcd.cursor_pos = (0, 0)
-		lcd.write_string("Measuring....")
+		if ( (meas == 0) or (black == 0) ) and (dark == 1)
+			lcd.clear()
+			lcd.cursor_pos = (0, 0)
+			lcd.write_string("Measuring....")
 
-		# change LED setting in setting.txt
-		C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to setting mA
-		C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to setting mA
-		C12880.LED_Set_Current(3, led3_current) # set LED driver3 current to setting mA
+			# change LED setting in setting.txt
+			C12880.LED_Set_Current(1, led1_current) # set LED driver1 current to setting mA
+			C12880.LED_Set_Current(2, led2_current) # set LED driver2 current to setting mA
+			C12880.LED_Set_Current(3, led3_current) # set LED driver3 current to setting mA
 
-		# change LED delay time in setting.txt
-		time.sleep(led_stable_time)
+			# change LED delay time in setting.txt
+			time.sleep(led_stable_time)
 
-		if (black == 0):
-			fname = "black.txt"
-		else:
-			fname = "data_" + str(fnameindex) + ".txt"
-		fname = HOME_DIR + fname
+			if (black == 0):
+				fname = "black.txt"
+			else:
+				fname = "data_" + str(fnameindex) + ".txt"
+			fname = HOME_DIR + fname
 
-		# change C12880 int time in setting.txt
-		C12880.ReadSpectrometer(int_time, data)
+			# change C12880 int time in setting.txt
+			C12880.ReadSpectrometer(int_time, data)
 
-		out = [str(line) + '\n' for line in data]
-		fp = open(fname, "w+")
-		#print(out)
-		fp.writelines(out)
-		fp.close()
+			out = [str(line) + '\n' for line in data]
+			fp = open(fname, "w+")
+			#print(out)
+			fp.writelines(out)
+			fp.close()
 
-		#lcd.clear()
-		lcd.cursor_pos = (1, 0)
-		lcd.write_string("Writing finish")
+			#lcd.clear()
+			lcd.cursor_pos = (1, 0)
+			lcd.write_string("Writing finish")
 
-		if (meas == 0):
-			fnameindex = fnameindex + 1
+			if (meas == 0):
+				fnameindex = fnameindex + 1
 
-		C12880.LED_Set_Current(1, 0) # set LED driver1 current to 0 mA
-		C12880.LED_Set_Current(2, 0) # set LED driver2 current to 0 mA
-		C12880.LED_Set_Current(3, 0) # set LED driver3 current to 0 mA
+			C12880.LED_Set_Current(1, 0) # set LED driver1 current to 0 mA
+			C12880.LED_Set_Current(2, 0) # set LED driver2 current to 0 mA
+			C12880.LED_Set_Current(3, 0) # set LED driver3 current to 0 mA
 
 		meas = 1
 		black = 1
+		dark = 1
 		#loop = loop + 1
 		print("done")
