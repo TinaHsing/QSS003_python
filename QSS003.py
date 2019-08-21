@@ -7,6 +7,7 @@ from RPLCD.i2c import CharLCD
 
 pin_meas = 18 	# gpio use board definition
 pin_black = 22	# gpio use board definition
+pin_dark = 26	# gpio use board definition
 HOME_DIR = "/home/pi/QSS003_python/"
 SETTING_FILENAME = HOME_DIR + "setting.txt"
 C12880_LIB = HOME_DIR + "C12880.so"
@@ -18,14 +19,25 @@ C12880 = cdll.LoadLibrary(C12880_LIB)
 # board initialization 
 C12880.Setup() # init spectrometer
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_meas, GPIO.IN)
+GPIO.setup(pin_black, GPIO.IN)
+GPIO.setup(pin_dark, GPIO.IN)
 
 data = (c_uint * 288)() # data to store spectrum data
 meas = 1
 black = 1
 fnameindex = 0
 #loop = 0
+
+def ShowIP():
+	ip = subprocess.check_output(["hostname","-I"])
+	ip = str(ip)
+	#print(ip)
+	ip = ip[2:-4]
+	#print(ip)
+	lcd.clear()
+	lcd.cursor_pos = (0, 0)
+	lcd.write_string(ip)
 
 #open file for parameter setting
 param = [0, 0, 0, 0, 0]
@@ -53,6 +65,9 @@ else:
 			if GPIO.input(pin_black) == GPIO.LOW:
 				black = 0
 				print("black low")
+			if GPIO.input(pin_dark) == GPIO.LOW:
+				self.ShowIP()
+				print("meas low")
 
 		lcd.clear()
 		lcd.cursor_pos = (0, 0)
