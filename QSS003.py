@@ -69,10 +69,11 @@ else:
 				print("black low")
 			if GPIO.input(pin_dark) == GPIO.LOW:
 				dark = 0
-				print("meas low")
-				ShowIP()
+				print("dark low")
 
-		if ( (meas == 0) or (black == 0) ) and (dark == 1)
+		if (dark == 0):
+			ShowIP()
+		else:
 			lcd.clear()
 			lcd.cursor_pos = (0, 0)
 			lcd.write_string("Measuring....")
