@@ -73,6 +73,7 @@ else:
 
 		if (dark == 0):
 			ShowIP()
+			dark = 1
 		else:
 			lcd.clear()
 			lcd.cursor_pos = (0, 0)
@@ -112,8 +113,8 @@ else:
 			C12880.LED_Set_Current(2, 0) # set LED driver2 current to 0 mA
 			C12880.LED_Set_Current(3, 0) # set LED driver3 current to 0 mA
 
-		meas = 1
-		black = 1
-		dark = 1
+			meas = 1
+			black = 1
+
 		#loop = loop + 1
 		print("done")
