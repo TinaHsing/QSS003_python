@@ -1,4 +1,3 @@
-#import sys
 import time
 import subprocess
 from RPLCD.i2c import CharLCD
