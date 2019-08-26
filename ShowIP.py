@@ -7,16 +7,14 @@ HOME_DIR = "/home/pi/QSS003_python/"
 IP_FILENAME = HOME_DIR + "IP.txt"
 
 ip = subprocess.check_output(["hostname","-I"])
-ip = str(ip)
 
 fp = open(IP_FILENAME, "w+")
-while (ip == ""):
-	fp.writelines(ip)
+while (ip == "b'\n'"):
 	fp.writelines("NO IP\n")
 	time.sleep(1)
 	ip = subprocess.check_output(["hostname","-I"])
-	ip = str(ip)
 
+ip = str(ip)
 print(ip)
 fp.writelines(ip)
 fp.writelines("\n")
