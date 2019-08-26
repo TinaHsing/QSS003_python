@@ -16,7 +16,7 @@ C12880_LIB = HOME_DIR + "C12880.so"
 lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
 lcd.clear()
 lcd.cursor_pos = (0, 0)
-lcd.write_strin("initialization")
+lcd.write_string("Initialization")
 time.sleep(1)
 C12880 = cdll.LoadLibrary(C12880_LIB)
 
@@ -61,7 +61,7 @@ else:
 	led_stable_time = float(param[3])
 	int_time = int(param[4])	
 
-	lce.clear(0
+	lcd.clear()
 	lcd.cursor_pos = (0, 0)
 	lcd.write_string("Please press")
 	lcd.cursor_pos = (1, 0)
