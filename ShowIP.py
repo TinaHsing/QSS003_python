@@ -3,8 +3,15 @@ import subprocess
 from RPLCD.i2c import CharLCD
 
 lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
+HOME_DIR = "/home/pi/QSS003_python/"
+IP_FILENAME = HOME_DIR + "IP.txt"
 
 ip = subprocess.check_output(["hostname","-I"])
+fp = open(IP_FILENAME, "w+")
+print(ip)
+fp.writelines(ip)
+fp.close()
+
 ip = str(ip)
 #print(ip)
 ip = ip[2:-4]
