@@ -9,14 +9,18 @@ IP_FILENAME = HOME_DIR + "IP.txt"
 ip = subprocess.check_output(["hostname","-I"])
 ip = str(ip)
 
+fp = open(IP_FILENAME, "w+")
 while (ip == ""):
+	fp.writelines(ip)
+	fp.writelines("NO IP\n")
+	time.sleep(1)
 	ip = subprocess.check_output(["hostname","-I"])
 	ip = str(ip)
 
-#print(ip)
-#fp = open(IP_FILENAME, "w+")
-#fp.writelines(ip)
-#fp.close()
+print(ip)
+fp.writelines(ip)
+fp.writelines("\n")
+fp.close()
 
 ip = ip[2:-4]
 #print(ip)
