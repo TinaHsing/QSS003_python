@@ -7,13 +7,13 @@ HOME_DIR = "/home/pi/QSS003_python/"
 IP_FILENAME = HOME_DIR + "IP.txt"
 
 ip = subprocess.check_output(["hostname","-I"])
-fp = open(IP_FILENAME, "w+")
+ip = str(ip)
 print(ip)
+
+fp = open(IP_FILENAME, "w+")
 fp.writelines(ip)
 fp.close()
 
-ip = str(ip)
-#print(ip)
 ip = ip[2:-4]
 #print(ip)
 lcd.clear()
