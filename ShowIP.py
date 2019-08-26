@@ -17,10 +17,9 @@ while (ip == ""):
 ip = str(ip)
 print(ip)
 fp.writelines(ip)
-fp.writelines("\n")
 fp.close()
 
-#ip = ip[2:-4]	#only for python3
+#ip = ip[2:-4]	# only for python3
 #print(ip)
 lcd.clear()
 lcd.cursor_pos = (0, 0)
