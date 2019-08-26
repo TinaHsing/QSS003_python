@@ -10,7 +10,7 @@ ip = subprocess.check_output(["hostname","-I"])
 ip = str(ip)	# only for python3
 
 fp = open(IP_FILENAME, "w+")
-while (len(ip) < 5):
+while (len(ip) < 9):
 	fp.writelines("NO IP\n")
 	time.sleep(1)
 	ip = subprocess.check_output(["hostname","-I"])
