@@ -8,11 +8,15 @@ IP_FILENAME = HOME_DIR + "IP.txt"
 
 ip = subprocess.check_output(["hostname","-I"])
 ip = str(ip)
-print(ip)
 
-fp = open(IP_FILENAME, "w+")
-fp.writelines(ip)
-fp.close()
+while (ip == ""):
+	ip = subprocess.check_output(["hostname","-I"])
+	ip = str(ip)
+
+#print(ip)
+#fp = open(IP_FILENAME, "w+")
+#fp.writelines(ip)
+#fp.close()
 
 ip = ip[2:-4]
 #print(ip)
