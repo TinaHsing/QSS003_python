@@ -11,7 +11,10 @@ HOME_DIR = "/home/pi/QSS003_python/"
 C12880_LIB = HOME_DIR + "C12880.so"
 
 lcd = CharLCD('PCF8574', address=0x27, port=1, backlight_enabled=True)
-
+lcd.clear()
+lcd.cursor_pos = (0, 0)
+lcd.write_string("Initialization")
+time.sleep(1)
 C12880 = cdll.LoadLibrary(C12880_LIB)
 
 # board initialization 
@@ -35,6 +38,12 @@ else:
 	led3_current = int(sys.argv[3])
 	led_stable_time = float(sys.argv[4])
 	int_time = int(sys.argv[5])
+
+	lcd.clear()
+	lcd.cursor_pos = (0, 0)
+	lcd.write_string("Please press")
+	lcd.cursor_pos = (1, 0)
+	lcd.write_string("the button")
 
 	while (1):
 		#wait until black or meas buttom is pressed
