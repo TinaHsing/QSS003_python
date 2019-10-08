@@ -1,5 +1,19 @@
 # This is the note for TFT.py
-Use the ST7735 library from [github.com/cskau/Python_ST7735](https://github.com/cskau/Python_ST7735)
+Use the ST7735 library from [github.com/cskau/Python_ST7735](https://github.com/cskau/Python_ST7735), for installation, please referece the link
+
+##To enable spi1 in raspberry 
+edit the config.txt in /boot/config.txt
+
+Add 
+```bash
+dtparam=spi=on
+dtoverlay=spi1-1cs
+```
+Check by
+``` bash
+ls /dev/spi*
+```
+
 ## pin connection for TFT module
 + VCC 	==> 3.3V
 + GND 	==> GND
