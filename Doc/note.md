@@ -1,7 +1,7 @@
 # This is the note for TFT.py
 Use the ST7735 library from [github.com/cskau/Python_ST7735](https://github.com/cskau/Python_ST7735), for installation, please referece the link
 
-##To enable spi1 in raspberry 
+## To enable spi1 in raspberry 
 edit the config.txt in /boot/config.txt
 
 Add 
