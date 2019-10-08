@@ -10,8 +10,11 @@ Use the ST7735 library from [github.com/cskau/Python_ST7735](https://github.com/
 + SCK 	==> SCLK (SPI1) (BCM 21, WiPi 29, physical 40)
 + LED 	==> 5V for lighter
 
+## Raspberry Pi pin out for SPI section
+![GITHUB](https://github.com/TinaHsing/QSS003_python/blob/master/Doc/spi_pinout.png)
+
 ## Modification for QSS003_PI_2
 + pin 12 is CTRL2 now need to change to SPI1.CE0
-+
+
 
 
