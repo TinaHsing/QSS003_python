@@ -1,5 +1,5 @@
 from PIL import Image
-from PIL import ImagDraw
+from PIL import ImageDraw
 from PIL import ImageFont
 import Adafruit_GPIO.SPI as SPI
 import ST7735 as TFT
