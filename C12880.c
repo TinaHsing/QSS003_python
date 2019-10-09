@@ -239,10 +239,11 @@ void Setup()
 
   //LTC1865
   LTC_Init(0, 0);
-  //LED
+#if 0  //LED
   LED_Init(LED_Ctrl1);
   LED_Init(LED_Ctrl2);
   LED_Init(LED_Ctrl3);
+#endif
 #if 0  //LCD
   LCD_Init();
 #endif
