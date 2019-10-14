@@ -26,8 +26,8 @@ COLOR_PURPLE = (255,0, 255)
 COLOR_CYAN = (0, 255,255)
 
 FONT_SIZE = 14
-MAX_X = TFT_WIDTH/FONT_SIZE
-MAX_Y = TFT_HEIGHT/FONT_SIZE
+MAX_X = int(TFT_WIDTH / FONT_SIZE)
+MAX_Y = int(TFT_HEIGHT / FONT_SIZE)
 
 X_OFFSET = 8
 Y_OFFSET = 8
@@ -76,10 +76,10 @@ class TFT_TEXT():
 	def printText(self, outText):
 		num = len(outText)
 		if (self.col + num >= MAX_X):
-			tmp = "col = " + str(self.col) + " , num = " + str(num) + " , MAX = " + str(MAX_X) 
-			print(tmp)
-			num = MAX_X - self.col - 1
-			print(num)
+			# tmp = "col = " + str(self.col) + " , num = " + str(num) + " , MAX = " + str(MAX_X) 
+			# print(tmp)
+			num = MAX_X - self.col
+			#print(num)
 			outText = outText[0:num]
 
 		# tmp = "X = " + str(self.xpos) + " , Y = " + str(self.ypos) 
