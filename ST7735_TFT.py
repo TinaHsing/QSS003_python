@@ -64,7 +64,7 @@ class TFT_TEXT():
 		if (self.row >= MAX_Y) or (self.row < 0):
 			self.row = 0
 
-		tmp = "col = " + str(self.col) + "row = " + str(self.row) 
+		tmp = "col = " + str(self.col) + " , row = " + str(self.row) 
 		print(tmp)
 		self.xpos = self.col * FONT_SIZE + X_OFFSET
 		self.ypos = self.row * FONT_SIZE + Y_OFFSET
@@ -76,7 +76,7 @@ class TFT_TEXT():
 			num = MAX_X - self.col - 1
 			outText = outText[0:num]
 
-		tmp = "X = " + str(self.xpos) + "Y = " + str(self.ypos) 
+		tmp = "X = " + str(self.xpos) + " , Y = " + str(self.ypos) 
 		print(tmp)
 		self.draw.rectangle((self.xpos, self.ypos, self.xpos + FONT_SIZE * num, self.ypos + FONT_SIZE), self.bgcolor) #erase target position with bgcolor
 		self.draw.text(self.cord, outText, font = self.fontout, fill = self.color)
@@ -91,5 +91,25 @@ if __name__ == '__main__':
 	tft = TFT_TEXT()
 	tft.setFontColor(FONT_1, COLOR_RED)
 	tft.gotoPos(0,0)
+	tft.printText("Hello")
+
+	tft.setFontColor(FONT_2, COLOR_GREEN)
+	tft.gotoPos(1,1)
+	tft.printText("Hello")
+
+	tft.setFontColor(FONT_3, COLOR_BLUE)
+	tft.gotoPos(2,2)
+	tft.printText("Hello")
+
+	tft.setFontColor(FONT_4, COLOR_YELLOW)
+	tft.gotoPos(3,3)
+	tft.printText("Hello")
+
+	tft.setFontColor(FONT_5, COLOR_PURPLE)
+	tft.gotoPos(4,4)
+	tft.printText("Hello")
+
+	tft.setFontColor(FONT_6, COLOR_CYAN)
+	tft.gotoPos(5,5)
 	tft.printText("Hello")
 
