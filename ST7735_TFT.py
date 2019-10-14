@@ -50,6 +50,8 @@ class TFT_TEXT():
 		self.draw = ImageDraw.Draw(self.img)
 		self.font = FONT_1
 		self.color = COLOR_BLACK
+		self.col = 0
+		self.row = 0
 
 	def setFontColor(self, font, color):
 		self.font = font 
@@ -57,23 +59,25 @@ class TFT_TEXT():
 		self.fontout = ImageFont.truetype(self.font, FONT_SIZE)
 
 	def gotoPos(self, col, row):
-		if col >= MAX_X or col < 0:
-			col = 0
-		if row >= MAX_Y or col < 0:
-			row = 0
+		if (self.col >= MAX_X) or (self.col < 0):
+			self.col = 0
+		if (self.row >= MAX_Y) or (self.row < 0):
+			self.row = 0
 
-		self.xpos = col * FONT_SIZE + X_OFFSET
-		self.ypos = row * FONT_SIZE + Y_OFFSET
+		tmp = "col = " + str(self.col) + "row = " + str(self.row) 
+		print(tmp)
+		self.xpos = self.col * FONT_SIZE + X_OFFSET
+		self.ypos = self.row * FONT_SIZE + Y_OFFSET
 		self.cord = (self.xpos, self.ypos)
 
 	def printText(self, outText):
 		num = len(outText)
-		if (self.xpos + num >= MAX_X):
-			print(tmp)
-			num = MAX_X - self.xpos - 1
+		if (self.col + num >= MAX_X):
+			num = MAX_X - self.col - 1
 			outText = outText[0:num]
 
 		tmp = "X = " + str(self.xpos) + "Y = " + str(self.ypos) 
+		print(tmp)
 		self.draw.rectangle((self.xpos, self.ypos, self.xpos + FONT_SIZE * num, self.ypos + FONT_SIZE), self.bgcolor) #erase target position with bgcolor
 		self.draw.text(self.cord, outText, font = self.fontout, fill = self.color)
 		self.disp.display(self.img)
