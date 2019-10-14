@@ -44,10 +44,10 @@ class TFT_TEXT():
 		self.spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
 		self.disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = self.spi, width = TFT_WIDTH, height = TFT_HEIGHT)
 		self.disp.begin()
-		self.clear()
+		self.disp.clear()
 		self.bgcolor = bgcolor
 		self.img = Image.new('RGB', TFT_SIZE, bgcolor)
-		self.draw = ImageDraw.Draw(img)
+		self.draw = ImageDraw.Draw(self.img)
 		self.font = FONT_1
 		self.color = COLOR_BLACK
 
@@ -59,21 +59,23 @@ class TFT_TEXT():
 	def gotoPos(self, col, row):
 		if col >= MAX_X or col < 0:
 			col = 0
-		if row >= MAX_Y or col <0:
+		if row >= MAX_Y or col < 0:
 			row = 0
 
-		self.xpos = col*FONT_SIZE+X_OFFSET
-		self.ypos = row*FONT_SIZE+Y_OFFSET
+		self.xpos = col * FONT_SIZE + X_OFFSET
+		self.ypos = row * FONT_SIZE + Y_OFFSET
 		self.cord = (self.xpos, self.ypos)
 
 	def printText(self, outText):
 		num = len(outText)
-		if (self.ypos +num >= MAX_Y):
-			num = MAX_Y-self.ypos-1
-			outText = outText[0:num]	
-		
-		self.draw.rectangle((self.xpos, self.ypos, self.xpos+TFT_SIZE, self.ypos+TFT_SIZE*num), self.bgcolor) #erase target position with bgcolor
-		self.draw.text(self.cord, outText, font= self.fontout, fill = self.color)
+		if (self.xpos + num >= MAX_X):
+			print(tmp)
+			num = MAX_X - self.xpos - 1
+			outText = outText[0:num]
+
+		tmp = "X = " + str(self.xpos) + "Y = " + str(self.ypos) 
+		self.draw.rectangle((self.xpos, self.ypos, self.xpos + FONT_SIZE * num, self.ypos + FONT_SIZE), self.bgcolor) #erase target position with bgcolor
+		self.draw.text(self.cord, outText, font = self.fontout, fill = self.color)
 		self.disp.display(self.img)
 
 	def clearScreen(self, bgcolor=COLOR_WHITE):
