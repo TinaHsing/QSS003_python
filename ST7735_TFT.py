@@ -76,7 +76,10 @@ class TFT_TEXT():
 	def printText(self, outText):
 		num = len(outText)
 		if (self.col + num >= MAX_X):
-			num = MAX_X - self.col - num - 1
+			tmp = "col = " + str(self.col) + " , num = " + str(num) + " , MAX = " + str(MAX_X) 
+			print(tmp)
+			num = MAX_X - self.col - 1
+			print(num)
 			outText = outText[0:num]
 
 		# tmp = "X = " + str(self.xpos) + " , Y = " + str(self.ypos) 
