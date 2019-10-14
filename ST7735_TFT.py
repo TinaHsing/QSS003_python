@@ -126,6 +126,6 @@ if __name__ == '__main__':
 	tft.printText("Hello")
 
 	tft.setFontColor(FONT_2, COLOR_WHITE, COLOR_BLACK)
-	tft.gotoPos(7,0)
+	tft.gotoPos(0,7)
 	tft.printText("Hello")
 
