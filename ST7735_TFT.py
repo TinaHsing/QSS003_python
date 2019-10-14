@@ -53,9 +53,10 @@ class TFT_TEXT():
 		self.col = 0
 		self.row = 0
 
-	def setFontColor(self, font, color):
+	def setFontColor(self, font, color, bgcolor = COLOR_WHITE):
 		self.font = font 
 		self.color = color
+		self.bgcolor = bgcolor
 		self.fontout = ImageFont.truetype(self.font, FONT_SIZE)
 
 	def gotoPos(self, col, row):
@@ -95,6 +96,7 @@ class TFT_TEXT():
 
 if __name__ == '__main__':
 	tft = TFT_TEXT()
+
 	tft.setFontColor(FONT_1, COLOR_RED)
 	tft.gotoPos(0,0)
 	tft.printText("Hello")
@@ -117,5 +119,13 @@ if __name__ == '__main__':
 
 	tft.setFontColor(FONT_6, COLOR_CYAN)
 	tft.gotoPos(5,5)
+	tft.printText("Hello")
+
+	tft.setFontColor(FONT_1, COLOR_BLACK)
+	tft.gotoPos(0,0)
+	tft.printText("Hello")
+
+	tft.setFontColor(FONT_2, COLOR_WHITE, COLOR_BLACK)
+	tft.gotoPos(1,1)
 	tft.printText("Hello")
 
