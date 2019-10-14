@@ -2,7 +2,6 @@ from ctypes import *
 import os
 import sys
 import time
-import RPi.GPIO as GPIO
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -10,8 +9,10 @@ import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 import ST7735 as TFT
 
-pin_meas = 18 	# gpio use board definition
-pin_black = 22	# gpio use board definition
+#pin_meas = 18 	# gpio use board definition
+#pin_black = 22	# gpio use board definition
+pin_meas = 24 	# gpio use BCM definition
+pin_black = 25	# gpio use BCM definition
 HOME_DIR = "/home/pi/QSS003_python/"
 C12880_LIB = HOME_DIR + "C12880_noLED.so"
 
@@ -33,9 +34,9 @@ C12880 = cdll.LoadLibrary(C12880_LIB)
 
 # board initialization 
 C12880.Setup() # init spectrometer
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(pin_meas, GPIO.IN)
-GPIO.setup(pin_black, GPIO.IN)
+gpio = GPIO.get_platform_gpio()
+gpio.setup(pin_meas, GPIO.IN)
+gpio.setup(pin_black, GPIO.IN)
 
 data = (c_uint * 288)() # data to store spectrum data
 meas = 1
@@ -62,10 +63,10 @@ else:
 	while (1):
 		#wait until black or meas buttom is pressed
 		while (meas and black):
-			if GPIO.input(pin_meas) == GPIO.LOW:
+			if gpio.input(pin_meas) == GPIO.LOW:
 				meas = 0
 				print("meas low")
-			if GPIO.input(pin_black) == GPIO.LOW:
+			if gpio.input(pin_black) == GPIO.LOW:
 				black = 0
 				print("black low")
 
