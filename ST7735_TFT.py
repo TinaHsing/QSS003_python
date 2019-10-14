@@ -59,6 +59,9 @@ class TFT_TEXT():
 		self.fontout = ImageFont.truetype(self.font, FONT_SIZE)
 
 	def gotoPos(self, col, row):
+		self.col = col
+		self.row = row
+
 		if (self.col >= MAX_X) or (self.col < 0):
 			self.col = 0
 		if (self.row >= MAX_Y) or (self.row < 0):
