@@ -67,8 +67,8 @@ class TFT_TEXT():
 		if (self.row >= MAX_Y) or (self.row < 0):
 			self.row = 0
 
-		tmp = "col = " + str(self.col) + " , row = " + str(self.row) 
-		print(tmp)
+		# tmp = "col = " + str(self.col) + " , row = " + str(self.row) 
+		# print(tmp)
 		self.xpos = self.col * FONT_SIZE + X_OFFSET
 		self.ypos = self.row * FONT_SIZE + Y_OFFSET
 		self.cord = (self.xpos, self.ypos)
@@ -76,11 +76,11 @@ class TFT_TEXT():
 	def printText(self, outText):
 		num = len(outText)
 		if (self.col + num >= MAX_X):
-			num = MAX_X - self.col - 1
+			num = MAX_X - self.col - num - 1
 			outText = outText[0:num]
 
-		tmp = "X = " + str(self.xpos) + " , Y = " + str(self.ypos) 
-		print(tmp)
+		# tmp = "X = " + str(self.xpos) + " , Y = " + str(self.ypos) 
+		# print(tmp)
 		self.draw.rectangle((self.xpos, self.ypos, self.xpos + FONT_SIZE * num, self.ypos + FONT_SIZE), self.bgcolor) #erase target position with bgcolor
 		self.draw.text(self.cord, outText, font = self.fontout, fill = self.color)
 		self.disp.display(self.img)
