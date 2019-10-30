@@ -18,7 +18,7 @@ C12880_LIB = HOME_DIR + "C12880_noLED.so"
 
 spi = SPI.SpiDev(1, 0, max_speed_hz = 4000000)
 
-disp =TFT.ST7735(dc=27, rst = 17, spi = spi, width = 128, height =128)
+disp = TFT.ST7735(dc=27, rst = 17, spi = spi, width = 128, height =128)
 disp.begin()
 disp.clear()
 
