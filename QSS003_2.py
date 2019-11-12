@@ -17,6 +17,7 @@ import ST7735 as TFT
 pin_meas = 24 	# gpio use bcm definition
 pin_black = 25	# gpio use bcm definition
 pin_dark = 7	# gpio use bcm definition
+pin_led = 26    #gpio use bcm definition
 HOME_DIR = "/home/pi/QSS003_python/"
 SETTING_FILENAME = HOME_DIR + "setting.txt"
 C12880_LIB = HOME_DIR + "C12880.so"
@@ -55,6 +56,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(pin_meas, GPIO.IN)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_dark, GPIO.IN)
+GPIO.setup(pin_led, GPIO.OUT)
 
 data = (c_uint * 288)() # data to store spectrum data
 meas = 1
@@ -118,6 +120,7 @@ else:
 			time.sleep(1)
 			dark = 1
 		else:
+			GPIO.ouput(pin_led, GPIO.HIGH)
 			C12880.LED_Set_Current(1, led1_current)
 			C12880.LED_Set_Current(2, led2_current)
 			C12880.LED_Set_Current(3, led3_current)
@@ -162,5 +165,5 @@ else:
 			meas = 1
 			black = 1
 
-		#loop = loop + 1
+		GPIO.ouput(pin_led, GPIO.LOW) #turn off measure LED
 		print("done")
