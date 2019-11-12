@@ -3,7 +3,7 @@ import os
 #import sys
 import time
 import subprocess
-import RPi.GPIO as RPI_GPIO
+import RPi.GPIO as GPIO
 from RPLCD.i2c import CharLCD
 from PIL import Image
 from PIL import ImageDraw
