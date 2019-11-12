@@ -3,8 +3,15 @@ import os
 #import sys
 import time
 import subprocess
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 from RPLCD.i2c import CharLCD
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+import Adafruit_GPIO as GPIO
+import Adafruit_GPIO.SPI as SPI
+import ST7735 as TFT
+
 
 pin_meas = 18 	# gpio use board definition
 pin_black = 22	# gpio use board definition
