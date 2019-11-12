@@ -3,7 +3,7 @@ import os
 #import sys
 import time
 import subprocess
-import RPi.GPIO as RPI_GPIO
+import RPi.GPIO as GPIO
 from RPLCD.i2c import CharLCD
 from PIL import Image
 from PIL import ImageDraw
@@ -13,9 +13,9 @@ import Adafruit_GPIO.SPI as SPI
 import ST7735 as TFT
 
 
-pin_meas = 18 	# gpio use board definition
-pin_black = 22	# gpio use board definition
-pin_dark = 26	# gpio use board definition
+pin_meas = 24 	# gpio use bcm definition
+pin_black = 25	# gpio use bcm definition
+pin_dark = 7	# gpio use bcm definition
 HOME_DIR = "/home/pi/QSS003_python/"
 SETTING_FILENAME = HOME_DIR + "setting.txt"
 C12880_LIB = HOME_DIR + "C12880.so"
@@ -40,7 +40,7 @@ TFT_SIZE = (128, 128)
 
 # board initialization 
 C12880.Setup() # init spectrometer
-#GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(pin_meas, GPIO.IN)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_dark, GPIO.IN)
