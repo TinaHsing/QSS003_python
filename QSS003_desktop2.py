@@ -1,19 +1,31 @@
 from ctypes import *
 import os
-import sys
+#import sys
 import time
+import datetime
+import subprocess
 import RPi.GPIO as GPIO
+from RPLCD.i2c import CharLCD
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+#import Adafruit_GPIO as GPIO
+import Adafruit_GPIO.SPI as SPI
+import ST7735 as TFT
+
 
 
 pin_meas = 18 	# gpio use board definition
 pin_black = 22	# gpio use board definition
+pin_led = 26
 HOME_DIR = "/home/pi/QSS003_python/"
 C12880_LIB = HOME_DIR + "C12880.so"
 
+AOPIN = 27
+RSTPIN = 17
 SPI_PORT = 1
 SPI_CH = 0
 SPI_SPEED = 4000000
-
 COLOR_RED 	= (255,0,0)
 COLOR_GREEN = (0,255,0)
 COLOR_BLUE	= (0,0,255)
@@ -24,14 +36,26 @@ COLOR_PURPLE = (255,0, 255)
 COLOR_CYAN = (0, 255,255)
 TFT_SIZE = (128, 128)
 
+LINE1Y = 15
+LINE2Y = 30
+LINE3Y = 45
+LINE4Y = 65
+LINE5Y = 80
+LINE6Y = 100
+
+SPACE1 = 15
+SPACE2 = 20
+
 time.sleep(1)
 C12880 = cdll.LoadLibrary(C12880_LIB)
 
 # board initialization 
 C12880.Setup() # init spectrometer
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(pin_meas, GPIO.IN)
 GPIO.setup(pin_black, GPIO.IN)
+GPIO.setup(pin_led, GPIO.OUT)
+GPIO.output(pin_led, GPIO.LOW)
 
 data = (c_uint * 288)() # data to store spectrum data
 meas = 1
@@ -41,16 +65,16 @@ fnameindex = 0
 # Display init
 
 spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
-disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = self.spi, width = TFT_WIDTH, height = TFT_HEIGHT)
+disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
 disp.begin()
 disp.clear()		
 img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
-draw = ImageDraw.Draw(self.img)
+draw = ImageDraw.Draw(img)
 font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
-fontout = ImageFont.truetype(font,10)
-draw.text((0,10),"  Measure",font = fontout, fill = COLOR_BLUE)
-draw.text((0,20), "Bilirubin", font = fontout, fill = COLOR_BLUE)
-draw.text((0,40), "SiO2", font = fontout, fill = COLOR_BLUE)
+fontout = ImageFont.truetype(font,11)
+draw.text((0,LINE1Y),"    Mode: Measure",font = fontout, fill = COLOR_BLUE)
+draw.text((0,LINE2Y), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
+draw.text((0,LINE4Y), "  SiO2", font = fontout, fill = COLOR_BLUE)
 disp.display(img)
 		
 
@@ -75,9 +99,7 @@ else:
 				black = 0
 				print("black low")
 
-		# lcd.cursor_pos = (0, 0)
-		# lcd.write_string("Measuring....")
-
+		GPIO.output(pin_led, GPIO.HIGH)
 		C12880.LED_Set_Current(1, led1_current)
 		C12880.LED_Set_Current(2, led2_current)
 		C12880.LED_Set_Current(3, led3_current)
@@ -93,14 +115,14 @@ else:
 		C12880.ReadSpectrometer(int_time, data)
 
 		# print the data on tft screen 
-		draw.rectangle(0,30,128,50, COLOR_WHITE)
-		draw.rectangle(0, 50, 128, 70, COLOR_WHITE)
-		draw.rectangle(0, 70, 128, 80, COLOR_WHITE)
-		fontout = ImageFont.truetype(font,14)
-		draw.text((0,30),"12.1 mg/dL",font = fontout, fill = COLOR_RED)
-		draw.text((0,50),"66%", font=fontout, fill = COLOR_RED)
+		draw.rectangle((0,LINE3Y,128,LINE3Y+SPACE2), COLOR_WHITE)
+		draw.rectangle((0, LINE5Y, 128, LINE5Y+SPACE2), COLOR_WHITE)
+		draw.rectangle((0, LINE6Y, 128, LINE6Y+SPACE1), COLOR_WHITE)
+		fontout = ImageFont.truetype(font,16)
+		draw.text((0,LINE3Y),"  12.1 mg/dL",font = fontout, fill = COLOR_RED)
+		draw.text((0,LINE5Y),"     66%", font=fontout, fill = COLOR_RED)
 		fontout = ImageFont.truetype(font,10)
-		draw.text(0,70,str(time.time()),font = fontout, fill = COLOR_BLUE)
+		draw.text((0,LINE6Y),str(datetime.datetime.now()),font = fontout, fill = COLOR_BLUE)
 		disp.display(img)
 		
 		out = [str(line) + '\n' for line in data]
@@ -119,5 +141,5 @@ else:
 		meas = 1
 		black = 1
 		#loop = loop + 1
+		GPIO.output(pin_led, GPIO.LOW) #turn off measure LED
 		print("done")
-
