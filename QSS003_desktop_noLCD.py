@@ -25,7 +25,7 @@ GPIO.setup(pin_black, GPIO.IN)
 
 data = (c_uint * 288)() # data to store spectrum data
 meas = 1
-black = 1
+black = 0
 fnameindex = 0
 #loop = 0
 
