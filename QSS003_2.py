@@ -57,6 +57,7 @@ GPIO.setup(pin_meas, GPIO.IN)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_dark, GPIO.IN)
 GPIO.setup(pin_led, GPIO.OUT)
+GPIO.ouput(pin_led, GPIO.LOW)
 
 data = (c_uint * 288)() # data to store spectrum data
 meas = 1
