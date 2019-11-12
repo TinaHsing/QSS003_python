@@ -1,0 +1,20 @@
+import pigpio
+import RPi.GPIO as GPIO
+
+GATE_PIN = 16
+PWM_LED_PIN = 18
+PWM_LED_PIN2 = 13
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(GATE_PIN, GPIO.OUT)
+
+GPIO.output(GATE_PIN, GPIO.HIGH)
+#GPIO.output(GATE_PIN, GPIO.LOW)
+
+PWM_FREQ = 500
+DUTY = 500000
+DUTY2 = 200000 
+pi = pigpio.pi()
+pi.hardware_PWM(PWM_LED_PIN, PWM_FREQ, DUTY)
+pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, DUTY2)
+
