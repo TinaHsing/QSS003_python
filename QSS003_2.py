@@ -52,16 +52,16 @@ dark = 1
 fnameindex = 0
 #loop = 0
 spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
-disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = self.spi, width = TFT_WIDTH, height = TFT_HEIGHT)
+disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
 disp.begin()
 disp.clear()		
 img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
-draw = ImageDraw.Draw(self.img)
+draw = ImageDraw.Draw(img)
 font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
-fontout = ImageFont.truetype(font,10)
-draw.text((0,10),"  Measure",font = fontout, fill = COLOR_BLUE)
-draw.text((0,20), "Bilirubin", font = fontout, fill = COLOR_BLUE)
-draw.text((0,40), "SiO2", font = fontout, fill = COLOR_BLUE)
+fontout = ImageFont.truetype(font,11)
+draw.text((0,15),"    Mode: Measure",font = fontout, fill = COLOR_BLUE)
+draw.text((0,30), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
+draw.text((0,55), "  SiO2", font = fontout, fill = COLOR_BLUE)
 disp.display(img)
 
 def ShowIP():
@@ -71,14 +71,14 @@ def ShowIP():
 	ip = ip[2:-4]
 	#print(ip)
 	fontout = ImageFont.truetype(font,10)
-	dra.retangle(0,90, 128, 100, COLOR_WHITE)
-	draw.text((0,90), ip, fontout, fill = COLOR_BLUE)
+	draw.rectangle((0,105, 128,115 ), COLOR_WHITE)
+	draw.text((0,105), ip, font =fontout, fill = COLOR_BLUE)
 	disp.display(img)
 #open file for parameter setting
 param = [10, 10, 10, 0.01, 1000]
 if os.path.exists(SETTING_FILENAME) == False:
-	dra.retangle(0,90, 128, 100, COLOR_WHITE)
-	draw.text((0,90), "init_err", fontout, fill = COLOR_BLUE)
+	draw.retangle((0,105, 128, 115), COLOR_WHITE)
+	draw.text((0,105), "init_err", fontout, fill = COLOR_BLUE)
 	disp.display(img)
 else:
 	param = [line.rstrip('\n') for line in open(SETTING_FILENAME)]
@@ -121,14 +121,14 @@ else:
 
 			C12880.ReadSpectrometer(int_time, data)
 
-			draw.rectangle(0,30,128,50, COLOR_WHITE)
-			draw.rectangle(0, 50, 128, 70, COLOR_WHITE)
-			draw.rectangle(0, 70, 128, 80, COLOR_WHITE)
+			draw.rectangle((0,55,128,75), COLOR_WHITE)
+			draw.rectangle((0, 85, 128, 10), COLOR_WHITE)
+			draw.rectangle((0, 70, 128, 80), COLOR_WHITE)
 			fontout = ImageFont.truetype(font,14)
 			draw.text((0,30),"12.1 mg/dL",font = fontout, fill = COLOR_RED)
 			draw.text((0,50),"66%", font=fontout, fill = COLOR_RED)
 			fontout = ImageFont.truetype(font,10)
-			draw.text(0,70,str(time.time()),font = fontout, fill = COLOR_BLUE)
+			draw.text((0,105),str(time.time()),font = fontout, fill = COLOR_BLUE)
 			disp.display(img)
 
 			out = [str(line) + '\n' for line in data]
