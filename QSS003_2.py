@@ -2,6 +2,7 @@ from ctypes import *
 import os
 #import sys
 import time
+import datetime
 import subprocess
 import RPi.GPIO as GPIO
 from RPLCD.i2c import CharLCD
@@ -37,6 +38,16 @@ COLOR_PURPLE = (255,0, 255)
 COLOR_CYAN = (0, 255,255)
 TFT_SIZE = (128, 128)
 
+LINE1Y = 15
+LINE2Y = 30
+LINE3Y = 45
+LINE4Y = 65
+LINE5Y = 80
+LINE6Y = 100
+
+SPACE1 = 15
+SPACE2 = 20
+
 
 # board initialization 
 C12880.Setup() # init spectrometer
@@ -59,9 +70,9 @@ img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
 draw = ImageDraw.Draw(img)
 font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 fontout = ImageFont.truetype(font,11)
-draw.text((0,15),"    Mode: Measure",font = fontout, fill = COLOR_BLUE)
-draw.text((0,30), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
-draw.text((0,55), "  SiO2", font = fontout, fill = COLOR_BLUE)
+draw.text((0,LINE1Y),"    Mode: Measure",font = fontout, fill = COLOR_BLUE)
+draw.text((0,LINE2Y), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
+draw.text((0,LINE4Y), "  SiO2", font = fontout, fill = COLOR_BLUE)
 disp.display(img)
 
 def ShowIP():
@@ -71,14 +82,14 @@ def ShowIP():
 	ip = ip[2:-4]
 	#print(ip)
 	fontout = ImageFont.truetype(font,10)
-	draw.rectangle((0,105, 128,115 ), COLOR_WHITE)
-	draw.text((0,105), ip, font =fontout, fill = COLOR_BLUE)
+	draw.rectangle((0,LINE6Y, 128,LINE6Y+SPACE1 ), COLOR_WHITE)
+	draw.text((0,LINE6Y), ip, font =fontout, fill = COLOR_BLUE)
 	disp.display(img)
 #open file for parameter setting
 param = [10, 10, 10, 0.01, 1000]
 if os.path.exists(SETTING_FILENAME) == False:
-	draw.retangle((0,105, 128, 115), COLOR_WHITE)
-	draw.text((0,105), "init_err", fontout, fill = COLOR_BLUE)
+	draw.retangle((0,LINE6Y, 128, LINE6Y+SPACE1), COLOR_WHITE)
+	draw.text((0,LINE6Y), "init_err", fontout, fill = COLOR_BLUE)
 	disp.display(img)
 else:
 	param = [line.rstrip('\n') for line in open(SETTING_FILENAME)]
@@ -121,14 +132,14 @@ else:
 
 			C12880.ReadSpectrometer(int_time, data)
 
-			draw.rectangle((0,55,128,75), COLOR_WHITE)
-			draw.rectangle((0, 85, 128, 10), COLOR_WHITE)
-			draw.rectangle((0, 70, 128, 80), COLOR_WHITE)
+			draw.rectangle((0,LINE3Y,128,LINE3Y+SPACE2), COLOR_WHITE)
+			draw.rectangle((0, LINE5Y, 128, LINE5Y+SPACE2), COLOR_WHITE)
+			draw.rectangle((0, LINE6Y, 128, LINE6Y+SPACE1), COLOR_WHITE)
 			fontout = ImageFont.truetype(font,14)
-			draw.text((0,30),"12.1 mg/dL",font = fontout, fill = COLOR_RED)
-			draw.text((0,50),"66%", font=fontout, fill = COLOR_RED)
+			draw.text((0,LINE3Y),"     12.1 mg/dL",font = fontout, fill = COLOR_RED)
+			draw.text((0,LINE5Y),"        66%", font=fontout, fill = COLOR_RED)
 			fontout = ImageFont.truetype(font,10)
-			draw.text((0,105),str(time.time()),font = fontout, fill = COLOR_BLUE)
+			draw.text((0,LINE6Y),str(datetime.datetime.now()),font = fontout, fill = COLOR_BLUE)
 			disp.display(img)
 
 			out = [str(line) + '\n' for line in data]
@@ -138,8 +149,8 @@ else:
 			fp.close()
 
 			#lcd.clear()
-			lcd.cursor_pos = (1, 0)
-			lcd.write_string("Writing finish")
+			#lcd.cursor_pos = (1, 0)
+			#lcd.write_string("Writing finish")
 
 			if (meas == 0):
 				fnameindex = fnameindex + 1
