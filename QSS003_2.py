@@ -3,12 +3,12 @@ import os
 #import sys
 import time
 import subprocess
-#import RPi.GPIO as GPIO
+import RPi.GPIO as RPI_GPIO
 from RPLCD.i2c import CharLCD
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
-import Adafruit_GPIO as GPIO
+#import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 import ST7735 as TFT
 
@@ -22,6 +22,8 @@ C12880_LIB = HOME_DIR + "C12880.so"
 
 C12880 = cdll.LoadLibrary(C12880_LIB)
 
+AOPIN = 27
+RSTPIN = 17
 SPI_PORT = 1
 SPI_CH = 0
 SPI_SPEED = 4000000
@@ -38,7 +40,7 @@ TFT_SIZE = (128, 128)
 
 # board initialization 
 C12880.Setup() # init spectrometer
-GPIO.setmode(GPIO.BOARD)
+#GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin_meas, GPIO.IN)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_dark, GPIO.IN)
