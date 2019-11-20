@@ -117,7 +117,7 @@ else:
 				
 
 		if (dark == 0):
-			ShowIP()
+			#ShowIP()
 			time.sleep(1)
 			dark = 1
 		else:
