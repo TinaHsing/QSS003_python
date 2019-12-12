@@ -175,7 +175,7 @@ void Setup()
  * Look at the Timing Chart in the Datasheet for more info
  */
 
-void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigned int * data)
+void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigned int * dataA, , unsigned int * dataB)
 {
   int delayTime = 1, counter = 0; // delay time
   long startTime = 0;
@@ -300,12 +300,18 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
   for(int i = 0; i < SPEC_CHANNELS; i++)
   {
       //data[i] = analogRead(SPEC_VIDEO);
-      data[i] = LTC_Read(0);
-      //printf("%d, ", data[i]);
-
-      digitalWrite(SPEC_CLK, HIGH);
+      dataA[i] = LTC_Read(0);
+      //printf("%d, ", dataA[i]);
+      digitalWrite(SPEC_CLK1, HIGH);
       delayMicroseconds(delayTime);
-      digitalWrite(SPEC_CLK, LOW);
+      digitalWrite(SPEC_CLK1, LOW);
+      delayMicroseconds(delayTime);     
+
+      dataB[i] = LTC_Read(1);
+      //printf("%d, ", dataB[i]);
+      digitalWrite(SPEC_CLK2, HIGH);
+      delayMicroseconds(delayTime);
+      digitalWrite(SPEC_CLK2, LOW);
       delayMicroseconds(delayTime);     
   }
 
