@@ -16,8 +16,8 @@
 #define CLOCK_SPEED 1000000
 
 //C12880
-#define SPEC_ST          22
-#define SPEC_CLK         23
+#define SPEC_ST          22 //gpio use wPi definition   //31 in PCB
+#define SPEC_CLK         23 //gpio use wPi definition   //33 in PCB
 #define SPEC_CHANNELS    288 // New Spec Channel
 #define Period_Time      87
 
