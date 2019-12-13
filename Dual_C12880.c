@@ -175,7 +175,7 @@ void Setup()
  * Look at the Timing Chart in the Datasheet for more info
  */
 
-void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigned int * dataA, , unsigned int * dataB)
+void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigned int * dataA, unsigned int * dataB)
 {
   int delayTime = 1, counter = 0; // delay time
   long startTime = 0;
