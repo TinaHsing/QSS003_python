@@ -21,7 +21,6 @@ HOME_DIR = "/home/pi/QSS003_python/"
 SETTING_FILENAME = HOME_DIR + "setting.txt"
 C12880_LIB = HOME_DIR + "C12880.so"
 
-C12880 = cdll.LoadLibrary(C12880_LIB)
 
 AOPIN = 27
 RSTPIN = 17
@@ -48,6 +47,7 @@ LINE6Y = 100
 SPACE1 = 15
 SPACE2 = 20
 
+C12880 = cdll.LoadLibrary(C12880_LIB)
 
 # board initialization 
 C12880.Setup() # init spectrometer
@@ -63,7 +63,8 @@ meas = 1
 black = 1
 dark = 1
 fnameindex = 0
-#loop = 0
+
+# Display init
 spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
 disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
 disp.begin()
@@ -87,8 +88,10 @@ def ShowIP():
 	draw.rectangle((0,LINE6Y, 128,LINE6Y+SPACE1 ), COLOR_WHITE)
 	draw.text((0,LINE6Y), ip, font =fontout, fill = COLOR_BLUE)
 	disp.display(img)
+
 #open file for parameter setting
 param = [10, 10, 10, 0.01, 1000]
+
 if os.path.exists(SETTING_FILENAME) == False:
 	draw.retangle((0,LINE6Y, 128, LINE6Y+SPACE1), COLOR_WHITE)
 	draw.text((0,LINE6Y), "init_err", fontout, fill = COLOR_BLUE)
