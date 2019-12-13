@@ -34,8 +34,13 @@
 //LTC1865
 static uint8_t g_channel;
 
-#if 0 //C12880
-uint16_t data[SPEC_CHANNELS];
+#if 1 //C12880
+//uint16_t data[SPEC_CHANNELS];
+enum{
+  ABSameTime = 0,
+  ATimeBig2B,
+  BTimeBig2A,
+};
 #endif
 
 //LTC1865
@@ -194,9 +199,9 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
     Int_timeB -= Int_timeA;
     ucFlagAB = BTimeBig2A;
   }
-  else //if (I_timeA == I_timeB)
+  else //if (Int_timeA == Int_timeB)
   {
-    I_timeBothAB = I_timeA;
+    I_timeBothAB = Int_timeA;
     ucFlagAB = ABSameTime;
   }
 
