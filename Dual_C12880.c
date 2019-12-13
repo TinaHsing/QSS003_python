@@ -201,7 +201,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
   }
   else //if (Int_timeA == Int_timeB)
   {
-    I_timeBothAB = Int_timeA;
+    Int_timeBothAB = Int_timeA;
     ucFlagAB = ABSameTime;
   }
 
