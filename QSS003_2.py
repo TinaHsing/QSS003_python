@@ -5,7 +5,6 @@ import time
 import datetime
 import subprocess
 import RPi.GPIO as GPIO
-from RPLCD.i2c import CharLCD
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
