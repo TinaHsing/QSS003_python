@@ -5,7 +5,6 @@ import time
 import datetime
 import subprocess
 import RPi.GPIO as GPIO
-from RPLCD.i2c import CharLCD
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -14,9 +13,8 @@ import Adafruit_GPIO.SPI as SPI
 import ST7735 as TFT
 
 
-
-pin_meas = 18 	# gpio use board definition
-pin_black = 22	# gpio use board definition
+pin_meas = 24 	# gpio use bcm definition
+pin_black = 25	# gpio use bcm definition
 pin_led = 26
 HOME_DIR = "/home/pi/QSS003_python/"
 C12880_LIB = HOME_DIR + "C12880.so"
@@ -63,7 +61,6 @@ black = 1
 fnameindex = 0
 
 # Display init
-
 spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
 disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
 disp.begin()
@@ -140,6 +137,6 @@ else:
 
 		meas = 1
 		black = 1
-		#loop = loop + 1
+
 		GPIO.output(pin_led, GPIO.LOW) #turn off measure LED
 		print("done")
