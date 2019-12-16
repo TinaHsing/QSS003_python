@@ -195,7 +195,7 @@ void SpectrometerTest()
       delayMicroseconds(delayTime); 
   }
 
-  diffTiem = micros() - startTime;
+  diffTime = micros() - startTime;
   printf("Time = %d\n", diffTime);
 }
 
