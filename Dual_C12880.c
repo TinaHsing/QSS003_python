@@ -20,7 +20,7 @@
 #define SPEC_CLK_A       21 //gpio use wPi definition   //29 in PCB
 #define SPEC_ST_A        22 //gpio use wPi definition   //31 in PCB
 #define SPEC_CHANNELS    288 // New Spec Channel
-#define Period_Time      87
+#define Period_Time      8  //87
 
 #if 0 //LED
 //#define LED_Ctrl1         8  //gpio use wPi definition
@@ -34,13 +34,8 @@
 //LTC1865
 static uint8_t g_channel;
 
-#if 1 //C12880
-//uint16_t data[SPEC_CHANNELS];
-enum{
-  ABSameTime = 0,
-  ATimeBig2B,
-  BTimeBig2A,
-};
+#if 0 //C12880
+uint16_t data[SPEC_CHANNELS];
 #endif
 
 //LTC1865
@@ -270,6 +265,8 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
           delayMicroseconds(delayTime);
           digitalWrite(SPEC_CLK_A, LOW);
           delayMicroseconds(delayTime); 
+          if (P_timeA > 0)
+            printf("P_timeA = %d\n", P_timeA);
         }
         else if (P_timeA == Period_Time)
         {
@@ -299,6 +296,8 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
           delayMicroseconds(delayTime);
           digitalWrite(SPEC_CLK_B, LOW);
           delayMicroseconds(delayTime); 
+          if (P_timeB > 0)
+            printf("P_timeB = %d\n", P_timeB);
         }
         else if (P_timeB == Period_Time)
         {
