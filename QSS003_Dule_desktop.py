@@ -92,6 +92,7 @@ else:
 	int_time1 = int(sys.argv[4])
 	int_time2 = int(sys.argv[5])
 
+	C12880.SpectrometerTest()
 
 	while (1):
 		#wait until black or meas buttom is pressed
@@ -118,7 +119,6 @@ else:
 
 		#C12880.ReadSpectrometer(int_time, data)
 		C12880.Read2Spectrometer(int_time1, int_time2, data1, data2)
-		C12880.SpectrometerTest()
 
 		# print the data on tft screen 
 		draw.rectangle((0, LINE3Y, 128, LINE3Y+SPACE2), COLOR_WHITE)
