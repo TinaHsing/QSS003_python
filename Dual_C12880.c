@@ -182,6 +182,7 @@ void Setup()
 
 void SpectrometerTest()
 {
+  int delayTime = 1; // delay time
   long startTime, diffTime = 0;
   startTime = micros();
 
