@@ -180,6 +180,7 @@ void Setup()
  * Look at the Timing Chart in the Datasheet for more info
  */
 
+#if 0 //for test
 long SpectrometerTest(int times)
 {
   int delayTime = 1; // delay time
@@ -207,35 +208,17 @@ void SpectrometerTest10(int times)
 
   for (int i = 0; i < 10; i++)
   {
-    totalTime = SpectrometerTest(times);
+    totalTime += SpectrometerTest(times);
   }
   printf("Average Time = %d\n", (totalTime / 10) );
 }
+#endif
 
 void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigned int * dataA, unsigned int * dataB)
 {
   int delayTime = 1, counter = 0; // delay time
   long startTime = 0;
-  unsigned long Int_timeBothAB, P_timeBothAB;
-  uint8_t ucFlagAB;
-
-  if (Int_timeA > Int_timeB)
-  {
-    Int_timeBothAB = Int_timeB;
-    Int_timeA -= Int_timeB;
-    ucFlagAB = ATimeBig2B;
-  }
-  else if (Int_timeB > Int_timeA)
-  {
-    Int_timeBothAB = Int_timeA;
-    Int_timeB -= Int_timeA;
-    ucFlagAB = BTimeBig2A;
-  }
-  else //if (Int_timeA == Int_timeB)
-  {
-    Int_timeBothAB = Int_timeA;
-    ucFlagAB = ABSameTime;
-  }
+  int P_timeA = 0, P_timeB = 0;
 
   // Start clock cycle and set start pulse to signal start
   digitalWrite(SPEC_CLK_A, LOW);
@@ -268,70 +251,72 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
   //for(int i = 0; i < 15; i++)
   counter = 0;
 
-  while ( (micros() - startTime) <= Int_timeBothAB )
+  while ( ( (micros() - startTime) <= Int_timeA ) or (P_timeA < Period_Time)
+   or ( (micros() - startTime) <= Int_timeB ) or (P_timeB < Period_Time) )
   {
       counter++;
-      digitalWrite(SPEC_CLK_A, HIGH);
-      digitalWrite(SPEC_CLK_B, HIGH);
-      delayMicroseconds(delayTime);
-      digitalWrite(SPEC_CLK_A, LOW);
-      digitalWrite(SPEC_CLK_B, LOW);
-      delayMicroseconds(delayTime); 
-  }
 
-  if (ucFlagAB == ATimeBig2B)
-  {
-    //Set SPEC_ST to low
-    digitalWrite(SPEC_ST_B, LOW);
-    startTime = micros();
-    while ( (micros() - startTime) <= Int_timeA )
-    {
-      counter++;
-      digitalWrite(SPEC_CLK_A, HIGH);
-      delayMicroseconds(delayTime);
-      digitalWrite(SPEC_CLK_A, LOW);
-      delayMicroseconds(delayTime); 
-    }
-    //Set SPEC_ST to low
-    digitalWrite(SPEC_ST_A, LOW);
-  }
-  else if (ucFlagAB == BTimeBig2A)
-  {
-    //Set SPEC_ST to low
-    digitalWrite(SPEC_ST_A, LOW);
-    startTime = micros();
-    while ( (micros() - startTime) <= Int_timeB )
-    {
-      counter++;
-      digitalWrite(SPEC_CLK_B, HIGH);
-      delayMicroseconds(delayTime);
-      digitalWrite(SPEC_CLK_B, LOW);
-      delayMicroseconds(delayTime); 
-    }
-    //Set SPEC_ST to low
-    digitalWrite(SPEC_ST_B, LOW);
-  }
-  else //if (ucFlagAB == ABSameTime)
-  {
-    //Set SPEC_ST to low
-    digitalWrite(SPEC_ST_A, LOW);
-    digitalWrite(SPEC_ST_B, LOW);
+      if ( (micros() - startTime) >= Int_timeA )
+      {
+        //Set SPEC_ST to low
+        if (P_timeA == 0)
+        {
+          digitalWrite(SPEC_ST_A, LOW);
+          printf("Int_timeA Stop\n");
+        }
+        if (P_timeA < Period_Time)
+        {
+          digitalWrite(SPEC_CLK_A, HIGH);
+          delayMicroseconds(delayTime);
+          digitalWrite(SPEC_CLK_A, LOW);
+          delayMicroseconds(delayTime); 
+        }
+        else if (P_timeA == Period_Time)
+        {
+          printf("P_timeA Stop\n");
+        }
+        P_timeA++;
+      }
+      else
+      {
+        digitalWrite(SPEC_CLK_A, HIGH);
+        delayMicroseconds(delayTime);
+        digitalWrite(SPEC_CLK_A, LOW);
+        delayMicroseconds(delayTime); 
+      }
+
+      if ( (micros() - startTime) >= Int_timeB )
+      {
+        //Set SPEC_ST to low
+        if (P_timeB == 0)
+        {
+          digitalWrite(SPEC_ST_B, LOW);
+          printf("Int_timeB Stop\n");
+        }
+        if (P_timeB < Period_Time)
+        {
+          digitalWrite(SPEC_CLK_B, HIGH);
+          delayMicroseconds(delayTime);
+          digitalWrite(SPEC_CLK_B, LOW);
+          delayMicroseconds(delayTime); 
+        }
+        else if (P_timeB == Period_Time)
+        {
+          printf("P_timeB Stop\n");
+        }
+        P_timeB++;
+      }
+      else
+      {
+        digitalWrite(SPEC_CLK_B, HIGH);
+        delayMicroseconds(delayTime);
+        digitalWrite(SPEC_CLK_B, LOW);
+        delayMicroseconds(delayTime); 
+      }
   }
 
   //printf("endTime = %d\n",millis());
   //printf("counter = %d\n", counter);
-
-
-  //Sample for a period of time
-  for(int i = 0; i < Period_Time; i++)
-  {
-      digitalWrite(SPEC_CLK_A, HIGH);
-      digitalWrite(SPEC_CLK_B, HIGH);
-      delayMicroseconds(delayTime);
-      digitalWrite(SPEC_CLK_A, LOW);
-      digitalWrite(SPEC_CLK_B, LOW);
-      delayMicroseconds(delayTime); 
-  }
 
   //Read from SPEC_VIDEO
   for(int i = 0; i < SPEC_CHANNELS; i++)
