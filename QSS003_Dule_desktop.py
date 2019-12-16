@@ -69,6 +69,7 @@ GPIO.setup(GATE_PIN1, GPIO.OUT)
 GPIO.setup(GATE_PIN2, GPIO.OUT)
 GPIO.output(GATE_PIN1, GPIO.HIGH)	#close
 GPIO.output(GATE_PIN2, GPIO.HIGH)	#close
+GPIO.setwarnings(False)
 
 data1 = (c_uint * 288)() # data to store spectrum data
 data2 = (c_uint * 288)()
