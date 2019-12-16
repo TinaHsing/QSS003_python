@@ -20,7 +20,7 @@
 #define SPEC_CLK_A       21 //gpio use wPi definition   //29 in PCB
 #define SPEC_ST_A        22 //gpio use wPi definition   //31 in PCB
 #define SPEC_CHANNELS    288 // New Spec Channel
-#define Period_Time      8  //87
+#define Period_Time      87
 
 #if 0 //LED
 //#define LED_Ctrl1         8  //gpio use wPi definition
@@ -257,7 +257,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
         if (P_timeA == 0)
         {
           digitalWrite(SPEC_ST_A, LOW);
-          printf("Int_timeA Stop\n");
+          //printf("Int_timeA Stop\n");
         }
         if (P_timeA < Period_Time)
         {
@@ -265,13 +265,13 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
           delayMicroseconds(delayTime);
           digitalWrite(SPEC_CLK_A, LOW);
           delayMicroseconds(delayTime); 
-          if (P_timeA > 0)
-            printf("P_timeA = %d\n", P_timeA);
+          //if (P_timeA > 0)
+            //printf("P_timeA = %d\n", P_timeA);
         }
-        else if (P_timeA == Period_Time)
-        {
-          printf("P_timeA Stop\n");
-        }
+        //else if (P_timeA == Period_Time)
+        //{
+          //printf("P_timeA Stop\n");
+        //}
         P_timeA++;
       }
       else
@@ -288,7 +288,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
         if (P_timeB == 0)
         {
           digitalWrite(SPEC_ST_B, LOW);
-          printf("Int_timeB Stop\n");
+          //printf("Int_timeB Stop\n");
         }
         if (P_timeB < Period_Time)
         {
@@ -296,13 +296,13 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
           delayMicroseconds(delayTime);
           digitalWrite(SPEC_CLK_B, LOW);
           delayMicroseconds(delayTime); 
-          if (P_timeB > 0)
-            printf("P_timeB = %d\n", P_timeB);
+          //if (P_timeB > 0)
+            //printf("P_timeB = %d\n", P_timeB);
         }
-        else if (P_timeB == Period_Time)
-        {
-          printf("P_timeB Stop\n");
-        }
+        //else if (P_timeB == Period_Time)
+        //{
+          //printf("P_timeB Stop\n");
+        //}
         P_timeB++;
       }
       else
@@ -321,14 +321,14 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
   for(int i = 0; i < SPEC_CHANNELS; i++)
   {
       //data[i] = analogRead(SPEC_VIDEO);
-      dataA[i] = LTC_Read(0);
+      dataA[i] = LTC_Read(1);
       //printf("%d, ", dataA[i]);
       digitalWrite(SPEC_CLK_A, HIGH);
       delayMicroseconds(delayTime);
       digitalWrite(SPEC_CLK_A, LOW);
       delayMicroseconds(delayTime);     
 
-      dataB[i] = LTC_Read(1);
+      dataB[i] = LTC_Read(0);
       //printf("%d, ", dataB[i]);
       digitalWrite(SPEC_CLK_B, HIGH);
       delayMicroseconds(delayTime);
