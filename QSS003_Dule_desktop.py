@@ -119,8 +119,8 @@ else:
 		# C12880.LED_Set_Current(1, led1_current)
 		# C12880.LED_Set_Current(2, led2_current)
 		# C12880.LED_Set_Current(3, led3_current)
-        GPIO.output(GATE_PIN1, GPIO.LOW)	# open
-        GPIO.output(GATE_PIN2, GPIO.LOW)	# open
+		GPIO.output(GATE_PIN1, GPIO.LOW)	# open
+		GPIO.output(GATE_PIN2, GPIO.LOW)	# open
 
 		time.sleep(led_stable_time)
 
@@ -155,8 +155,8 @@ else:
 
 		# C12880.LED_Set_Current(1, 0) # set LED driver1 current to 0 mA
 		# C12880.LED_Set_Current(2, 0) # set LED driver2 current to 0 mA
-        GPIO.output(GATE_PIN1, GPIO.HIGH) # close
-        GPIO.output(GATE_PIN2, GPIO.HIGH) # close
+		GPIO.output(GATE_PIN1, GPIO.HIGH) # close
+		GPIO.output(GATE_PIN2, GPIO.HIGH) # close
 
 		meas = 1
 		black = 1
