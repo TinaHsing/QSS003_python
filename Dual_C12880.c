@@ -180,13 +180,13 @@ void Setup()
  * Look at the Timing Chart in the Datasheet for more info
  */
 
-void SpectrometerTest()
+void SpectrometerTest(int times)
 {
   int delayTime = 1; // delay time
   long startTime, diffTime = 0;
   startTime = micros();
 
-  for (int i = 0; i < 1000; i++)
+  for (int i = 0; i < times; i++)
   {
       digitalWrite(SPEC_CLK_A, HIGH);
       digitalWrite(SPEC_CLK_B, HIGH);

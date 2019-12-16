@@ -91,9 +91,10 @@ else:
 	led_stable_time = float(sys.argv[3])
 	int_time1 = int(sys.argv[4])
 	int_time2 = int(sys.argv[5])
+	test_time = int(sys.argv[6])
 
 	for i in range(0,10):
-		C12880.SpectrometerTest()
+		C12880.SpectrometerTest(test_time)
 
 	while (1):
 		#wait until black or meas buttom is pressed
