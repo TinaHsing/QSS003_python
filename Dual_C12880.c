@@ -251,8 +251,8 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
   //for(int i = 0; i < 15; i++)
   counter = 0;
 
-  while ( ( (micros() - startTime) <= Int_timeA ) or (P_timeA < Period_Time)
-   or ( (micros() - startTime) <= Int_timeB ) or (P_timeB < Period_Time) )
+  while ( ( (micros() - startTime) <= Int_timeA ) || (P_timeA < Period_Time)
+   || ( (micros() - startTime) <= Int_timeB ) || (P_timeB < Period_Time) )
   {
       counter++;
 
