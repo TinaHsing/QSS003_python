@@ -182,7 +182,7 @@ void Setup()
 
 void SpectrometerTest()
 {
-  long startTime, diffTiem = 0;
+  long startTime, diffTime = 0;
   startTime = micros();
 
   for (int i = 0; i < 100; i++)
