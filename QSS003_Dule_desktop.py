@@ -20,16 +20,21 @@ pin_black = 25	# gpio use bcm definition
 HOME_DIR = "/home/pi/QSS003_python/"
 C12880_LIB = HOME_DIR + "Dual_C12880.so"
 
-GATE_PIN1 = 7
-GATE_PIN2 = 15
-PWM_LED_PIN = 18
-PWM_LED_PIN2 = 13
+GATE_PIN1 = 4	# 7 in BOARD
+GATE_PIN2 = 22	# 15 in BOARD
+PWM_LED_PIN = 18 # in pigpio
+PWM_LED_PIN2 = 13 # in pigpio
+
+PWM_FREQ = 500
+DUTY = 100000	#0~1000000
+DUTY2 = 100000
 
 AOPIN = 27
 RSTPIN = 17
 SPI_PORT = 1
 SPI_CH = 0
 SPI_SPEED = 4000000
+
 COLOR_RED 	= (255,0,0)
 COLOR_GREEN = (0,255,0)
 COLOR_BLUE	= (0,0,255)
@@ -60,6 +65,10 @@ GPIO.setup(pin_meas, GPIO.IN)
 GPIO.setup(pin_black, GPIO.IN)
 #GPIO.setup(pin_led, GPIO.OUT)
 #GPIO.output(pin_led, GPIO.LOW)
+GPIO.setup(GATE_PIN1, GPIO.OUT)
+GPIO.setup(GATE_PIN2, GPIO.OUT)
+GPIO.output(GATE_PIN1, GPIO.HIGH)	#close
+GPIO.output(GATE_PIN2, GPIO.HIGH)	#close
 
 data1 = (c_uint * 288)() # data to store spectrum data
 data2 = (c_uint * 288)()
@@ -76,11 +85,11 @@ img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
 draw = ImageDraw.Draw(img)
 font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 fontout = ImageFont.truetype(font,11)
-draw.text((0,LINE1Y),"    Mode: Measure",font = fontout, fill = COLOR_BLUE)
+draw.text((0,LINE1Y), "    Mode: Measure", font = fontout, fill = COLOR_BLUE)
 draw.text((0,LINE2Y), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
 draw.text((0,LINE4Y), "  SiO2", font = fontout, fill = COLOR_BLUE)
 disp.display(img)
-		
+
 
 if len(sys.argv) < 6:
 	error_str = str(sys.argv[0]) + " led1_current led2_current led_stable_time int_time1 int_time2"
@@ -92,7 +101,9 @@ else:
 	int_time1 = int(sys.argv[4])
 	int_time2 = int(sys.argv[5])
 
-	C12880.Read2Spectrometer(int_time1, int_time2, data1, data2)
+	pi = pigpio.pi()
+	pi.hardware_PWM(PWM_LED_PIN, PWM_FREQ, DUTY)
+	pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, DUTY2)
 
 	while (1):
 		#wait until black or meas buttom is pressed
@@ -108,6 +119,8 @@ else:
 		# C12880.LED_Set_Current(1, led1_current)
 		# C12880.LED_Set_Current(2, led2_current)
 		# C12880.LED_Set_Current(3, led3_current)
+        GPIO.output(GATE_PIN1, GPIO.LOW)	# open
+        GPIO.output(GATE_PIN2, GPIO.LOW)	# open
 
 		time.sleep(led_stable_time)
 
@@ -142,6 +155,8 @@ else:
 
 		# C12880.LED_Set_Current(1, 0) # set LED driver1 current to 0 mA
 		# C12880.LED_Set_Current(2, 0) # set LED driver2 current to 0 mA
+        GPIO.output(GATE_PIN1, GPIO.HIGH) # close
+        GPIO.output(GATE_PIN2, GPIO.HIGH) # close
 
 		meas = 1
 		black = 1
