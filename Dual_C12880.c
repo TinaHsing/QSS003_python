@@ -180,6 +180,25 @@ void Setup()
  * Look at the Timing Chart in the Datasheet for more info
  */
 
+void SpectrometerTest()
+{
+  long startTime, diffTiem = 0;
+  startTime = micros();
+
+  for (int i = 0; i < 100; i++)
+  {
+      digitalWrite(SPEC_CLK_A, HIGH);
+      digitalWrite(SPEC_CLK_B, HIGH);
+      delayMicroseconds(delayTime);
+      digitalWrite(SPEC_CLK_A, LOW);
+      digitalWrite(SPEC_CLK_B, LOW);
+      delayMicroseconds(delayTime); 
+  }
+
+  diffTiem = micros() - startTime;
+  printf("Time = %d\n", diffTime);
+}
+
 void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigned int * dataA, unsigned int * dataB)
 {
   int delayTime = 1, counter = 0; // delay time
