@@ -105,6 +105,14 @@ else:
 	pi.hardware_PWM(PWM_LED_PIN, PWM_FREQ, DUTY)
 	pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, DUTY2)
 
+	for i in range(0,10):
+		GPIO.output(GATE_PIN1, GPIO.LOW)	# open
+		GPIO.output(GATE_PIN2, GPIO.LOW)	# open
+		time.sleep(led_stable_time)
+		GPIO.output(GATE_PIN1, GPIO.HIGH) # close
+		GPIO.output(GATE_PIN2, GPIO.HIGH) # close
+		time.sleep(led_stable_time)
+
 	while (1):
 		#wait until black or meas buttom is pressed
 		while (meas and black):
