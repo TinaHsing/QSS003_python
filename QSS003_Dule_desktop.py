@@ -92,7 +92,8 @@ else:
 	int_time1 = int(sys.argv[4])
 	int_time2 = int(sys.argv[5])
 
-	C12880.SpectrometerTest()
+	for i in range(0,10):
+		C12880.SpectrometerTest()
 
 	while (1):
 		#wait until black or meas buttom is pressed

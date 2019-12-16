@@ -186,7 +186,7 @@ void SpectrometerTest()
   long startTime, diffTime = 0;
   startTime = micros();
 
-  for (int i = 0; i < 100; i++)
+  for (int i = 0; i < 1000; i++)
   {
       digitalWrite(SPEC_CLK_A, HIGH);
       digitalWrite(SPEC_CLK_B, HIGH);
