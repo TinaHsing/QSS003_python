@@ -22,15 +22,6 @@
 #define SPEC_CHANNELS    288 // New Spec Channel
 #define Period_Time      87
 
-#if 0 //LED
-//#define LED_Ctrl1         8  //gpio use wPi definition
-#define LED_Ctrl1         26  //8  //gpio use wPi definition
-#define LED_Ctrl2         1  //gpio use wPi definition
-#define LED_Ctrl3         4  //gpio use wPi definition
-#define LED_MAX_Current   30  //ma
-#define LED_MAX_Step      32
-#endif
-
 //LTC1865
 static uint8_t g_channel;
 
@@ -87,61 +78,6 @@ unsigned int LTC_Read(uint8_t nextch)
   return data;
 }
 
-#if 0 //LED
-void LED_Init(int ctrl_pin)
-{
-  pinMode(ctrl_pin, OUTPUT);
-  digitalWrite(ctrl_pin, LOW);
-  delayMicroseconds(1500);
-
-}
-
-void LED_Set_Ctrl_Current(int ctrl_pin, int current)
-{
-  float LowCtrl = 0;
-  int i = 0;
-
-  if (current > LED_MAX_Current)
-  {
-    current = LED_MAX_Current;
-  }
-  else
-  {
-    LowCtrl = (float) ( LED_MAX_Current - current ) * LED_MAX_Step / LED_MAX_Current + 0.5;
-  }
-  //printf("LED step = %f\n", LowCtrl);
-
-  digitalWrite(ctrl_pin, LOW);
-  delayMicroseconds(1500);
-
-  if (current > 0)
-  {
-    digitalWrite(ctrl_pin, HIGH);
-    delayMicroseconds(1);
-
-    for (i = 1; i <= LowCtrl; i++)
-    {
-      digitalWrite(ctrl_pin, LOW);
-      delayMicroseconds(1);
-      digitalWrite(ctrl_pin, HIGH);
-      delayMicroseconds(1);
-      //printf("%d-", i);
-    }
-    //printf("\n");
-  }
-
-}
-
-void LED_Set_Current(int led, int current)
-{
-  if (led == 3)
-    LED_Set_Ctrl_Current(LED_Ctrl3, current);
-  else if (led == 2)
-    LED_Set_Ctrl_Current(LED_Ctrl2, current);
-  else
-    LED_Set_Ctrl_Current(LED_Ctrl1, current);
-}
-#endif
 
 //C12880
 void Setup()
@@ -162,11 +98,6 @@ void Setup()
 
   //LTC1865
   LTC_Init(0, 0);
-#if 0  //LED
-  LED_Init(LED_Ctrl1);
-  LED_Init(LED_Ctrl2);
-  LED_Init(LED_Ctrl3);
-#endif
 
 }
 
