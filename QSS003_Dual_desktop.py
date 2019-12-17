@@ -125,13 +125,11 @@ else:
 	pi = pigpio.pi()
 	pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, int(led1_duty))
 	pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, int(led2_duty))
-	print("LCD OK")
 
 	if (led1_duty > 0):
 		GPIO.output(GATE_LED_PIN1, GPIO.LOW)	# open
 	if (led2_duty > 0):
 		GPIO.output(GATE_LED_PIN2, GPIO.LOW)	# open
-
 	time.sleep(led_stable_time)
 
 	if (black == 0):
@@ -140,9 +138,10 @@ else:
 		fname = "dual_desktop_" + str(fnameindex) + ".txt"
 	fname = HOME_DIR + fname
 
+	print("LCD OK")
+
 	#C12880.ReadSpectrometer(int_time, data)
 	C12880.Read2Spectrometer(int_time1, int_time2, data1, data2)
-
 
 	while (0):
 		#wait until black or meas buttom is pressed
