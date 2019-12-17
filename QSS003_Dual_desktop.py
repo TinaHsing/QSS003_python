@@ -143,9 +143,9 @@ else:
 		time.sleep(led_stable_time)
 
 		if (black == 0):
-			fname = "black.txt"
+			fname = "dual_black.txt"
 		else:
-			fname = "desktop_" + str(fnameindex) + ".txt"
+			fname = "dual_desktop_" + str(fnameindex) + ".txt"
 		fname = HOME_DIR + fname
 
 		#C12880.ReadSpectrometer(int_time, data)
