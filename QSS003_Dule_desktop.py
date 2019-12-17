@@ -65,6 +65,7 @@ else:
 	# board initialization 
 	C12880.Setup() # init spectrometer
 	GPIO.setmode(GPIO.BCM)
+	GPIO.setwarnings(False)
 	GPIO.setup(pin_meas, GPIO.IN)
 	GPIO.setup(pin_black, GPIO.IN)
 	#GPIO.setup(pin_led, GPIO.OUT)
@@ -73,7 +74,6 @@ else:
 	GPIO.setup(GATE_PIN2, GPIO.OUT)
 	GPIO.output(GATE_PIN1, GPIO.HIGH)	#close
 	GPIO.output(GATE_PIN2, GPIO.HIGH)	#close
-	GPIO.setwarnings(False)
 
 	data1 = (c_uint * 288)() # data to store spectrum data
 	data2 = (c_uint * 288)()
