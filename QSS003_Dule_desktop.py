@@ -122,8 +122,8 @@ else:
 	print("led2_duty = "+ str(led2_duty))
 
 	pi = pigpio.pi()
-	pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, led1_duty)
-	pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, led2_duty)
+	pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, int(led1_duty))
+	pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, int(led2_duty))
 
 	while (0):
 		#wait until black or meas buttom is pressed
