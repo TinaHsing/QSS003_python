@@ -125,7 +125,7 @@ else:
 	pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, int(led1_duty))
 	pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, int(led2_duty))
 
-	while (0):
+	while (1):
 		#wait until black or meas buttom is pressed
 		while (meas and black):
 			if GPIO.input(pin_meas) == GPIO.LOW:
