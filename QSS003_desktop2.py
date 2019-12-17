@@ -47,38 +47,37 @@ SPACE2 = 20
 time.sleep(1)
 C12880 = cdll.LoadLibrary(C12880_LIB)
 
-# board initialization 
-C12880.Setup() # init spectrometer
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(pin_meas, GPIO.IN)
-GPIO.setup(pin_black, GPIO.IN)
-GPIO.setup(pin_led, GPIO.OUT)
-GPIO.output(pin_led, GPIO.LOW)
-
-data = (c_uint * 288)() # data to store spectrum data
-meas = 1
-black = 1
-fnameindex = 0
-
-# Display init
-spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
-disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
-disp.begin()
-disp.clear()		
-img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
-draw = ImageDraw.Draw(img)
-font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
-fontout = ImageFont.truetype(font,11)
-draw.text((0,LINE1Y),"    Mode: Measure",font = fontout, fill = COLOR_BLUE)
-draw.text((0,LINE2Y), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
-draw.text((0,LINE4Y), "  SiO2", font = fontout, fill = COLOR_BLUE)
-disp.display(img)
-		
-
 if len(sys.argv) < 6:
 	error_str = str(sys.argv[0]) + " led1_current led2_current led3_current led_stable_time int_time"
 	print(error_str)
 else:
+	# board initialization 
+	C12880.Setup() # init spectrometer
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setup(pin_meas, GPIO.IN)
+	GPIO.setup(pin_black, GPIO.IN)
+	GPIO.setup(pin_led, GPIO.OUT)
+	GPIO.output(pin_led, GPIO.LOW)
+
+	data = (c_uint * 288)() # data to store spectrum data
+	meas = 1
+	black = 1
+	fnameindex = 0
+
+	# Display init
+	spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
+	disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
+	disp.begin()
+	disp.clear()		
+	img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
+	draw = ImageDraw.Draw(img)
+	font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
+	fontout = ImageFont.truetype(font,11)
+	draw.text((0,LINE1Y),"    Mode: Measure",font = fontout, fill = COLOR_BLUE)
+	draw.text((0,LINE2Y), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
+	draw.text((0,LINE4Y), "  SiO2", font = fontout, fill = COLOR_BLUE)
+	disp.display(img)
+
 	led1_current = int(sys.argv[1])
 	led2_current = int(sys.argv[2])
 	led3_current = int(sys.argv[3])
