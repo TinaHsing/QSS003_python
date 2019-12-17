@@ -143,7 +143,7 @@ void SpectrometerTest10(int times)
 void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigned int * dataA, unsigned int * dataB)
 {
   int delayTime = 1, counter = 0; // delay time
-  long startTime = 0;
+  long startTime = 0, diffTime = 0;
   int P_timeA = 0, P_timeB = 0;
 
   // Start clock cycle and set start pulse to signal start
@@ -177,12 +177,13 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
   //for(int i = 0; i < 15; i++)
   counter = 0;
 
-  while ( ( (micros() - startTime) <= Int_timeA ) || (P_timeA < Period_Time)
-   || ( (micros() - startTime) <= Int_timeB ) || (P_timeB < Period_Time) )
+  diffTime = micros() - startTime;
+  while ( ( diffTime <= Int_timeA ) || (P_timeA < Period_Time)
+   || ( diffTime <= Int_timeB ) || (P_timeB < Period_Time) )
   {
       counter++;
 
-      if ( (micros() - startTime) >= Int_timeA )
+      if ( diffTime >= Int_timeA )
       {
         //Set SPEC_ST to low
         if (P_timeA == 0)
@@ -213,7 +214,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
         delayMicroseconds(delayTime); 
       }
 
-      if ( (micros() - startTime) >= Int_timeB )
+      if ( diffTime >= Int_timeB )
       {
         //Set SPEC_ST to low
         if (P_timeB == 0)
@@ -243,6 +244,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
         digitalWrite(SPEC_CLK_B, LOW);
         delayMicroseconds(delayTime); 
       }
+      diffTime = micros() - startTime;
   }
 
   //printf("endTime = %d\n",millis());
