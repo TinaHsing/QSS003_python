@@ -16,18 +16,21 @@ import pigpio
 
 pin_meas = 24 	# gpio use bcm definition
 pin_black = 25	# gpio use bcm definition
-#pin_led = 26
+
 HOME_DIR = "/home/pi/QSS003_python/"
 C12880_LIB = HOME_DIR + "Dual_C12880.so"
 
-GATE_PIN1 = 4	# 7 in BOARD
-GATE_PIN2 = 22	# 15 in BOARD
-PWM_LED_PIN = 18 # in pigpio
+GATE_LED_PIN1 = 4	# 7 in BOARD
+GATE_LED_PIN2 = 22	# 15 in BOARD
+PWM_LED_PIN1 = 18 # in pigpio
 PWM_LED_PIN2 = 13 # in pigpio
 
 PWM_FREQ = 500
-DUTY = 100000	#0~1000000
-DUTY2 = 100000
+DUTY_MIN = 0
+DUTY_MAX = 900000	# original = 1000000
+LED_CURR_MIN = 60	#mA
+LED_CURR_MAX = 330	#mA
+LED_DUTY_CONST = 100000/3
 
 AOPIN = 27
 RSTPIN = 17
@@ -68,12 +71,10 @@ else:
 	GPIO.setwarnings(False)
 	GPIO.setup(pin_meas, GPIO.IN)
 	GPIO.setup(pin_black, GPIO.IN)
-	#GPIO.setup(pin_led, GPIO.OUT)
-	#GPIO.output(pin_led, GPIO.LOW)
-	GPIO.setup(GATE_PIN1, GPIO.OUT)
-	GPIO.setup(GATE_PIN2, GPIO.OUT)
-	GPIO.output(GATE_PIN1, GPIO.HIGH)	#close
-	GPIO.output(GATE_PIN2, GPIO.HIGH)	#close
+	GPIO.setup(GATE_LED_PIN1, GPIO.OUT)
+	GPIO.setup(GATE_LED_PIN2, GPIO.OUT)
+	GPIO.output(GATE_LED_PIN1, GPIO.HIGH)	#close
+	GPIO.output(GATE_LED_PIN2, GPIO.HIGH)	#close
 
 	data1 = (c_uint * 288)() # data to store spectrum data
 	data2 = (c_uint * 288)()
@@ -101,18 +102,28 @@ else:
 	int_time1 = int(sys.argv[4])
 	int_time2 = int(sys.argv[5])
 
-	pi = pigpio.pi()
-	pi.hardware_PWM(PWM_LED_PIN, PWM_FREQ, DUTY)
-	pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, DUTY2)
+	if (led1_current < LED_CURR_MIN):
+		led1_current = LED_CURR_MIN
+	else if (led1_current > LED_CURR_MAX):
+		led1_current = LED_CURR_MAX
 
-	for i in range(0,10):
-		GPIO.output(GATE_PIN1, GPIO.LOW)	# open
-		GPIO.output(GATE_PIN2, GPIO.LOW)	# open
-		time.sleep(led_stable_time)
-		GPIO.output(GATE_PIN1, GPIO.HIGH) # close
-		GPIO.output(GATE_PIN2, GPIO.HIGH) # close
-		time.sleep(led_stable_time)
-	print("done")
+	if (led2_current < LED_CURR_MIN):
+		led2_current = LED_CURR_MIN
+	else if (led2_current > LED_CURR_MAX):
+		led2_current = LED_CURR_MAX
+
+	print("led1_current = "+ led1_current)
+	print("led2_current = "+ led2_current)
+
+	led1_duty = (led1_current - LED_CURR_MIN)*LED_DUTY_CONST
+	led2_duty = (led2_current - LED_CURR_MIN)*LED_DUTY_CONST
+
+	print("led1_duty = "+ led1_duty)
+	print("led2_duty = "+ led2_duty)
+
+	pi = pigpio.pi()
+	pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, led1_duty)
+	pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, led2_duty)
 
 	while (0):
 		#wait until black or meas buttom is pressed
@@ -124,12 +135,10 @@ else:
 				black = 0
 				print("black low")
 
-		# GPIO.output(pin_led, GPIO.HIGH)
-		# C12880.LED_Set_Current(1, led1_current)
-		# C12880.LED_Set_Current(2, led2_current)
-		# C12880.LED_Set_Current(3, led3_current)
-		GPIO.output(GATE_PIN1, GPIO.LOW)	# open
-		GPIO.output(GATE_PIN2, GPIO.LOW)	# open
+		if (led1_duty > 0):
+			GPIO.output(GATE_LED_PIN1, GPIO.LOW)	# open
+		if (led2_duty > 0):
+			GPIO.output(GATE_LED_PIN2, GPIO.LOW)	# open
 
 		time.sleep(led_stable_time)
 
@@ -162,13 +171,12 @@ else:
 		if (meas == 0):
 			fnameindex = fnameindex + 1
 
-		# C12880.LED_Set_Current(1, 0) # set LED driver1 current to 0 mA
-		# C12880.LED_Set_Current(2, 0) # set LED driver2 current to 0 mA
-		GPIO.output(GATE_PIN1, GPIO.HIGH) # close
-		GPIO.output(GATE_PIN2, GPIO.HIGH) # close
+		pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, 0)
+		pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, 0)
+		GPIO.output(GATE_LED_PIN1, GPIO.HIGH) # close
+		GPIO.output(GATE_LED_PIN2, GPIO.HIGH) # close
 
 		meas = 1
 		black = 1
 
-		# GPIO.output(pin_led, GPIO.LOW) #turn off measure LED
 		print("done")
