@@ -124,8 +124,15 @@ else:
 	pi = pigpio.pi()
 	pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, int(led1_duty))
 	pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, int(led2_duty))
+	print("LCD OK")
 
-	while (1):
+	if (led1_duty > 0):
+		GPIO.output(GATE_LED_PIN1, GPIO.LOW)	# open
+	if (led2_duty > 0):
+		GPIO.output(GATE_LED_PIN2, GPIO.LOW)	# open
+
+
+	while (0):
 		#wait until black or meas buttom is pressed
 		while (meas and black):
 			if GPIO.input(pin_meas) == GPIO.LOW:
