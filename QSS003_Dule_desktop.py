@@ -104,12 +104,12 @@ else:
 
 	if (led1_current < LED_CURR_MIN):
 		led1_current = LED_CURR_MIN
-	else if (led1_current > LED_CURR_MAX):
+	elif (led1_current > LED_CURR_MAX):
 		led1_current = LED_CURR_MAX
 
 	if (led2_current < LED_CURR_MIN):
 		led2_current = LED_CURR_MIN
-	else if (led2_current > LED_CURR_MAX):
+	elif (led2_current > LED_CURR_MAX):
 		led2_current = LED_CURR_MAX
 
 	print("led1_current = "+ led1_current)
