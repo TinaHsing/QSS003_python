@@ -86,7 +86,8 @@ else:
 	spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
 	disp = TFT.ST7735(dc = AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
 	disp.begin()
-	disp.clear()		
+	disp.clear()
+
 	img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
 	draw = ImageDraw.Draw(img)
 	font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
@@ -130,6 +131,17 @@ else:
 		GPIO.output(GATE_LED_PIN1, GPIO.LOW)	# open
 	if (led2_duty > 0):
 		GPIO.output(GATE_LED_PIN2, GPIO.LOW)	# open
+
+	time.sleep(led_stable_time)
+
+	if (black == 0):
+		fname = "dual_black.txt"
+	else:
+		fname = "dual_desktop_" + str(fnameindex) + ".txt"
+	fname = HOME_DIR + fname
+
+	#C12880.ReadSpectrometer(int_time, data)
+	C12880.Read2Spectrometer(int_time1, int_time2, data1, data2)
 
 
 	while (0):
