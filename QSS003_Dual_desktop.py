@@ -162,11 +162,13 @@ else:
 		draw.text((0,LINE6Y),str(datetime.datetime.now()), font = fontout, fill = COLOR_BLUE)
 		disp.display(img)
 
-		# out = [str(line) + '\n' for line in data]
-		# fp = open(fname, "w+")
-		# #print(out)
-		# fp.writelines(out)
-		# fp.close()
+		#out = [str(line) + '\n' for line in data]
+		fp = open(fname, "w+")
+		#print(out)
+		#fp.writelines(out)
+		for i in range(0,288):
+			fp.write(str(data1[i]) + ", " + str(data2[i]) + ", \n")
+		fp.close()
 
 		if (meas == 0):
 			fnameindex = fnameindex + 1
