@@ -2,7 +2,6 @@
 #include <stdint.h>
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
-//#include <lcd.h>
 
 /*
  * Macro Definitions
@@ -29,25 +28,8 @@
 #define LED_MAX_Current   30  //ma
 #define LED_MAX_Step      32
 
-#if 0 //LCD
-#define LCD_Rows    2
-#define LCD_Cols    16
-#define LCD_BITS    4
-#define LCD_RS      9   //gpio use wPi definition
-#define LCD_STRB    7   //gpio use wPi definition
-#define LCD_D0      3   //gpio use wPi definition
-#define LCD_D1      0   //gpio use wPi definition
-#define LCD_D2      21  //gpio use wPi definition
-#define LCD_D3      2   //gpio use wPi definition
-#endif
-
 //LTC1865
 static uint8_t g_channel;
-
-#if 0 //LCD
-static int g_lcdHandle;
-//static char g_String[17];
-#endif
 
 #if 0 //C12880
 uint16_t data[SPEC_CHANNELS];
@@ -157,72 +139,6 @@ void LED_Set_Current(int led, int current)
     LED_Set_Ctrl_Current(LED_Ctrl1, current);
 }
 
-#if 0 //LCD
-void LCD_Init()
-{
-  //4-bit
-  g_lcdHandle = lcdInit(LCD_Rows, LCD_Cols, LCD_BITS, LCD_RS, LCD_STRB, LCD_D0, LCD_D1, LCD_D2, LCD_D3, 0, 0, 0, 0) ;
-
-  //if (g_lcdHandle < 0)
-    //printf ("LCD_Init failed\n") ;
-
-}
-
-void LCD_Clear()
-{
-  //printf("lcd = %d\n", g_lcdHandle);
-  lcdClear(g_lcdHandle);
-}
-
-void LCD_Write(int x, int y, unsigned char *a_string)
-{
-  //printf("lcd = %d\n", g_lcdHandle);
-  printf("%s\n", a_string);
-  //sprintf(g_String, "%s", a_string);
-  //printf("%s\n", g_String);
-  lcdPosition(g_lcdHandle, x, y);
-  delayMicroseconds(100);
-  lcdPuts(g_lcdHandle, a_string);
-  //lcdPuts(g_lcdHandle, g_String);
-}
-
-void LCD_Test(int j)
-{
-  char String[17];
-  int i = 0;
-
-#if 0
-  for (i = 0; i < 15; i++)
-  {
-    String[i] = 65 + i + j;
-  }
-  String[15] = 48 + j;
-  String[16] = '\0';
-  LCD_Write(j, 0, String);
-#else
-  String[0] = 48 + j;
-  String[1] = '\0';
-  lcdPosition(g_lcdHandle, j, 0);
-  lcdPuts(g_lcdHandle, String);
-#endif
-
-#if 0
-  for (i = 0; i < 15; i++)
-  {
-    String[i] = 97 + i + j;
-  }
-  String[15] = 48 + j;
-  String[16] = '\0';
-  LCD_Write(j, 1, String);
-#else
-  String[0] = 48 + j;
-  String[1] = '\0';
-  lcdPosition(g_lcdHandle, j, 1);
-  lcdPuts(g_lcdHandle, String);
-#endif
-
-}
-#endif
 
 //C12880
 void Setup()
@@ -243,9 +159,6 @@ void Setup()
   LED_Init(LED_Ctrl1);
   LED_Init(LED_Ctrl2);
   LED_Init(LED_Ctrl3);
-#endif
-#if 0  //LCD
-  LCD_Init();
 #endif
 
 }
