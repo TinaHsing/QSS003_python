@@ -9,10 +9,9 @@ import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 import ST7735 as TFT
 
-#pin_meas = 18 	# gpio use board definition
-#pin_black = 22	# gpio use board definition
 pin_meas = 24 	# gpio use BCM definition
 pin_black = 25	# gpio use BCM definition
+
 HOME_DIR = "/home/pi/QSS003_python/"
 C12880_LIB = HOME_DIR + "C12880_noLED.so"
 
