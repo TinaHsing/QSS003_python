@@ -154,10 +154,6 @@ else:
 			fp.writelines(out)
 			fp.close()
 
-			#lcd.clear()
-			#lcd.cursor_pos = (1, 0)
-			#lcd.write_string("Writing finish")
-
 			if (meas == 0):
 				fnameindex = fnameindex + 1
 
