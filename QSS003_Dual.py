@@ -103,7 +103,7 @@ def ShowIP():
 	ip = str(ip)
 	#print(ip)
 	ip = ip[2:-4]
-	#print(ip)
+	print(ip)
 	fontout = ImageFont.truetype(font,10)
 	draw.rectangle((0,LINE6Y, 128,LINE6Y+SPACE1 ), COLOR_WHITE)
 	draw.text((0,LINE6Y), ip, font = fontout, fill = COLOR_BLUE)
@@ -147,12 +147,13 @@ else:
 		while (meas and black and dark):
 			if GPIO.input(pin_meas) == GPIO.LOW:
 				meas = 0
-				
+				print("meas low")
 			if GPIO.input(pin_black) == GPIO.LOW:
 				black = 0
-				
+				print("black low")
 			if GPIO.input(pin_dark) == GPIO.LOW:
 				dark = 0
+				print("dark low")
 				
 
 		if (dark == 0):
