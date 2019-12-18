@@ -68,6 +68,7 @@ C12880 = cdll.LoadLibrary(C12880_LIB)
 # board initialization 
 C12880.Setup() # init spectrometer
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 GPIO.setup(pin_meas, GPIO.IN)
 GPIO.setup(pin_black, GPIO.IN)
 GPIO.setup(pin_dark, GPIO.IN)
