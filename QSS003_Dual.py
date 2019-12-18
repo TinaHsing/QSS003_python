@@ -63,6 +63,7 @@ LINE6Y = 100
 SPACE1 = 15
 SPACE2 = 20
 
+time.sleep(1)
 C12880 = cdll.LoadLibrary(C12880_LIB)
 
 # board initialization 
@@ -135,8 +136,14 @@ else:
 	elif (led2_current > LED_CURR_MAX):
 		led2_current = LED_CURR_MAX
 
+	print("led1_current = "+ str(led1_current))
+	print("led2_current = "+ str(led2_current))
+
 	led1_duty = (led1_current - LED_CURR_MIN)*LED_DUTY_CONST
 	led2_duty = (led2_current - LED_CURR_MIN)*LED_DUTY_CONST
+
+	print("led1_duty = "+ str(led1_duty))
+	print("led2_duty = "+ str(led2_duty))
 
 	pi = pigpio.pi()
 	pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, int(led1_duty))
