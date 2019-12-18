@@ -12,21 +12,24 @@ from PIL import ImageFont
 import Adafruit_GPIO.SPI as SPI
 import ST7735 as TFT
 
+# use BCM pin define
+pin_meas = 24 	# 18 in BOARD
+pin_black = 25	# 22 in BOARD
+pin_dark = 7	# 26 in BOARD 
+pin_led = 26    # 37 in BOARD
 
-pin_meas = 24 	# gpio use bcm definition
-pin_black = 25	# gpio use bcm definition
-pin_dark = 7	# gpio use bcm definition
-pin_led = 26    #gpio use bcm definition
 HOME_DIR = "/home/pi/QSS003_python/"
 SETTING_FILENAME = HOME_DIR + "setting.txt"
 C12880_LIB = HOME_DIR + "C12880.so"
 
+# use BCM pin define
+AOPIN = 27	# 13 in BOARD
+RSTPIN = 17	# 11 in BOARD
 
-AOPIN = 27
-RSTPIN = 17
 SPI_PORT = 1
 SPI_CH = 0
 SPI_SPEED = 4000000
+
 COLOR_RED 	= (255,0,0)
 COLOR_GREEN = (0,255,0)
 COLOR_BLUE	= (0,0,255)
@@ -68,12 +71,12 @@ fnameindex = 0
 spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
 disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
 disp.begin()
-disp.clear()		
+disp.clear()
 img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
 draw = ImageDraw.Draw(img)
 font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 fontout = ImageFont.truetype(font,11)
-draw.text((0,LINE1Y),"    Mode: Measure",font = fontout, fill = COLOR_BLUE)
+draw.text((0,LINE1Y), "  Mode: Measure", font = fontout, fill = COLOR_BLUE)
 draw.text((0,LINE2Y), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
 draw.text((0,LINE4Y), "  SiO2", font = fontout, fill = COLOR_BLUE)
 disp.display(img)
@@ -86,7 +89,7 @@ def ShowIP():
 	#print(ip)
 	fontout = ImageFont.truetype(font,10)
 	draw.rectangle((0,LINE6Y, 128,LINE6Y+SPACE1 ), COLOR_WHITE)
-	draw.text((0,LINE6Y), ip, font =fontout, fill = COLOR_BLUE)
+	draw.text((0,LINE6Y), ip, font = fontout, fill = COLOR_BLUE)
 	disp.display(img)
 
 #open file for parameter setting
@@ -103,7 +106,7 @@ else:
 	led2_current = int(param[1])
 	led3_current = int(param[2])
 	led_stable_time = float(param[3])
-	int_time = int(param[4])	
+	int_time = int(param[4])
 
 	while (1):
 		#wait until black or meas buttom is pressed
@@ -138,14 +141,14 @@ else:
 
 			C12880.ReadSpectrometer(int_time, data)
 
-			draw.rectangle((0,LINE3Y,128,LINE3Y+SPACE2), COLOR_WHITE)
+			draw.rectangle((0, LINE3Y, 128, LINE3Y+SPACE2), COLOR_WHITE)
 			draw.rectangle((0, LINE5Y, 128, LINE5Y+SPACE2), COLOR_WHITE)
 			draw.rectangle((0, LINE6Y, 128, LINE6Y+SPACE1), COLOR_WHITE)
 			fontout = ImageFont.truetype(font,16)
-			draw.text((0,LINE3Y),"  12.1 mg/dL",font = fontout, fill = COLOR_RED)
+			draw.text((0,LINE3Y),"  12.1 mg/dL", font = fontout, fill = COLOR_RED)
 			draw.text((0,LINE5Y),"     66%", font=fontout, fill = COLOR_RED)
 			fontout = ImageFont.truetype(font,10)
-			draw.text((0,LINE6Y),str(datetime.datetime.now()),font = fontout, fill = COLOR_BLUE)
+			draw.text((0,LINE6Y),str(datetime.datetime.now()), font = fontout, fill = COLOR_BLUE)
 			disp.display(img)
 
 			out = [str(line) + '\n' for line in data]

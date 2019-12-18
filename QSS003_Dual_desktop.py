@@ -94,7 +94,7 @@ else:
 	draw = ImageDraw.Draw(img)
 	font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 	fontout = ImageFont.truetype(font,11)
-	draw.text((0,LINE1Y), "    Mode: Measure", font = fontout, fill = COLOR_BLUE)
+	draw.text((0,LINE1Y), "  Mode: Measure", font = fontout, fill = COLOR_BLUE)
 	draw.text((0,LINE2Y), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
 	draw.text((0,LINE4Y), "  SiO2", font = fontout, fill = COLOR_BLUE)
 	disp.display(img)
@@ -155,7 +155,6 @@ else:
 		C12880.Read2Spectrometer(int_time1, int_time2, data1, data2)
 
 		# print the data on tft screen 
-		disp.clear()
 		draw.rectangle((0, LINE3Y, 128, LINE3Y+SPACE2), COLOR_WHITE)
 		draw.rectangle((0, LINE5Y, 128, LINE5Y+SPACE2), COLOR_WHITE)
 		draw.rectangle((0, LINE6Y, 128, LINE6Y+SPACE1), COLOR_WHITE)

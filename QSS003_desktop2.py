@@ -12,18 +12,22 @@ from PIL import ImageFont
 import Adafruit_GPIO.SPI as SPI
 import ST7735 as TFT
 
+# use BCM pin define
+pin_meas = 24 	# 18 in BOARD
+pin_black = 25	# 22 in BOARD
+pin_led = 26    # 37 in BOARD
 
-pin_meas = 24 	# gpio use bcm definition
-pin_black = 25	# gpio use bcm definition
-pin_led = 26
 HOME_DIR = "/home/pi/QSS003_python/"
 C12880_LIB = HOME_DIR + "C12880.so"
 
-AOPIN = 27
-RSTPIN = 17
+# use BCM pin define
+AOPIN = 27	# 13 in BOARD
+RSTPIN = 17	# 11 in BOARD
+
 SPI_PORT = 1
 SPI_CH = 0
 SPI_SPEED = 4000000
+
 COLOR_RED 	= (255,0,0)
 COLOR_GREEN = (0,255,0)
 COLOR_BLUE	= (0,0,255)
@@ -44,7 +48,6 @@ LINE6Y = 100
 SPACE1 = 15
 SPACE2 = 20
 
-time.sleep(1)
 C12880 = cdll.LoadLibrary(C12880_LIB)
 
 if len(sys.argv) < 6:
@@ -54,6 +57,7 @@ else:
 	# board initialization 
 	C12880.Setup() # init spectrometer
 	GPIO.setmode(GPIO.BCM)
+	GPIO.setwarnings(False)
 	GPIO.setup(pin_meas, GPIO.IN)
 	GPIO.setup(pin_black, GPIO.IN)
 	GPIO.setup(pin_led, GPIO.OUT)
@@ -66,14 +70,14 @@ else:
 
 	# Display init
 	spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
-	disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
+	disp = TFT.ST7735(dc = AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
 	disp.begin()
-	disp.clear()		
+	disp.clear()
 	img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
 	draw = ImageDraw.Draw(img)
 	font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 	fontout = ImageFont.truetype(font,11)
-	draw.text((0,LINE1Y),"    Mode: Measure",font = fontout, fill = COLOR_BLUE)
+	draw.text((0,LINE1Y), "  Mode: Measure", font = fontout, fill = COLOR_BLUE)
 	draw.text((0,LINE2Y), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
 	draw.text((0,LINE4Y), "  SiO2", font = fontout, fill = COLOR_BLUE)
 	disp.display(img)
@@ -111,16 +115,16 @@ else:
 		C12880.ReadSpectrometer(int_time, data)
 
 		# print the data on tft screen 
-		draw.rectangle((0,LINE3Y,128,LINE3Y+SPACE2), COLOR_WHITE)
+		draw.rectangle((0, LINE3Y, 128, LINE3Y+SPACE2), COLOR_WHITE)
 		draw.rectangle((0, LINE5Y, 128, LINE5Y+SPACE2), COLOR_WHITE)
 		draw.rectangle((0, LINE6Y, 128, LINE6Y+SPACE1), COLOR_WHITE)
 		fontout = ImageFont.truetype(font,16)
-		draw.text((0,LINE3Y),"  12.1 mg/dL",font = fontout, fill = COLOR_RED)
-		draw.text((0,LINE5Y),"     66%", font=fontout, fill = COLOR_RED)
+		draw.text((0,LINE3Y),"  12.1 mg/dL", font = fontout, fill = COLOR_RED)
+		draw.text((0,LINE5Y),"     66%", font = fontout, fill = COLOR_RED)
 		fontout = ImageFont.truetype(font,10)
-		draw.text((0,LINE6Y),str(datetime.datetime.now()),font = fontout, fill = COLOR_BLUE)
+		draw.text((0,LINE6Y),str(datetime.datetime.now()), font = fontout, fill = COLOR_BLUE)
 		disp.display(img)
-		
+
 		out = [str(line) + '\n' for line in data]
 		fp = open(fname, "w+")
 		#print(out)
