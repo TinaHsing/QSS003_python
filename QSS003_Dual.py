@@ -104,7 +104,7 @@ def ShowIP():
 	ip = str(ip)
 	#print(ip)
 	ip = ip[2:-4]
-	print(ip)
+	#print(ip)
 	fontout = ImageFont.truetype(font,10)
 	draw.rectangle((0,LINE6Y, 128,LINE6Y+SPACE1 ), COLOR_WHITE)
 	draw.text((0,LINE6Y), ip, font = fontout, fill = COLOR_BLUE)
