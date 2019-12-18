@@ -89,7 +89,7 @@ fnameindex = 0
 spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
 disp = TFT.ST7735(dc=AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
 disp.begin()
-disp.clear()		
+disp.clear()
 img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
 draw = ImageDraw.Draw(img)
 font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
@@ -123,8 +123,8 @@ else:
 	led1_current = int(param[0])
 	led2_current = int(param[1])
 	led_stable_time = float(param[2])
-	int_time1 = int(param[3])	
-	int_time2 = int(param[4])	
+	int_time1 = int(param[3])
+	int_time2 = int(param[4])
 
 	if (led1_current < LED_CURR_MIN):
 		led1_current = LED_CURR_MIN
