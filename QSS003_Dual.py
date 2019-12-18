@@ -13,15 +13,16 @@ import Adafruit_GPIO.SPI as SPI
 import ST7735 as TFT
 import pigpio
 
-
-pin_meas = 24 	# gpio use bcm definition
-pin_black = 25	# gpio use bcm definition
-pin_dark = 7	# gpio use bcm definition
+# use BCM pin define
+pin_meas = 24 	# 18 in BOARD
+pin_black = 25	# 22 in BOARD
+pin_dark = 7	# 26 in BOARD 
 
 HOME_DIR = "/home/pi/QSS003_python/"
 SETTING_FILENAME = HOME_DIR + "setting.txt"
 C12880_LIB = HOME_DIR + "Dual_C12880.so"
 
+# use BCM pin define
 GATE_LED_PIN1 = 4	# 7 in BOARD
 GATE_LED_PIN2 = 22	# 15 in BOARD
 PWM_LED_PIN1 = 18 # in pigpio
