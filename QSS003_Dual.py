@@ -16,6 +16,7 @@ import pigpio
 
 pin_meas = 24 	# gpio use bcm definition
 pin_black = 25	# gpio use bcm definition
+pin_dark = 7	# gpio use bcm definition
 
 HOME_DIR = "/home/pi/QSS003_python/"
 SETTING_FILENAME = HOME_DIR + "setting.txt"
