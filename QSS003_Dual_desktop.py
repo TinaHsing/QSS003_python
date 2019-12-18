@@ -88,7 +88,7 @@ else:
 	spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
 	disp = TFT.ST7735(dc = AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
 	disp.begin()
-	disp.clear()		
+	disp.clear()
 	img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
 	draw = ImageDraw.Draw(img)
 	font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
@@ -154,6 +154,7 @@ else:
 		C12880.Read2Spectrometer(int_time1, int_time2, data1, data2)
 
 		# print the data on tft screen 
+		disp.clear()
 		draw.rectangle((0, LINE3Y, 128, LINE3Y+SPACE2), COLOR_WHITE)
 		draw.rectangle((0, LINE5Y, 128, LINE5Y+SPACE2), COLOR_WHITE)
 		draw.rectangle((0, LINE6Y, 128, LINE6Y+SPACE1), COLOR_WHITE)
