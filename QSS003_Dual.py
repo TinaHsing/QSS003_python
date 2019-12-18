@@ -19,7 +19,7 @@ pin_black = 25	# 22 in BOARD
 pin_dark = 7	# 26 in BOARD 
 
 HOME_DIR = "/home/pi/QSS003_python/"
-SETTING_FILENAME = HOME_DIR + "setting.txt"
+SETTING_FILENAME = HOME_DIR + "setting_dual.txt"
 C12880_LIB = HOME_DIR + "Dual_C12880.so"
 
 # use BCM pin define
