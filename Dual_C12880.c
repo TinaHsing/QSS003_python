@@ -189,7 +189,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
         if (P_timeA == 0)
         {
           digitalWrite(SPEC_ST_A, LOW);
-          //printf("Int_timeA Stop\n");
+          printf("ST A low\n");
         }
         if (P_timeA < Period_Time)
         {
@@ -198,7 +198,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
           digitalWrite(SPEC_CLK_A, LOW);
           delayMicroseconds(delayTime); 
           //if (P_timeA > 0)
-            //printf("P_timeA = %d\n", P_timeA);
+          printf("A pulse\n");
         }
         //else if (P_timeA == Period_Time)
         //{
@@ -211,7 +211,8 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
         digitalWrite(SPEC_CLK_A, HIGH);
         delayMicroseconds(delayTime);
         digitalWrite(SPEC_CLK_A, LOW);
-        delayMicroseconds(delayTime); 
+        delayMicroseconds(delayTime);
+        print("A pulse within int\n");
       }
 
       if ( diffTime >= Int_timeB )
@@ -220,7 +221,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
         if (P_timeB == 0)
         {
           digitalWrite(SPEC_ST_B, LOW);
-          //printf("Int_timeB Stop\n");
+          printf("ST B low\n");
         }
         if (P_timeB < Period_Time)
         {
@@ -229,7 +230,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
           digitalWrite(SPEC_CLK_B, LOW);
           delayMicroseconds(delayTime); 
           //if (P_timeB > 0)
-            //printf("P_timeB = %d\n", P_timeB);
+          printf("B pulse\n");
         }
         //else if (P_timeB == Period_Time)
         //{
@@ -243,6 +244,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
         delayMicroseconds(delayTime);
         digitalWrite(SPEC_CLK_B, LOW);
         delayMicroseconds(delayTime); 
+        print("B pulse within int\n");
       }
       diffTime = micros() - startTime;
   }
