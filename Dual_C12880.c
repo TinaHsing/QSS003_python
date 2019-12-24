@@ -256,19 +256,17 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
   for(int i = 0; i < SPEC_CHANNELS; i++)
   {
       //data[i] = analogRead(SPEC_VIDEO);
-      dataA[i] = LTC_Read(1);
-      //printf("%d, ", dataA[i]);
+     
       digitalWrite(SPEC_CLK_A, HIGH);
-      delayMicroseconds(delayTime);
-      digitalWrite(SPEC_CLK_A, LOW);
-      delayMicroseconds(delayTime);     
-
-      dataB[i] = LTC_Read(0);
-      //printf("%d, ", dataB[i]);
       digitalWrite(SPEC_CLK_B, HIGH);
-      delayMicroseconds(delayTime);
+      dataA[i] = LTC_Read(1);
+      dataB[i] = LTC_Read(0);
+      //printf("%d, ", dataA[i]);
+      //printf("%d, ", dataB[i]);
+      digitalWrite(SPEC_CLK_A, LOW);
       digitalWrite(SPEC_CLK_B, LOW);
       delayMicroseconds(delayTime);     
+
   }
 
   //printf("\n");
