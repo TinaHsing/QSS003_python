@@ -198,7 +198,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
           digitalWrite(SPEC_CLK_A, LOW);
           delayMicroseconds(delayTime); 
           //if (P_timeA > 0)
-          printf("A pulse\n");
+          printf("A pulse = %d\n", P_timeA);
         }
         //else if (P_timeA == Period_Time)
         //{
@@ -212,7 +212,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
         delayMicroseconds(delayTime);
         digitalWrite(SPEC_CLK_A, LOW);
         delayMicroseconds(delayTime);
-        print("A pulse within int\n");
+        printf("A pulse within int\n");
       }
 
       if ( diffTime >= Int_timeB )
@@ -230,7 +230,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
           digitalWrite(SPEC_CLK_B, LOW);
           delayMicroseconds(delayTime); 
           //if (P_timeB > 0)
-          printf("B pulse\n");
+          printf("B pulse = %d\n", P_timeB);
         }
         //else if (P_timeB == Period_Time)
         //{
@@ -244,7 +244,7 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
         delayMicroseconds(delayTime);
         digitalWrite(SPEC_CLK_B, LOW);
         delayMicroseconds(delayTime); 
-        print("B pulse within int\n");
+        printf("B pulse within int\n");
       }
       diffTime = micros() - startTime;
   }
