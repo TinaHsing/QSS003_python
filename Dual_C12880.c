@@ -13,6 +13,8 @@
 #define ADC_CH1_H   0xC0
 #define ADC_CH1_L   0x00
 #define CLOCK_SPEED 1000000
+#define ADC_NEXT_CH_A  1
+#define ADC_NEXT_CH_B  0
 
 //C12880
 #define SPEC_CLK_B       0  //gpio use wPi definition   //11 in PCB
@@ -97,7 +99,7 @@ void Setup()
   digitalWrite(SPEC_ST_B, LOW); // Set SPEC_ST Low
 
   //LTC1865
-  LTC_Init(0, 0);
+  LTC_Init(0, ADC_NEXT_CH_A);
 
 }
 
@@ -256,11 +258,11 @@ void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigne
   for(int i = 0; i < SPEC_CHANNELS; i++)
   {
       //data[i] = analogRead(SPEC_VIDEO);
-     
+
       digitalWrite(SPEC_CLK_A, HIGH);
       digitalWrite(SPEC_CLK_B, HIGH);
-      dataA[i] = LTC_Read(1);
-      dataB[i] = LTC_Read(0);
+      dataA[i] = LTC_Read(ADC_NEXT_CH_B);
+      dataB[i] = LTC_Read(ADC_NEXT_CH_A);
       //printf("%d, ", dataA[i]);
       //printf("%d, ", dataB[i]);
       digitalWrite(SPEC_CLK_A, LOW);
