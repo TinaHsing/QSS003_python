@@ -108,40 +108,6 @@ void Setup()
  * Look at the Timing Chart in the Datasheet for more info
  */
 
-#if 0 //for test
-long SpectrometerTest(int times)
-{
-  int delayTime = 1; // delay time
-  long startTime, diffTime = 0;
-  startTime = micros();
-
-  for (int i = 0; i < times; i++)
-  {
-      digitalWrite(SPEC_CLK_A, HIGH);
-      digitalWrite(SPEC_CLK_B, HIGH);
-      delayMicroseconds(delayTime);
-      digitalWrite(SPEC_CLK_A, LOW);
-      digitalWrite(SPEC_CLK_B, LOW);
-      delayMicroseconds(delayTime); 
-  }
-
-  diffTime = micros() - startTime;
-  printf("Time = %d\n", diffTime);
-  return diffTime;
-}
-
-void SpectrometerTest10(int times)
-{
-  long totalTime = 0;
-
-  for (int i = 0; i < 10; i++)
-  {
-    totalTime += SpectrometerTest(times);
-  }
-  printf("Average Time = %d\n", (totalTime / 10) );
-}
-#endif
-
 void Read2Spectrometer(unsigned long Int_timeA, unsigned long Int_timeB, unsigned int * dataA, unsigned int * dataB)
 {
   int delayTime = 1, counter = 0; // delay time
