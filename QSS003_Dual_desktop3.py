@@ -185,7 +185,7 @@ else:
 		GPIO.output(GATE_LED_PIN1, GPIO.HIGH) # close
 		GPIO.output(GATE_LED_PIN2, GPIO.HIGH) # close
 
-		time.sleep(led_stable_time)	# for LED test
+		# time.sleep(led_stable_time)	# for LED test
 
 		meas = 1
 		black = 1
