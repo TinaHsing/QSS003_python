@@ -55,7 +55,7 @@ if len(sys.argv) < 6:
 	print(error_str)
 else:
 	# board initialization 
-#	C12880.Setup() # init spectrometer
+	C12880.Setup() # init spectrometer
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setwarnings(False)
 	GPIO.setup(pin_meas, GPIO.IN)
