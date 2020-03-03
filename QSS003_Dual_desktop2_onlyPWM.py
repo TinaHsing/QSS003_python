@@ -89,18 +89,18 @@ else:
 	fnameindex = 0
 
 	# Display init
-	# spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
-	# disp = TFT.ST7735(dc = AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
-	# disp.begin()
-	# disp.clear()
-	# img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
-	# draw = ImageDraw.Draw(img)
-	# font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
-	# fontout = ImageFont.truetype(font,11)
-	# draw.text((0,LINE1Y), "  Mode: Measure", font = fontout, fill = COLOR_BLUE)
-	# draw.text((0,LINE2Y), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
-	# draw.text((0,LINE4Y), "  SiO2", font = fontout, fill = COLOR_BLUE)
-	# disp.display(img)
+	spi = SPI.SpiDev(SPI_PORT, SPI_CH, max_speed_hz = SPI_SPEED)
+	disp = TFT.ST7735(dc = AOPIN, rst = RSTPIN, spi = spi, width = 128, height = 128)
+	disp.begin()
+	disp.clear()
+	img = Image.new('RGB', TFT_SIZE, COLOR_WHITE)
+	draw = ImageDraw.Draw(img)
+	font = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
+	fontout = ImageFont.truetype(font,11)
+	draw.text((0,LINE1Y), "  Mode: Measure", font = fontout, fill = COLOR_BLUE)
+	draw.text((0,LINE2Y), "  Bilirubin", font = fontout, fill = COLOR_BLUE)
+	draw.text((0,LINE4Y), "  SiO2", font = fontout, fill = COLOR_BLUE)
+	disp.display(img)
 
 	led1_current = int(sys.argv[1])
 	led2_current = int(sys.argv[2])
@@ -159,15 +159,15 @@ else:
 		C12880.Read2Spectrometer(int_time1, int_time2, data1, data2)
 
 		# print the data on tft screen 
-		# draw.rectangle((0, LINE3Y, 128, LINE3Y+SPACE2), COLOR_WHITE)
-		# draw.rectangle((0, LINE5Y, 128, LINE5Y+SPACE2), COLOR_WHITE)
-		# draw.rectangle((0, LINE6Y, 128, LINE6Y+SPACE1), COLOR_WHITE)
-		# fontout = ImageFont.truetype(font,16)
-		# draw.text((0,LINE3Y),"  12.1 mg/dL", font = fontout, fill = COLOR_RED)
-		# draw.text((0,LINE5Y),"     66%", font = fontout, fill = COLOR_RED)
-		# fontout = ImageFont.truetype(font,10)
-		# draw.text((0,LINE6Y),str(datetime.datetime.now()), font = fontout, fill = COLOR_BLUE)
-		# disp.display(img)
+		draw.rectangle((0, LINE3Y, 128, LINE3Y+SPACE2), COLOR_WHITE)
+		draw.rectangle((0, LINE5Y, 128, LINE5Y+SPACE2), COLOR_WHITE)
+		draw.rectangle((0, LINE6Y, 128, LINE6Y+SPACE1), COLOR_WHITE)
+		fontout = ImageFont.truetype(font,16)
+		draw.text((0,LINE3Y),"  12.1 mg/dL", font = fontout, fill = COLOR_RED)
+		draw.text((0,LINE5Y),"     66%", font = fontout, fill = COLOR_RED)
+		fontout = ImageFont.truetype(font,10)
+		draw.text((0,LINE6Y),str(datetime.datetime.now()), font = fontout, fill = COLOR_BLUE)
+		disp.display(img)
 
 		#out = [str(line) + '\n' for line in data]
 		fp = open(fname, "w+")
@@ -180,8 +180,6 @@ else:
 		if (meas == 0):
 			fnameindex = fnameindex + 1
 
-		pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, 0)
-		pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, 0)
 		GPIO.output(GATE_LED_PIN1, GPIO.HIGH) # close
 		GPIO.output(GATE_LED_PIN2, GPIO.HIGH) # close
 
@@ -190,3 +188,6 @@ else:
 
 		GPIO.output(pin_led, GPIO.LOW) #turn off measure LED
 		print("done")
+
+	pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, 0)
+	pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, 0)
