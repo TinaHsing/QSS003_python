@@ -4,6 +4,7 @@
 second dual version
 Dual_C12880.c + QSS003_Dual2.py + QSS003_Dual_desktop2.py
 * fix 量測指示燈 issue
+（PCB pwm1=12 與 LCD-CS=12 相衝，未解）
 
 2019-12-18
 first dual version
@@ -15,7 +16,8 @@ Dual_C12880.c + QSS003_Dual.py + QSS003_Dual_desktop.py
 
 2019-12-27
 C12880_v2.c + QSS003_v3.py + QSS003_desktop_v3.py
-* C12880_v2.c 只是刪除 LCD 程式
+* C12880_v2.c，LED control2 跟 LCD 相衝，改 pin 12 -> 29
+（PCB 跳線）
 
 2019-11-13
 second version + color TFT
