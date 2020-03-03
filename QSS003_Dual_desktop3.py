@@ -134,18 +134,20 @@ else:
 		while (meas and black):
 			if GPIO.input(pin_meas) == GPIO.LOW:
 				meas = 0
-				print("meas low")
+				# print("meas low")
 			if GPIO.input(pin_black) == GPIO.LOW:
 				black = 0
-				print("black low")
+				# print("black low")
 
 		GPIO.output(pin_led, GPIO.HIGH)
 		pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, int(led1_duty))
 		pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, int(led2_duty))
 		if (led1_duty > 0):
 			GPIO.output(GATE_LED_PIN1, GPIO.LOW)	# open
+			print("open led 1")
 		if (led2_duty > 0):
 			GPIO.output(GATE_LED_PIN2, GPIO.LOW)	# open
+			print("open led 2")
 
 		time.sleep(led_stable_time)
 
@@ -183,10 +185,12 @@ else:
 		pi.hardware_PWM(PWM_LED_PIN1, PWM_FREQ, 0)
 		pi.hardware_PWM(PWM_LED_PIN2, PWM_FREQ, 0)
 		GPIO.output(GATE_LED_PIN1, GPIO.HIGH) # close
+		print("close led 1")
 		GPIO.output(GATE_LED_PIN2, GPIO.HIGH) # close
+		print("close led 2")
 
 		meas = 1
 		black = 1
 
 		GPIO.output(pin_led, GPIO.LOW) #turn off measure LED
-		print("done")
+		#print("done")
