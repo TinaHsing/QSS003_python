@@ -1,0 +1,35 @@
+雙光譜儀：
+
+2020-01-07
+second dual version
+Dual_C12880.c + QSS003_Dual2.py + QSS003_Dual_desktop2.py
+* fix 量測指示燈 issue
+
+2019-12-18
+first dual version
+Dual_C12880.c + QSS003_Dual.py + QSS003_Dual_desktop.py
+
+*
+
+單光譜儀：
+
+2019-12-27
+C12880_v2.c + QSS003_v3.py + QSS003_desktop_v3.py
+* C12880_v2.c 只是刪除 LCD 程式
+
+2019-11-13
+second version + color TFT
+C12880.c + QSS003_v2.py + QSS003_desktop_v2.py
+* 換 LCD，改用 python 控制 TFT
+* C12880.c 將 LCD 程式 #if 0，未改版號
+* QSS003_v2.py 是由 QSS003_v3.py 備份而來，原版不可考
+* QSS003_desktop_v2.py 是由 QSS003_desktop_v3.py 備份而來
+（QSS003_desktop_v2.py 原版可參考 QSS003_desktop_color.py）
+* 移除 ShowIP.py
+
+2019-08-20
+first version + 2x16 LCD
+C12880.c + QSS003.py + QSS003_desktop.py + ShowIP.py
+* C12880.c 已經被蓋掉，原版包含 LCD 程式
+（C12880.c 原版可參考 C12880_noLED.c）
+
