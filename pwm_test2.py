@@ -30,4 +30,3 @@ while(1):
         GPIO.output(GATE_PIN1, GPIO.HIGH)
         GPIO.output(GATE_PIN2, GPIO.HIGH)
         time.sleep(3)
-
